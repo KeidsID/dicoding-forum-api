@@ -1,0 +1,40 @@
+{
+  "name": "dicoding-forum-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node src/main.js",
+    "start:dev": "nodemon src/main.js",
+    "test": "jest --coverage --setupFiles dotenv/config -i",
+    "test:watch": "jest --watch --setupFiles dotenv/config -i",
+    "test:watchAll": "jest --watchAll --setupFiles dotenv/config -i",
+    "pgm": "node-pg-migrate",
+    "pgm:test": "node-pg-migrate -f config/db/test.json"
+  },
+  "keywords": [
+    "hapi-js"
+  ],
+  "author": "KeidsID",
+  "license": "MIT",
+  "dependencies": {
+    "@hapi/hapi": "^20.1.5",
+    "@hapi/jwt": "^2.0.1",
+    "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "instances-container": "^2.0.3",
+    "nanoid": "^3.1.23",
+    "pg": "^8.6.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.24",
+    "eslint": "^8.42.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^16.0.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "jest": "^27.0.6",
+    "node-pg-migrate": "^5.10.0",
+    "nodemon": "^2.0.9"
+  }
+}
