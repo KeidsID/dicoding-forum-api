@@ -3,10 +3,10 @@
 
 # dicoding-back-end-expert
 
-Project assignment from the Back-End Expert class from dicoding.com. With this
-assignment, students are expected to be able to create a back-end application in
-the form of a RESTful API that is testable, scalable, reliable, agile, easy and
-fast to deploy, and has reliable security by industry standards.
+Back-End Expert project assignment from dicoding.com. With this assignment,
+students are expected to be able to create a back-end application in the form of
+a RESTful API that is testable, scalable, reliable, agile, easy and fast to
+deploy, and has reliable security by industry standards.
 
 ## Features
 
@@ -44,19 +44,8 @@ fast to deploy, and has reliable security by industry standards.
    ACCESS_TOKEN_AGE=<duration in ms>
    ```
 
-2. Add `test.json` to the `config/db` folder with the configuration from `.env`.
-
-   ```json
-   {
-     "host": "HOST",
-     "port": PORT,
-     "user": "PGUSER",
-     "password": "PGPASSWORD",
-     "database": "PGDATABASE_TEST"
-   }
-   ```
-
-3. Run commands below to setup the database:
+2. Add `test.json` to the `config/db` folder with the configuration from
+   `.env`.Run the commands below to setup the database:
    ```sh
    npm run pgm up
    npm run pgm:test up
