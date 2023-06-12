@@ -7,7 +7,7 @@ class ThreadsRepository {
    * Add a thread to the database.
    *
    * @param {Thread} thread
-   * @param {string} owner
+   * @param {string} owner - user id
    *
    * @return {Promise<AddedThread>}
    */

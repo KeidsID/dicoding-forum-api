@@ -20,7 +20,6 @@ describe('/users endpoint', () => {
         password: 'secret',
         fullname: 'Dicoding Indonesia'
       }
-      // eslint-disable-next-line no-undef
       const server = await createServer(container)
 
       // Action
