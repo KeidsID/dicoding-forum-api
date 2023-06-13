@@ -14,7 +14,7 @@ describe('a Comment entity', () => {
     const payload = {
       id: 'comment-123',
       username: 'dicoding',
-      date: '1995-12-17T03:24:00',
+      date: Date.now(),
       content: 'A comment'
     }
 
@@ -27,7 +27,7 @@ describe('a Comment entity', () => {
     const payload = {
       id: 'comment-123',
       username: 'dicoding',
-      date: new Date('1995-12-17T03:24:00'),
+      date: new Date(),
       content: 'A comment'
     }
 

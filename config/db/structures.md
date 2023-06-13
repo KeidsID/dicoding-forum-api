@@ -35,7 +35,7 @@ This file will define the tables structure on this database server.
 
 ## thread_comments
 
-| id            | thread_id   | content          | commenter  | is_deleted | date                       |
+| id            | thread_id   | content          | owner      | is_deleted | date                       |
 | ------------- | ----------- | ---------------- | ---------- | ---------- | -------------------------- |
 | "comment-xyz" | "thread-id" | "sebuah comment" | "user-ijk" | false      | "2021-09-08T07:19:09.775Z" |
 

@@ -18,7 +18,7 @@ describe('ThreadsRepositoryPostgres', () => {
   describe('addThread method', () => {
     it('should presist thread and return added thread correctly', async () => {
       // Arrange
-      const thread = new NewThread({
+      const newThread = new NewThread({
         title: 'A thread',
         body: 'A thread body'
       })
@@ -28,7 +28,7 @@ describe('ThreadsRepositoryPostgres', () => {
       const threadsRepoPostgres = new ThreadsRepositoryPostgres(pool, fakeIdGen)
 
       // Action
-      await threadsRepoPostgres.addThread(thread, 'user-123')
+      await threadsRepoPostgres.addThread(newThread, 'user-123')
 
       // Assert
       const threads = await ThreadsTableTestHelper.findThreadById('thread-123')
@@ -38,7 +38,7 @@ describe('ThreadsRepositoryPostgres', () => {
 
     it('should return AddedThread correctly', async () => {
       // Arrange
-      const thread = new NewThread({
+      const newThread = new NewThread({
         title: 'A thread',
         body: 'A thread body'
       })
@@ -48,14 +48,41 @@ describe('ThreadsRepositoryPostgres', () => {
       const threadsRepoPostgres = new ThreadsRepositoryPostgres(pool, fakeIdGen)
 
       // Action
-      const addedThread = await threadsRepoPostgres.addThread(thread, 'user-123')
+      const addedThread = await threadsRepoPostgres.addThread(newThread, 'user-123')
 
       // Assert
       expect(addedThread).toStrictEqual(new AddedThread({
         id: 'thread-123',
-        title: thread.title,
+        title: newThread.title,
         owner: 'user-123'
       }))
+    })
+  })
+
+  describe('getThreadById method', () => {
+    it('should return Thread correctly', async () => {
+      // Arrange
+      const fakeIdGen = () => '123'
+
+      await UsersTableTestHelper.addUser({ id: 'user-123', username: 'dicoding' })
+      await ThreadsTableTestHelper.addThread({
+        id: 'thread-123',
+        title: 'A thread',
+        body: 'A thread body',
+        owner: 'user-123'
+      })
+
+      const threadsRepoPostgres = new ThreadsRepositoryPostgres(pool, fakeIdGen)
+
+      // Action
+      const thread = await threadsRepoPostgres.getThreadById('thread-123')
+
+      // Assert
+      expect(thread.id).toEqual('thread-123')
+      expect(thread.title).toEqual('A thread')
+      expect(thread.body).toEqual('A thread body')
+      expect(thread.date.getMinutes()).toEqual(new Date().getMinutes())
+      expect(thread.username).toEqual('dicoding')
     })
   })
 })

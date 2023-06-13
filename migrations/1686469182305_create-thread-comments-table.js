@@ -5,7 +5,7 @@ exports.up = pgm => {
     id: { type: 'VARCHAR(50)', primaryKey: true },
     thread_id: { type: 'VARCHAR(50)', notNull: true },
     content: { type: 'TEXT', notNull: true },
-    commenter: { type: 'VARCHAR(50)', notNull: true },
+    owner: { type: 'VARCHAR(50)', notNull: true },
     is_deleted: { type: 'BOOLEAN', notNull: true },
     date: { type: 'TIMESTAMPTZ', notNull: true }
   })
@@ -19,8 +19,8 @@ exports.up = pgm => {
   pgm.addConstraint('thread_comments', 'fk_thread_comments.thread_id_threads.id',
     'FOREIGN KEY(thread_id) REFERENCES threads(id) ON DELETE CASCADE'
   )
-  pgm.addConstraint('thread_comments', 'fk_thread_comments.commenter_users.id',
-    'FOREIGN KEY(commenter) REFERENCES users(id) ON DELETE CASCADE'
+  pgm.addConstraint('thread_comments', 'fk_thread_comments.owner_users.id',
+    'FOREIGN KEY(owner) REFERENCES users(id) ON DELETE CASCADE'
   )
 }
 
