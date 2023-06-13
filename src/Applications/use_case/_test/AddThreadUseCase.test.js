@@ -1,5 +1,5 @@
 const ThreadsRepository = require('../../../Domains/threads/ThreadsRepository')
-const Thread = require('../../../Domains/threads/entities/Thread')
+const NewThread = require('../../../Domains/threads/entities/NewThread')
 const AddedThread = require('../../../Domains/threads/entities/AddedThread')
 const AddThreadUseCase = require('../AddThreadUseCase')
 
@@ -38,7 +38,7 @@ describe('AddThreadUseCase', () => {
     }))
 
     expect(mockThreadsRepository.addThread).toBeCalledWith(
-      new Thread({ title: payload.title, body: payload.body }),
+      new NewThread({ title: payload.title, body: payload.body }),
       owner
     )
   })

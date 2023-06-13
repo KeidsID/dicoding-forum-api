@@ -14,8 +14,11 @@ describe('a Thread entity', () => {
   it('should throw error when payload did not meet data type specification', () => {
     // Arrange
     const payload = {
+      id: 'thread-123',
       title: 'abc',
-      body: 123
+      body: 'thread body',
+      date: '1995-12-17T03:24:00',
+      username: 'fulan'
     }
 
     // Action and Assert
@@ -25,15 +28,21 @@ describe('a Thread entity', () => {
   it('should create Thread object correctly', () => {
     // Arrange
     const payload = {
-      title: 'A thread',
-      body: 'A thread body'
+      id: 'thread-123',
+      title: 'abc',
+      body: 'thread body',
+      date: new Date('1995-12-17T03:24:00'),
+      username: 'fulan'
     }
 
     // Action
-    const { title, body } = new Thread(payload)
+    const { id, title, body, date, username } = new Thread(payload)
 
     // Assert
+    expect(id).toEqual(payload.id)
     expect(title).toEqual(payload.title)
     expect(body).toEqual(payload.body)
+    expect(date).toEqual(payload.date)
+    expect(username).toEqual(payload.username)
   })
 })

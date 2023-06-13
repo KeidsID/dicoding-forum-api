@@ -6,7 +6,7 @@ class AddedThread {
    * @param {string} payload.owner
    */
   constructor (payload) {
-    this._verifyPayload(payload)
+    this.#verifyPayload(payload)
 
     const { id, title, owner } = payload
 
@@ -15,7 +15,7 @@ class AddedThread {
     this.owner = owner
   }
 
-  _verifyPayload ({ id, title, owner }) {
+  #verifyPayload ({ id, title, owner }) {
     if (!id || !title || !owner) {
       throw new Error('ADDED_THREAD.NOT_CONTAIN_NEEDED_PROPERTY')
     }

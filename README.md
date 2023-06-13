@@ -12,7 +12,7 @@ deploy, and has reliable security by industry standards.
 
 - [x] User Registration.
 - [x] Login and Logout.
-- [ ] Adding Threads.
+- [x] Adding Threads.
 - [ ] Viewing Threads.
 - [ ] Adding and Deleting Thread Comments.
 - [ ] Adding and Deleting Replies to Thread Comments (optional).

@@ -8,5 +8,7 @@ describe('ThreadsRepository', () => {
     // Action & Assert
     await expect(threadsRepo.addThread({ title: '', body: '' }, ''))
       .rejects.toThrowError('THREADS_REPOSITORY.METHOD_NOT_IMPLEMENTED')
+    await expect(threadsRepo.getThreadById(''))
+      .rejects.toThrowError('THREADS_REPOSITORY.METHOD_NOT_IMPLEMENTED')
   })
 })

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 const ThreadsRepository = require('../../Domains/threads/ThreadsRepository')
-const Thread = require('../../Domains/threads/entities/Thread')
+const NewThread = require('../../Domains/threads/entities/NewThread')
 const AddedThread = require('../../Domains/threads/entities/AddedThread')
 
 class AddThreadUseCase {
@@ -25,7 +25,7 @@ class AddThreadUseCase {
    * @return {Promise<AddedThread>}
    */
   async execute (payload, owner) {
-    const thread = new Thread(payload)
+    const thread = new NewThread(payload)
 
     return await this.#threadsRepository.addThread(thread, owner)
   }

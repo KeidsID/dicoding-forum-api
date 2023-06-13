@@ -80,5 +80,22 @@ describe('/threads endpoint', () => {
       expect(responseJson.status).toEqual('fail')
       expect(responseJson.message).toEqual('tipe data pada thread tidak valid')
     })
+
+    it('responds 401 when the request does not have authentication', async () => {
+      // Arrange
+      const server = await createServer(container)
+
+      // Action
+      const response = await server.inject({
+        method: 'POST', url: '/threads'
+      })
+
+      // Assert
+      const responseJson = JSON.parse(response.payload)
+
+      expect(response.statusCode).toEqual(401)
+      expect(responseJson.error).toBeDefined()
+      expect(responseJson.message).toBeDefined()
+    })
   })
 })

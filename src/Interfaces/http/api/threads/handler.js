@@ -3,7 +3,6 @@ const Hapi = require('@hapi/hapi')
 const { Container } = require('instances-container')
 
 const AddThreadsUseCase = require('../../../../Applications/use_case/AddThreadUseCase')
-const { response } = require('@hapi/hapi/lib/validation')
 
 /**
  * Handler for "/threads" endpoint routes.

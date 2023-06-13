@@ -3,7 +3,6 @@ const { Pool } = require('pg')
 const { nanoid } = require('nanoid')
 
 const ThreadsRepository = require('../../Domains/threads/ThreadsRepository')
-const Thread = require('../../Domains/threads/entities/Thread')
 const AddedThread = require('../../Domains/threads/entities/AddedThread')
 
 class ThreadsRepositoryPostgres extends ThreadsRepository {
@@ -21,14 +20,6 @@ class ThreadsRepositoryPostgres extends ThreadsRepository {
   #pool
   #idGen
 
-  /**
-   * Add a thread to the database.
-   *
-   * @param {Thread} thread
-   * @param {string} owner
-   *
-   * @return {Promise<AddedThread>}
-   */
   async addThread ({ title, body }, owner) {
     const id = `thread-${this.#idGen()}`
 

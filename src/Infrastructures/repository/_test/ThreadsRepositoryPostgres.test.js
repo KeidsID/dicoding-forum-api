@@ -2,7 +2,7 @@ const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper')
 const ThreadsTableTestHelper = require('../../../../tests/ThreadsTableTestHelper')
 
 const pool = require('../../database/postgres/pool')
-const Thread = require('../../../Domains/threads/entities/Thread')
+const NewThread = require('../../../Domains/threads/entities/NewThread')
 const AddedThread = require('../../../Domains/threads/entities/AddedThread')
 const ThreadsRepositoryPostgres = require('../ThreadsRepositoryPostgres')
 
@@ -18,7 +18,7 @@ describe('ThreadsRepositoryPostgres', () => {
   describe('addThread method', () => {
     it('should presist thread and return added thread correctly', async () => {
       // Arrange
-      const thread = new Thread({
+      const thread = new NewThread({
         title: 'A thread',
         body: 'A thread body'
       })
@@ -38,7 +38,7 @@ describe('ThreadsRepositoryPostgres', () => {
 
     it('should return AddedThread correctly', async () => {
       // Arrange
-      const thread = new Thread({
+      const thread = new NewThread({
         title: 'A thread',
         body: 'A thread body'
       })
