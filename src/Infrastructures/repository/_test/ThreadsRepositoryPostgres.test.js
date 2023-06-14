@@ -5,6 +5,7 @@ const pool = require('../../database/postgres/pool')
 const NewThread = require('../../../Domains/threads/entities/NewThread')
 const AddedThread = require('../../../Domains/threads/entities/AddedThread')
 const ThreadsRepositoryPostgres = require('../ThreadsRepositoryPostgres')
+const NotFoundError = require('../../../Common/exceptions/NotFoundError')
 
 describe('ThreadsRepositoryPostgres', () => {
   afterEach(async () => {
@@ -60,10 +61,17 @@ describe('ThreadsRepositoryPostgres', () => {
   })
 
   describe('getThreadById method', () => {
+    it('should throw NotFoundError if thread is not found', () => {
+      // Arrange
+      const repoPostgres = new ThreadsRepositoryPostgres(pool, {})
+
+      // Action & Assert
+      expect(repoPostgres.getThreadById('thread-123')).rejects
+        .toThrowError(NotFoundError)
+    })
+
     it('should return Thread correctly', async () => {
       // Arrange
-      const fakeIdGen = () => '123'
-
       await UsersTableTestHelper.addUser({ id: 'user-123', username: 'dicoding' })
       await ThreadsTableTestHelper.addThread({
         id: 'thread-123',
@@ -72,7 +80,7 @@ describe('ThreadsRepositoryPostgres', () => {
         owner: 'user-123'
       })
 
-      const threadsRepoPostgres = new ThreadsRepositoryPostgres(pool, fakeIdGen)
+      const threadsRepoPostgres = new ThreadsRepositoryPostgres(pool, {})
 
       // Action
       const thread = await threadsRepoPostgres.getThreadById('thread-123')

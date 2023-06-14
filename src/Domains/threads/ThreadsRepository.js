@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+const NotFoundError = require('../../Common/exceptions/NotFoundError')
 const AddedThread = require('./entities/AddedThread')
 const NewThread = require('./entities/NewThread')
 const Thread = require('./entities/Thread')
@@ -19,8 +20,11 @@ class ThreadsRepository {
   /**
    * Get thread by provided id from database.
    *
+   * - Throw `NotFoundError` if thread is not found
+   *
    * @param {string} threadId
    *
+   * @throws {NotFoundError}
    * @return {Promise<Thread>} { id, title, body, date, username }
    */
   async getThreadById (threadId) {

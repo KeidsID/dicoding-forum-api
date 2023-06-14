@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+const ClientError = require('../../Common/exceptions/ClientError')
 const AddedComment = require('./entities/AddedComment')
 const Comment = require('./entities/Comment')
 const NewComment = require('./entities/NewComment')
@@ -9,20 +10,26 @@ class ThreadCommentsRepository {
    *
    * @param {string} threadId
    * @param {NewComment} newComment - { content }
-   * @param {string} commentator - user id
+   * @param {string} owner - user id
    *
    * @return {Promise<AddedComment>} { id, content, owner }
    */
-  async addCommentToThread (threadId, newComment, commentator) {
+  async addCommentToThread (threadId, newComment, owner) {
     throw new Error('THREAD_COMMENTS_REPOSITORY.METHOD_NOT_IMPLEMENTED')
   }
 
   /**
    * Soft delete a comment from the database.
    *
+   * - Throw `NotFoundError` if comment is not found.
+   * - Throw `AuthorizationError` if user is not the comment owner.
+   *
    * @param {string} commentId
+   * @param {string} userId
+   *
+   * @throws {ClientError}
    */
-  async softDeleteCommentById (commentId) {
+  async softDeleteCommentById (commentId, userId) {
     throw new Error('THREAD_COMMENTS_REPOSITORY.METHOD_NOT_IMPLEMENTED')
   }
 
