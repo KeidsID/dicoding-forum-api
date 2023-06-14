@@ -61,13 +61,13 @@ describe('ThreadsRepositoryPostgres', () => {
   })
 
   describe('getThreadById method', () => {
-    it('should throw NotFoundError if thread is not found', () => {
+    it('should throw NotFoundError if thread is not found', async () => {
       // Arrange
       const repoPostgres = new ThreadsRepositoryPostgres(pool, {})
 
       // Action & Assert
-      expect(repoPostgres.getThreadById('thread-123')).rejects
-        .toThrowError(NotFoundError)
+      await expect(repoPostgres.getThreadById('thread-123'))
+        .rejects.toThrowError(NotFoundError)
     })
 
     it('should return Thread correctly', async () => {

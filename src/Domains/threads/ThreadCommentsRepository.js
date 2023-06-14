@@ -19,6 +19,21 @@ class ThreadCommentsRepository {
   }
 
   /**
+   * Verify if user is the comment owner.
+   *
+   * - Throw `NotFoundError` if comment is not found.
+   * - Throw `AuthorizationError` if user is not the comment owner.
+   *
+   * @param {string} commentId
+   * @param {string} userId
+   *
+   * @throws {ClientError}
+   */
+  async verifyCommentAccess (commentId, userId) {
+    throw new Error('THREAD_COMMENTS_REPOSITORY.METHOD_NOT_IMPLEMENTED')
+  }
+
+  /**
    * Soft delete a comment from the database.
    *
    * - Throw `NotFoundError` if comment is not found.

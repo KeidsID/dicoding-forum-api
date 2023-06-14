@@ -74,7 +74,7 @@ describe('ThreadCommentsRepositoryPostgres', () => {
     })
   })
 
-  describe('softDeleteCommentById method', () => {
+  describe('verifyCommentAccess method', () => {
     it('should throw NotFoundError if comment is not found', async () => {
       // Arrange
       const repo = new ThreadCommentsRepositoryPostgres(pool, {})
@@ -93,6 +93,25 @@ describe('ThreadCommentsRepositoryPostgres', () => {
       // Action & Assert
       await expect(repo.softDeleteCommentById('comment-123', dummyUser2.id))
         .rejects.toThrowError(AuthorizationError)
+    })
+  })
+
+  describe('softDeleteCommentById method', () => {
+    it('should call verifyCommentAccessMethod', async () => {
+      // Arrange
+      const repo = new ThreadCommentsRepositoryPostgres(pool, {})
+
+      const spyVerifyCommentAccessMethod = jest.spyOn(repo, 'verifyCommentAccess')
+
+      await ThreadCommentsTableTestHelper.addCommentToThread({ id: 'comment-123', owner: dummyUser.id })
+
+      // Action
+      await repo.softDeleteCommentById('comment-123', dummyUser.id)
+
+      // Assert
+      expect(spyVerifyCommentAccessMethod).toBeCalledWith(
+        'comment-123', dummyUser.id
+      )
     })
 
     it('should update the comment delete status', async () => {

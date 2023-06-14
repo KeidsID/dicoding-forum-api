@@ -25,7 +25,7 @@ class ThreadsHandler {
    *
    * @return {Promise<Hapi.ResponseObject>}
    */
-  async postThreads (req, h) {
+  async postThread (req, h) {
     /**
      * @type {AddThreadsUseCase}
      */

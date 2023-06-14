@@ -12,7 +12,7 @@ const routes = (handler) => ([
   {
     method: 'POST',
     path: '/threads',
-    handler: (req, h) => handler.postThreads(req, h),
+    handler: (req, h) => handler.postThread(req, h),
     options: { auth: Constants.idUsernameAuthStrategy }
   }
 ])

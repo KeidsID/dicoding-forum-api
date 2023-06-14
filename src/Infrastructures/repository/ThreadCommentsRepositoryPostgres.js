@@ -37,20 +37,7 @@ class ThreadCommentsRepositoryPostgres extends ThreadCommentsRepository {
     return new AddedComment({ ...rows[0] })
   }
 
-  async softDeleteCommentById (commentId, userId) {
-    await this.#verifyCommentAccess(commentId, userId)
-
-    const query = {
-      text: `
-        UPDATE thread_comments SET is_deleted = TRUE
-        WHERE id = $1 RETURNING id
-      `,
-      values: [commentId]
-    }
-    await this.#pool.query(query)
-  }
-
-  async #verifyCommentAccess (commentId, userId) {
+  async verifyCommentAccess (commentId, userId) {
     const query = {
       text: 'SELECT owner FROM thread_comments WHERE id = $1',
       values: [commentId]
@@ -60,6 +47,19 @@ class ThreadCommentsRepositoryPostgres extends ThreadCommentsRepository {
     if (!rowCount) throw new NotFoundError('komentar tidak ditemukan')
 
     if (rows[0].owner !== userId) throw new AuthorizationError('anda tidak dapat mengakses komentar orang lain')
+  }
+
+  async softDeleteCommentById (commentId, userId) {
+    await this.verifyCommentAccess(commentId, userId)
+
+    const query = {
+      text: `
+        UPDATE thread_comments SET is_deleted = TRUE
+        WHERE id = $1 RETURNING id
+      `,
+      values: [commentId]
+    }
+    await this.#pool.query(query)
   }
 
   async getCommentsFromThread (threadId) {
