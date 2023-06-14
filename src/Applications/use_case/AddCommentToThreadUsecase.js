@@ -31,10 +31,10 @@ class AddCommentToThreadUsecase {
    * @return {Promise<AddedComment>}
    */
   async execute (threadId, payload, owner) {
+    const newComment = new NewComment(payload)
+
     // To verify not found thread
     await this.#threadsRepository.getThreadById(threadId)
-
-    const newComment = new NewComment(payload)
 
     return this.#threadCommentsRepository.addCommentToThread(threadId, newComment, owner)
   }

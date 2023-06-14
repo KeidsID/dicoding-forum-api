@@ -13,10 +13,12 @@ const AuthenticationTokenManager = require('../Applications/security/Authenticat
 const PasswordHash = require('../Applications/security/PasswordHash')
 
 const AuthenticationRepository = require('../Domains/authentications/AuthenticationRepository')
+const ThreadCommentsRepository = require('../Domains/threads/ThreadCommentsRepository')
 const ThreadsRepository = require('../Domains/threads/ThreadsRepository')
 const UserRepository = require('../Domains/users/UserRepository')
 
 const AuthenticationRepositoryPostgres = require('./repository/AuthenticationRepositoryPostgres')
+const ThreadCommentsRepositoryPostgres = require('./repository/ThreadCommentsRepositoryPostgres')
 const ThreadsRepositoryPostgres = require('./repository/ThreadsRepositoryPostgres')
 const UserRepositoryPostgres = require('./repository/UserRepositoryPostgres')
 
@@ -24,17 +26,30 @@ const BcryptPasswordHash = require('./security/BcryptPasswordHash')
 const JwtTokenManager = require('./security/JwtTokenManager')
 
 // use case
+const AddCommentToThreadUsecase = require('../Applications/use_case/AddCommentToThreadUsecase')
 const AddThreadUseCase = require('../Applications/use_case/AddThreadUseCase')
 const AddUserUseCase = require('../Applications/use_case/AddUserUseCase')
+const GetCommentsFromThreadUsecase = require('../Applications/use_case/GetCommentsFromThreadUsecase')
 const LoginUserUseCase = require('../Applications/use_case/LoginUserUseCase')
 const LogoutUserUseCase = require('../Applications/use_case/LogoutUserUseCase')
 const RefreshAuthenticationUseCase = require('../Applications/use_case/RefreshAuthenticationUseCase')
+const SoftDeleteCommentUseCase = require('../Applications/use_case/SoftDeleteCommentUseCase')
 
 // creating container
 const container = createContainer()
 
 // registering services and repository
 container.register([
+  {
+    key: ThreadCommentsRepository.name,
+    Class: ThreadCommentsRepositoryPostgres,
+    parameter: {
+      dependencies: [
+        { concrete: pool },
+        { concrete: nanoid }
+      ]
+    }
+  },
   {
     key: ThreadsRepository.name,
     Class: ThreadsRepositoryPostgres,
@@ -96,6 +111,38 @@ container.register([
 
 // registering use cases
 container.register([
+  {
+    key: SoftDeleteCommentUseCase.name,
+    Class: SoftDeleteCommentUseCase,
+    parameter: {
+      injectType: 'destructuring',
+      dependencies: [
+        { name: 'threadCommentsRepository', internal: ThreadCommentsRepository.name }
+      ]
+    }
+  },
+  {
+    key: GetCommentsFromThreadUsecase.name,
+    Class: GetCommentsFromThreadUsecase,
+    parameter: {
+      injectType: 'destructuring',
+      dependencies: [
+        { name: 'threadCommentsRepository', internal: ThreadCommentsRepository.name },
+        { name: 'threadsRepository', internal: ThreadsRepository.name }
+      ]
+    }
+  },
+  {
+    key: AddCommentToThreadUsecase.name,
+    Class: AddCommentToThreadUsecase,
+    parameter: {
+      injectType: 'destructuring',
+      dependencies: [
+        { name: 'threadCommentsRepository', internal: ThreadCommentsRepository.name },
+        { name: 'threadsRepository', internal: ThreadsRepository.name }
+      ]
+    }
+  },
   {
     key: AddThreadUseCase.name,
     Class: AddThreadUseCase,
