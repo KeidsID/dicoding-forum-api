@@ -6,7 +6,7 @@
     [
       "Authentication",
       [
-        ["Overview", "/api/auth/"],
+        ["Auth Overview", "/api/auth/"],
         ["Register User", "/api/auth/register-user"]
       ]
     ]
