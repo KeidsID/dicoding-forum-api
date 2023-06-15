@@ -15,7 +15,7 @@ deploy, and has reliable security by industry standards.
 - [x] Adding Threads.
 - [x] Viewing Threads.
 - [x] Adding and Deleting Thread Comments.
-- [ ] Adding and Deleting Replies to Thread Comments (optional).
+- [ ] Adding and Deleting Replies to Thread Comments.
 
 ## Project utils
 
