@@ -1,4 +1,14 @@
 {
   "name": "dicoding-forum-api",
-  "theme": "#2d3e50"
+  "theme": "#2d3e50",
+  "sidebar": [
+    ["Getting Started", "/"],
+    [
+      "Authentication",
+      [
+        ["Overview", "/api/auth/"],
+        ["Register User", "/api/auth/register-user"]
+      ]
+    ]
+  ]
 }

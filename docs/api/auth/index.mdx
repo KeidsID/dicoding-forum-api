@@ -1,0 +1,82 @@
+# Auth Overview
+
+As explained on the [Getting Started](/) page, access tokens are required to
+access other endpoints. The basics to getting an authorization look like this:
+
+1. [Register User (For New User)](/api/auth/register-user)
+2. Login User
+3. Refresh Access Token If Expired
+4. Logout User
+
+### Step 1: Register User (For new User)
+
+Register on `POST /users` endpoint with the following JSON payload:
+
+```json
+{
+  "username": "your username",
+  "password": "your user password",
+  "fullname": "your full name"
+}
+```
+
+### Step 2: Login User
+
+Login on `POST /authentications` endpoint with your username and password as
+JSON payload:
+
+```json
+{
+  "username": "your username",
+  "password": "your user password"
+}
+```
+
+You will get the tokens from the server response:
+
+```json
+{
+  "status": "success",
+  "data": {
+    "accessToken": "your access token",
+    "refreshToken": "your refresh token"
+  }
+}
+```
+
+Use `accessToken` to access other endpoints and use `refreshToken` to refresh
+`accessToken` or logout session.
+
+### Step 3: Refresh Access Token If Expired
+
+Refresh access token on `PUT /authentications` endpoint with `refreshToken` from
+login:
+
+```json
+{
+  "refreshToken": "from login session"
+}
+```
+
+You will get the following response:
+
+```json
+{
+  "status": "success",
+  "data": {
+    "accessToken": "new access token"
+  }
+}
+```
+
+### Step 4: Logout User
+
+Logout on `DELETE /authentications` endpoint with `refreshToken` from login:
+
+```json
+{
+  "refreshToken": "from login session"
+}
+```
+
+After logout, `refreshToken` are not valid anymore.

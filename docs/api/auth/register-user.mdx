@@ -1,0 +1,40 @@
+# Register User
+
+```
+POST /users
+```
+
+Register as a new user.
+
+<Accordion title="Headers">Content-Type : application/json</Accordion>
+
+<Accordion title="Body">
+  ```json
+  {
+    "username": <string>,
+    "password": <string>,
+    "fullname": <string>
+  }
+  ```
+</Accordion>
+
+<Accordion title="Response">
+
+### 201 Created
+
+### Body
+
+```json
+{
+  "status": "success",
+  "data": {
+    "addedUser": {
+      "id": "user-dzK7WmnccYGlrCSJ27btA",
+      "username": "dicoding_1686838876",
+      "fullname": "Dicoding Indonesia"
+    }
+  }
+}
+```
+
+<Accordion>
