@@ -72,6 +72,7 @@ class ThreadCommentsRepositoryPostgres extends ThreadCommentsRepository {
         LEFT JOIN users ON thread_comments.owner = users.id
         WHERE thread_id = $1
         GROUP BY thread_comments.id, users.username
+        ORDER BY date
       `,
       values: [threadId]
     }

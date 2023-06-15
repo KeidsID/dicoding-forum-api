@@ -4,6 +4,9 @@ const { Container } = require('instances-container')
 
 const AddThreadsUseCase = require('../../../../Applications/use_case/AddThreadUseCase')
 const AddCommentToThreadUsecase = require('../../../../Applications/use_case/AddCommentToThreadUsecase')
+const SoftDeleteCommentUsecase = require('../../../../Applications/use_case/SoftDeleteCommentUseCase')
+const GetThreadByIdUsecase = require('../../../../Applications/use_case/GetThreadByIdUsecase')
+const GetCommentsFromThreadUsecase = require('../../../../Applications/use_case/GetCommentsFromThreadUsecase')
 
 /**
  * Handler for "/threads" endpoint routes.
@@ -86,7 +89,22 @@ class ThreadsHandler {
    *
    * @return {Promise<Hapi.ResponseObject>}
    */
-  async deleteComment (req, h) {}
+  async deleteComment (req, h) {
+    const { threadId, commentId } = req.params
+    const { id } = req.auth.credentials
+
+    /**
+     * @type {SoftDeleteCommentUsecase}
+     */
+    const softDeleteCommentUsecase = this.#container
+      .getInstance(SoftDeleteCommentUsecase.name)
+
+    await softDeleteCommentUsecase.execute(threadId, commentId, id)
+
+    return {
+      status: 'success'
+    }
+  }
 
   /**
    * Handler for `GET /threads/{threadId}`.
@@ -98,6 +116,31 @@ class ThreadsHandler {
    */
   async getThread (req, h) {
     const { threadId } = req.params
+
+    /**
+     * @type {GetThreadByIdUsecase}
+     */
+    const getThreadByIdUsecase = this.#container
+      .getInstance(GetThreadByIdUsecase.name)
+
+    /**
+     * @type {GetCommentsFromThreadUsecase}
+     */
+    const getCommentsFromThreadUsecase = this.#container
+      .getInstance(GetCommentsFromThreadUsecase.name)
+
+    const thread = await getThreadByIdUsecase.execute(threadId)
+    const comments = await getCommentsFromThreadUsecase.execute(threadId)
+
+    return {
+      status: 'success',
+      data: {
+        thread: {
+          ...thread,
+          comments
+        }
+      }
+    }
   }
 }
 

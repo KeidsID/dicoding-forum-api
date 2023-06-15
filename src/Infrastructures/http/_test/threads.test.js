@@ -363,13 +363,13 @@ describe('/threads endpoint', () => {
       await ThreadsTableTestHelper.addThread({ id: 'thread-123', owner: dummyUser.id })
 
       await ThreadCommentsTableTestHelper.addCommentToThread({
-        id: 'comment-123',
+        commentId: 'comment-123',
         threadId: 'thread-123',
         content: `komentar dari ${dummyUser.username}`,
         owner: dummyUser.id
       })
       await ThreadCommentsTableTestHelper.addCommentToThread({
-        id: 'comment-xyz',
+        commentId: 'comment-xyz',
         threadId: 'thread-123',
         content: `komentar dari ${dummyUser2.username}`,
         owner: dummyUser2.id
@@ -385,28 +385,28 @@ describe('/threads endpoint', () => {
       // Assert
       const responseJson = JSON.parse(response.payload)
 
-      expect(response.statusCode).toEqual(404)
-      expect(responseJson.status).toEqual('success')
+      expect(response.statusCode).toStrictEqual(200)
+      expect(responseJson.status).toStrictEqual('success')
 
       const thread = responseJson.data.thread
 
-      expect(thread.id).toEqual('thread-123')
-      expect(thread.title).toEqual('sebuah thread')
-      expect(thread.body).toEqual('sebuag body thread')
-      expect(thread.date.getMinutes()).toEqual(new Date().getMinutes())
-      expect(thread.username).toEqual(dummyUser.username)
+      expect(thread.id).toStrictEqual('thread-123')
+      expect(thread.title).toStrictEqual('sebuah thread')
+      expect(thread.body).toStrictEqual('sebuah body thread')
+      expect(new Date(thread.date).getMinutes()).toStrictEqual(new Date().getMinutes())
+      expect(thread.username).toStrictEqual(dummyUser.username)
 
       const [dummyUserComment, dummyUser2Comment] = thread.comments
 
-      expect(dummyUserComment.id).toEqual('comment-123')
-      expect(dummyUserComment.username).toEqual(dummyUser.username)
-      expect(dummyUserComment.date.getMinutes()).toEqual(new Date().getMinutes())
-      expect(dummyUserComment.content).toEqual(`komentar dari ${dummyUser.username}`)
+      expect(dummyUserComment.id).toStrictEqual('comment-123')
+      expect(dummyUserComment.username).toStrictEqual(dummyUser.username)
+      expect(new Date(dummyUserComment.date).getMinutes()).toStrictEqual(new Date().getMinutes())
+      expect(dummyUserComment.content).toStrictEqual(`komentar dari ${dummyUser.username}`)
 
-      expect(dummyUser2Comment.id).toEqual('comment-xyz')
-      expect(dummyUser2Comment.username).toEqual(dummyUser2.username)
-      expect(dummyUser2Comment.date.getMinutes()).toEqual(new Date().getMinutes())
-      expect(dummyUser2Comment.content).toEqual('**komentar telah dihapus**')
+      expect(dummyUser2Comment.id).toStrictEqual('comment-xyz')
+      expect(dummyUser2Comment.username).toStrictEqual(dummyUser2.username)
+      expect(new Date(dummyUser2Comment.date).getMinutes()).toStrictEqual(new Date().getMinutes())
+      expect(dummyUser2Comment.content).toStrictEqual('**komentar telah dihapus**')
     })
   })
 })

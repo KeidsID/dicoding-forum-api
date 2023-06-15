@@ -34,6 +34,7 @@ const LoginUserUseCase = require('../Applications/use_case/LoginUserUseCase')
 const LogoutUserUseCase = require('../Applications/use_case/LogoutUserUseCase')
 const RefreshAuthenticationUseCase = require('../Applications/use_case/RefreshAuthenticationUseCase')
 const SoftDeleteCommentUseCase = require('../Applications/use_case/SoftDeleteCommentUseCase')
+const GetThreadByIdUsecase = require('../Applications/use_case/GetThreadByIdUsecase')
 
 // creating container
 const container = createContainer()
@@ -112,12 +113,23 @@ container.register([
 // registering use cases
 container.register([
   {
+    key: GetThreadByIdUsecase.name,
+    Class: GetThreadByIdUsecase,
+    parameter: {
+      injectType: 'destructuring',
+      dependencies: [
+        { name: 'threadsRepository', internal: ThreadsRepository.name }
+      ]
+    }
+  },
+  {
     key: SoftDeleteCommentUseCase.name,
     Class: SoftDeleteCommentUseCase,
     parameter: {
       injectType: 'destructuring',
       dependencies: [
-        { name: 'threadCommentsRepository', internal: ThreadCommentsRepository.name }
+        { name: 'threadCommentsRepository', internal: ThreadCommentsRepository.name },
+        { name: 'threadsRepository', internal: ThreadsRepository.name }
       ]
     }
   },
@@ -127,8 +139,7 @@ container.register([
     parameter: {
       injectType: 'destructuring',
       dependencies: [
-        { name: 'threadCommentsRepository', internal: ThreadCommentsRepository.name },
-        { name: 'threadsRepository', internal: ThreadsRepository.name }
+        { name: 'threadCommentsRepository', internal: ThreadCommentsRepository.name }
       ]
     }
   },
@@ -149,8 +160,7 @@ container.register([
     parameter: {
       injectType: 'destructuring',
       dependencies: [
-        { name: 'threadsRepository', internal: ThreadsRepository.name },
-        { name: 'userRepository', internal: UserRepository.name }
+        { name: 'threadsRepository', internal: ThreadsRepository.name }
       ]
     }
   },
