@@ -1,10 +1,13 @@
 const Hapi = require('@hapi/hapi')
+const Jwt = require('@hapi/jwt')
 
 const Configs = require('../../../config/env')
+const Constants = require('../../Common/constants')
 const ClientError = require('../../Common/exceptions/ClientError')
 const DomainErrorTranslator = require('../../Common/exceptions/DomainErrorTranslator')
 const users = require('../../Interfaces/http/api/users')
 const authentications = require('../../Interfaces/http/api/authentications')
+const threads = require('../../Interfaces/http/api/threads')
 
 const createServer = async (container) => {
   const server = Hapi.server({
@@ -12,6 +15,30 @@ const createServer = async (container) => {
     port: Configs.server.port
   })
 
+  // external plugins
+  await server.register([
+    { plugin: Jwt }
+  ])
+
+  // external plugins config
+  server.auth.strategy(Constants.idUsernameAuthStrategy, 'jwt', {
+    keys: Configs.jwt.accessTokenKey,
+    verify: {
+      aud: false,
+      iss: false,
+      sub: false,
+      maxAgeSec: Configs.jwt.accessTokenAge
+    },
+    validate: (artifacts) => ({
+      isValid: true,
+      credentials: {
+        id: artifacts.decoded.payload.id,
+        username: artifacts.decoded.payload.username
+      }
+    })
+  })
+
+  // server plugins
   await server.register([
     {
       plugin: users,
@@ -19,6 +46,10 @@ const createServer = async (container) => {
     },
     {
       plugin: authentications,
+      options: { container }
+    },
+    {
+      plugin: threads,
       options: { container }
     }
   ])

@@ -1,14 +1,11 @@
 /* eslint-disable camelcase */
 
-exports.up = (pgm) => {
+exports.up = pgm => {
   pgm.createTable('authentications', {
-    token: {
-      type: 'TEXT',
-      notNull: true
-    }
+    token: { type: 'TEXT', notNull: true }
   })
 }
 
-exports.down = (pgm) => {
+exports.down = pgm => {
   pgm.dropTable('authentications')
 }
