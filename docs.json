@@ -18,14 +18,14 @@
       "Threads",
       [
         ["Post Thread", "/api/threads/post"],
-        ["Thread Details", "/api/threads/get-details"],
-        [
-          "Comments",
-          [
-            ["Add Comment", "/api/threads/comments/post"],
-            ["Delete Comment", "/api/threads/comments/delete"]
-          ]
-        ]
+        ["Thread Details", "/api/threads/get-details"]
+      ]
+    ],
+    [
+      "Thread Comments",
+      [
+        ["Add Comment", "/api/threads/comments/post"],
+        ["Delete Comment", "/api/threads/comments/delete"]
       ]
     ]
   ]
