@@ -1,0 +1,34 @@
+# Post Thread
+
+`POST /threads`
+
+Posting a new thread to the forum.
+
+```yaml title="Headers"
+Authorization: Bearer {accessToken}
+Content-Type: application/json
+```
+
+```json title="Body"
+{
+  "title": "string",
+  "body": "string"
+}
+```
+
+### Response
+
+<Success>201 Created</Success>
+
+```json title="Response Body"
+{
+  "status": "success",
+  "data": {
+    "addedThread": {
+      "id": "thread-UgSWZHsLgenAhWpt7licf",
+      "title": "sebuah thread",
+      "owner": "user-RHtgDdcR7d0fOBQ1qPfRm"
+    }
+  }
+}
+```

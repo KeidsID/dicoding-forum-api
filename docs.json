@@ -5,13 +5,27 @@
     ["Getting Started", "/"],
     ["Error Responses", "/api/errors/overview"],
     [
-      "Authentication",
+      "Authentications",
       [
         ["Auth Overview", "/api/auth/overview"],
         ["Register User", "/api/auth/register-user"],
         ["Login User", "/api/auth/login-user"],
         ["Refresh Token", "/api/auth/refresh-token"],
         ["Logout User", "/api/auth/logout-user"]
+      ]
+    ],
+    [
+      "Threads",
+      [
+        ["Post Thread", "/api/threads/post"],
+        ["Thread Details", "/api/threads/get-details"],
+        [
+          "Comments",
+          [
+            ["Add Comment", "/api/threads/comments/post"],
+            ["Delete Comment", "/api/threads/comments/delete"]
+          ]
+        ]
       ]
     ]
   ]

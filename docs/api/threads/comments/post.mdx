@@ -1,0 +1,37 @@
+# Add Comment to Thread
+
+`POST /threads/{threadId}/comments`
+
+Commenting on existing thread.
+
+```yaml title="Path Params"
+threadId: thread-unique_id
+```
+
+```yaml title="Headers"
+Authorization: Bearer {accessToken}
+Content-Type: application/json
+```
+
+```json title="Body"
+{
+  "content": "string"
+}
+```
+
+### Response
+
+<Success>201 Created</Success>
+
+```json title="Response Body"
+{
+  "status": "success",
+  "data": {
+    "addedComment": {
+      "id": "comment-LU0Pb7ANm9ItE7lWJkvpU",
+      "content": "sebuah comment",
+      "owner": "user-RHtgDdcR7d0fOBQ1qPfRm"
+    }
+  }
+}
+```

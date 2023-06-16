@@ -1,0 +1,24 @@
+# Delete Comment From Thread
+
+`POST /threads/{threadId}/comments/{commentId}`
+
+Commenting on existing thread.
+
+```yaml title="Path Params"
+threadId: thread-unique_id
+commentId: comment-unique_id
+```
+
+```yaml title="Headers"
+Authorization: Bearer {accessToken}
+```
+
+### Response
+
+<Success>200 OK</Success>
+
+```json title="Response Body"
+{
+  "status": "success"
+}
+```
