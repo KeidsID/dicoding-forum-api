@@ -6,35 +6,31 @@ POST /users
 
 Register as a new user.
 
-<Accordion title="Headers">Content-Type : application/json</Accordion>
+```yaml title="Headers"
+Content-Type: application/json
+```
 
-<Accordion title="Body">
-  ```json
-  {
-    "username": "string",
-    "password": "string",
-    "fullname": "string"
-  }
-  ```
+```JSON title="Body"
+{
+  "username": "string",
+  "password": "string",
+  "fullname": "string"
+}
+```
 
-</Accordion>
+### Response
 
-<Accordion title="Response">
-  <Success>201 Created</Success>
-  
-  ### Body
-  
-  ```json
-  {
-    "status": "success",
-    "data": {
-      "addedUser": {
-        "id": "user-dzK7WmnccYGlrCSJ27btA",
-        "username": "dicoding_1686838876",
-        "fullname": "Dicoding Indonesia"
-      }
+<Success>201 Created</Success>
+
+```JSON title="Response Body"
+{
+  "status": "success",
+  "data": {
+    "addedUser": {
+      "id": "user-dzK7WmnccYGlrCSJ27btA",
+      "username": "dicoding_1686838876",
+      "fullname": "Dicoding Indonesia"
     }
   }
-  ```
-
-<Accordion>
+}
+```
