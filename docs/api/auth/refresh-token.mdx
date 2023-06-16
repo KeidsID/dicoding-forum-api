@@ -1,0 +1,28 @@
+# Refresh Token
+
+`PUT /authentications`
+
+Get new access token using `refreshToken`.
+
+```yaml title="Headers"
+Content-Type: application/json
+```
+
+```json title="Body"
+{
+  "refreshToken": "jwt.token.example"
+}
+```
+
+### Response
+
+<Success>200 OK</Success>
+
+```json title="Response Body"
+{
+  "status": "success",
+  "data": {
+    "accessToken": "jwt.token.example",
+  }
+}
+```

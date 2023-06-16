@@ -1,0 +1,30 @@
+# Login User
+
+`POST /authentications`
+
+Login the registered user to get tokens.
+
+```yaml title="Headers"
+Content-Type: application/json
+```
+
+```json title="Body"
+{
+  "username": "string",
+  "password": "string"
+}
+```
+
+### Response
+
+<Success>201 Created</Success>
+
+```json title="Response Body"
+{
+  "status": "success",
+  "data": {
+    "accessToken": "jwt.token.example",
+    "refreshToken": "jwt.token.example"
+  }
+}
+```

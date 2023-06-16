@@ -3,11 +3,15 @@
   "theme": "#578cda",
   "sidebar": [
     ["Getting Started", "/"],
+    ["Error Responses", "/api/errors/overview"],
     [
       "Authentication",
       [
-        ["Auth Overview", "/api/auth/"],
-        ["Register User", "/api/auth/register-user"]
+        ["Auth Overview", "/api/auth/overview"],
+        ["Register User", "/api/auth/register-user"],
+        ["Login User", "/api/auth/login-user"],
+        ["Refresh Token", "/api/auth/refresh-token"],
+        ["Logout User", "/api/auth/logout-user"]
       ]
     ]
   ]

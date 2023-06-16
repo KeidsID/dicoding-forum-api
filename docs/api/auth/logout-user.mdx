@@ -1,0 +1,25 @@
+# Logout User
+
+`DELETE /authentications`
+
+Ending the login session, after this `refreshToken` cannot be used anymore.
+
+```yaml title="Headers"
+Content-Type: application/json
+```
+
+```json title="Body"
+{
+  "refreshToken": "jwt.token.example"
+}
+```
+
+### Response
+
+<Success>200 OK</Success>
+
+```json title="Response Body"
+{
+  "status": "success"
+}
+```
