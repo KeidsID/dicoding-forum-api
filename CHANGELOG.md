@@ -1,3 +1,10 @@
+## 1.1.0
+
+- Reply features on "/threads" endpoint.
+  - `POST /threads/{threadId}/comments/{commentId}/replies` - Reply on comment
+  - `DELETE /threads/{threadId}/comments/{commentId}/replies/{replyId}` - Delete
+    reply from comment
+
 ## 1.0.0
 
 ### Added

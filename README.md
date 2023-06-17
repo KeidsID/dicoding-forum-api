@@ -1,12 +1,13 @@
+[class-link]: https://www.dicoding.com/academies/276
 [pm-v1]:
   https://github.com/dicodingacademy/a276-backend-expert-labs/raw/099-shared-content/shared-content/03-submission-content/01-Forum-API-V1/Forum%20API%20V1%20Test.zip
 
 # dicoding-forum-api
 
-Back-End Expert project assignment from dicoding.com. With this assignment,
-students are expected to be able to create a back-end application in the form of
-a RESTful API that is testable, scalable, reliable, agile, easy and fast to
-deploy, and has reliable security by industry standards.
+Back-End Expert project assignment from [dicoding.com][class-link]. With this
+assignment, students are expected to be able to create a back-end application in
+the form of a RESTful API that is testable, scalable, reliable, agile, easy and
+fast to deploy, and has reliable security by industry standards.
 
 ## Features
 
@@ -15,7 +16,7 @@ deploy, and has reliable security by industry standards.
 - [x] Adding Threads.
 - [x] Viewing Threads.
 - [x] Adding and Deleting Thread Comments.
-- [ ] Adding and Deleting Replies to Thread Comments.
+- [x] Adding and Deleting Replies to Thread Comments.
 
 ## Project utils
 
