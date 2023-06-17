@@ -24,8 +24,15 @@
     [
       "Thread Comments",
       [
-        ["Add Comment", "/api/threads/comments/post"],
+        ["Comment On Thread", "/api/threads/comments/post"],
         ["Delete Comment", "/api/threads/comments/delete"]
+      ]
+    ],
+    [
+      "Thread Comment Replies",
+      [
+        ["Reply On Comment", "/api/threads/comments/replies/post"],
+        ["Delete Reply", "/api/threads/comments/replies/delete"]
       ]
     ]
   ]
