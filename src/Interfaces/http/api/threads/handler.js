@@ -2,11 +2,14 @@
 const Hapi = require('@hapi/hapi')
 const { Container } = require('instances-container')
 
-const AddThreadsUseCase = require('../../../../Applications/use_case/AddThreadUseCase')
-const AddCommentToThreadUsecase = require('../../../../Applications/use_case/AddCommentToThreadUsecase')
-const SoftDeleteCommentUsecase = require('../../../../Applications/use_case/SoftDeleteCommentUseCase')
-const GetThreadByIdUsecase = require('../../../../Applications/use_case/GetThreadByIdUsecase')
-const GetCommentsFromThreadUsecase = require('../../../../Applications/use_case/GetCommentsFromThreadUsecase')
+const AddThreadsUseCase = require('../../../../Applications/use_cases/threads/AddThreadUseCase')
+const AddCommentToThreadUsecase = require('../../../../Applications/use_cases/threads/AddCommentToThreadUsecase')
+const SoftDeleteCommentUsecase = require('../../../../Applications/use_cases/threads/SoftDeleteCommentUseCase')
+const GetThreadByIdUsecase = require('../../../../Applications/use_cases/threads/GetThreadByIdUsecase')
+const GetCommentsFromThreadUsecase = require('../../../../Applications/use_cases/threads/GetCommentsFromThreadUsecase')
+const AddReplyToCommentUsecase = require('../../../../Applications/use_cases/threads/AddReplyToCommentUsecase')
+const GetRepliesFromThreadUsecase = require('../../../../Applications/use_cases/threads/GetRepliesFromCommentUsecase')
+const SoftDeleteReplyUsecase = require('../../../../Applications/use_cases/threads/SoftDeleteReplyUseCase')
 
 /**
  * Handler for "/threads" endpoint routes.
@@ -48,6 +51,55 @@ class ThreadsHandler {
     response.code(201)
 
     return response
+  }
+
+  /**
+   * Handler for `GET /threads/{threadId}`.
+   *
+   * @param {Hapi.Request} req
+   * @param {Hapi.ResponseToolkit} h
+   *
+   * @return {Promise<Hapi.ResponseObject>}
+   */
+  async getThread (req, h) {
+    const { threadId } = req.params
+
+    /**
+     * @type {GetThreadByIdUsecase}
+     */
+    const getThreadByIdUsecase = this.#container
+      .getInstance(GetThreadByIdUsecase.name)
+
+    /**
+     * @type {GetCommentsFromThreadUsecase}
+     */
+    const getCommentsFromThreadUsecase = this.#container
+      .getInstance(GetCommentsFromThreadUsecase.name)
+
+    /**
+     * @type {GetRepliesFromThreadUsecase}
+     */
+    const getRepliesFromCommentUsecase = this.#container
+      .getInstance(GetRepliesFromThreadUsecase.name)
+
+    const thread = await getThreadByIdUsecase.execute(threadId)
+    const rawComments = await getCommentsFromThreadUsecase.execute(threadId)
+
+    const comments = await Promise.all(rawComments.map(async (val, i, arr) => {
+      const replies = await getRepliesFromCommentUsecase.execute(val.id)
+
+      return { ...val, replies }
+    }))
+
+    return {
+      status: 'success',
+      data: {
+        thread: {
+          ...thread,
+          comments
+        }
+      }
+    }
   }
 
   /**
@@ -107,39 +159,58 @@ class ThreadsHandler {
   }
 
   /**
-   * Handler for `GET /threads/{threadId}`.
+   * Handler for `POST /threads/{threadId}/comments/{commentId}/replies`.
    *
    * @param {Hapi.Request} req
    * @param {Hapi.ResponseToolkit} h
    *
    * @return {Promise<Hapi.ResponseObject>}
    */
-  async getThread (req, h) {
-    const { threadId } = req.params
+  async postReply (req, h) {
+    const { id } = req.auth.credentials
+    const { threadId, commentId } = req.params
 
     /**
-     * @type {GetThreadByIdUsecase}
+     * @type {AddReplyToCommentUsecase}
      */
-    const getThreadByIdUsecase = this.#container
-      .getInstance(GetThreadByIdUsecase.name)
+    const addReplyToCommentUsecase = this.#container
+      .getInstance(AddReplyToCommentUsecase.name)
+
+    const addedReply = await addReplyToCommentUsecase.execute(
+      threadId, commentId, req.payload, id
+    )
+
+    const response = h.response({
+      status: 'success',
+      data: { addedReply }
+    })
+    response.code(201)
+
+    return response
+  }
+
+  /**
+   * Handler for `DELETE /threads/{threadId}/comments/{commentId}/replies/{replyId}`.
+   *
+   * @param {Hapi.Request} req
+   * @param {Hapi.ResponseToolkit} h
+   *
+   * @return {Promise<Hapi.ResponseObject>}
+   */
+  async deleteReply (req, h) {
+    const { threadId, commentId, replyId } = req.params
+    const { id } = req.auth.credentials
 
     /**
-     * @type {GetCommentsFromThreadUsecase}
+     * @type {SoftDeleteReplyUsecase}
      */
-    const getCommentsFromThreadUsecase = this.#container
-      .getInstance(GetCommentsFromThreadUsecase.name)
+    const softDeleteReplyUsecase = this.#container
+      .getInstance(SoftDeleteReplyUsecase.name)
 
-    const thread = await getThreadByIdUsecase.execute(threadId)
-    const comments = await getCommentsFromThreadUsecase.execute(threadId)
+    await softDeleteReplyUsecase.execute(threadId, commentId, replyId, id)
 
     return {
-      status: 'success',
-      data: {
-        thread: {
-          ...thread,
-          comments
-        }
-      }
+      status: 'success'
     }
   }
 }

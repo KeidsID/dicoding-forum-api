@@ -1,11 +1,11 @@
-const ThreadCommentsRepository = require('../../../Domains/threads/ThreadCommentsRepository')
-const ThreadsRepository = require('../../../Domains/threads/ThreadsRepository')
-const Thread = require('../../../Domains/threads/entities/Thread')
+const ThreadCommentsRepository = require('../../../../Domains/threads/ThreadCommentsRepository')
+const ThreadsRepository = require('../../../../Domains/threads/ThreadsRepository')
+const Thread = require('../../../../Domains/threads/entities/Thread')
 
 const SoftDeleteCommentUsecase = require('../SoftDeleteCommentUsecase')
 
 describe('SoftDeleteCommentUsecase', () => {
-  it('should orchestracting the add comment action correctly', async () => {
+  it('should orchestracting the delete comment action correctly', async () => {
     // Arrange
     const mockThread = new Thread({
       id: 'thread-123',

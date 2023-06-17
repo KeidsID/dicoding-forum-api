@@ -16,6 +16,12 @@ const routes = (handler) => ([
     options: { auth: Constants.idUsernameAuthStrategy }
   },
   {
+    method: 'GET',
+    path: '/threads/{threadId}',
+    handler: (req, h) => handler.getThread(req, h)
+  },
+
+  {
     method: 'POST',
     path: '/threads/{threadId}/comments',
     handler: (req, h) => handler.postComment(req, h),
@@ -27,11 +33,20 @@ const routes = (handler) => ([
     handler: (req, h) => handler.deleteComment(req, h),
     options: { auth: Constants.idUsernameAuthStrategy }
   },
+
   {
-    method: 'GET',
-    path: '/threads/{threadId}',
-    handler: (req, h) => handler.getThread(req, h)
+    method: 'POST',
+    path: '/threads/{threadId}/comments/{commentId}/replies',
+    handler: (req, h) => handler.postReply(req, h),
+    options: { auth: Constants.idUsernameAuthStrategy }
+  },
+  {
+    method: 'DELETE',
+    path: '/threads/{threadId}/comments/{commentId}/replies/{replyId}',
+    handler: (req, h) => handler.deleteReply(req, h),
+    options: { auth: Constants.idUsernameAuthStrategy }
   }
+
 ])
 
 module.exports = routes

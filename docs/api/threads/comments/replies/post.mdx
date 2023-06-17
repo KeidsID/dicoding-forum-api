@@ -1,11 +1,12 @@
-# Comment On Thread
+# Reply On Comment
 
-`POST /threads/{threadId}/comments`
+`POST /threads/{threadId}/comments/{commentId}/replies`
 
-Commenting on existing thread.
+Replying on existing thread comments.
 
 ```yaml title="Path Params"
 threadId: thread-unique_id
+commentId: comment-unique_id
 ```
 
 ```yaml title="Headers"
@@ -27,9 +28,9 @@ Content-Type: application/json
 {
   "status": "success",
   "data": {
-    "addedComment": {
-      "id": "comment-LU0Pb7ANm9ItE7lWJkvpU",
-      "content": "sebuah comment",
+    "addedReply": {
+      "id": "reply-LU0Pb7ANm9ItE7lWJkvpU",
+      "content": "sebuah balasan",
       "owner": "user-RHtgDdcR7d0fOBQ1qPfRm"
     }
   }

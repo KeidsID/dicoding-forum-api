@@ -92,6 +92,21 @@ class ThreadCommentsRepositoryPostgres extends ThreadCommentsRepository {
 
     return comments
   }
+
+  async verifyCommentLocation (commentId, threadId) {
+    const query = {
+      text: `
+        SELECT thread_id FROM thread_comments
+        WHERE id = $1
+      `,
+      values: [commentId]
+    }
+    const { rows, rowCount } = await this.#pool.query(query)
+
+    if (!rowCount) throw new NotFoundError('komentar tidak ditemukan')
+
+    if (rows[0].thread_id !== threadId) throw new NotFoundError('komentar tidak ditemukan pada thread ini')
+  }
 }
 
 module.exports = ThreadCommentsRepositoryPostgres

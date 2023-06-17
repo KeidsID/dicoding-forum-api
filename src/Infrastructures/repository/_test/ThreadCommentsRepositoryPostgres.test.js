@@ -80,7 +80,7 @@ describe('ThreadCommentsRepositoryPostgres', () => {
       const repo = new ThreadCommentsRepositoryPostgres(pool, {})
 
       // Action & Assert
-      await expect(repo.softDeleteCommentById('comment-123', dummyUser.id))
+      await expect(repo.verifyCommentAccess('comment-123', dummyUser.id))
         .rejects.toThrowError(NotFoundError)
     })
 
@@ -91,13 +91,13 @@ describe('ThreadCommentsRepositoryPostgres', () => {
       await ThreadCommentsTableTestHelper.addCommentToThread({ id: 'comment-123', owner: dummyUser.id })
 
       // Action & Assert
-      await expect(repo.softDeleteCommentById('comment-123', dummyUser2.id))
+      await expect(repo.verifyCommentAccess('comment-123', dummyUser2.id))
         .rejects.toThrowError(AuthorizationError)
     })
   })
 
   describe('softDeleteCommentById method', () => {
-    it('should call verifyCommentAccessMethod', async () => {
+    it('should call verifyCommentAccess method', async () => {
       // Arrange
       const repo = new ThreadCommentsRepositoryPostgres(pool, {})
 
@@ -130,7 +130,7 @@ describe('ThreadCommentsRepositoryPostgres', () => {
     })
   })
 
-  describe('method', () => {
+  describe('getCommentsFromThread method', () => {
     it('should return empty array if no comment are found', async () => {
       // Arrange
       const repo = new ThreadCommentsRepositoryPostgres(pool, {})
@@ -162,7 +162,7 @@ describe('ThreadCommentsRepositoryPostgres', () => {
       expect(comment.date.getMinutes()).toStrictEqual(new Date().getMinutes())
     })
 
-    it('should return comment with custom content if comment is soft deleted', async () => {
+    it('should return array of comments with custom content if comment is soft deleted', async () => {
       // Arrange
       const repo = new ThreadCommentsRepositoryPostgres(pool, {})
 
@@ -192,6 +192,26 @@ describe('ThreadCommentsRepositoryPostgres', () => {
       expect(deletedComment.username).toStrictEqual(dummyUser2.username)
       expect(deletedComment.content).toStrictEqual('**komentar telah dihapus**')
       expect(deletedComment.date.getMinutes()).toStrictEqual(new Date().getMinutes())
+    })
+  })
+
+  describe('verifyCommentLocation method', () => {
+    // Arrange
+    const repo = new ThreadCommentsRepositoryPostgres(pool, {})
+
+    it('should throw NotFoundError if the comment is not found', async () => {
+      // Action & Assert
+      await expect(repo.verifyCommentLocation('comment-123', dummyThread.id))
+        .rejects.toThrowError(new NotFoundError('komentar tidak ditemukan'))
+    })
+
+    it('should throw NotFoundError if the comment is invalid', async () => {
+      // Arrange
+      await ThreadCommentsTableTestHelper.addCommentToThread({})
+
+      // Action
+      await expect(repo.verifyCommentLocation('comment-123', 'thread-xyz'))
+        .rejects.toThrowError(new NotFoundError('komentar tidak ditemukan pada thread ini'))
     })
   })
 })

@@ -13,11 +13,13 @@ const AuthenticationTokenManager = require('../Applications/security/Authenticat
 const PasswordHash = require('../Applications/security/PasswordHash')
 
 const AuthenticationRepository = require('../Domains/authentications/AuthenticationRepository')
+const ThreadCommentRepliesRepository = require('../Domains/threads/ThreadCommentRepliesRepository')
 const ThreadCommentsRepository = require('../Domains/threads/ThreadCommentsRepository')
 const ThreadsRepository = require('../Domains/threads/ThreadsRepository')
 const UserRepository = require('../Domains/users/UserRepository')
 
 const AuthenticationRepositoryPostgres = require('./repository/AuthenticationRepositoryPostgres')
+const ThreadCommentRepliesRepositoryPostgres = require('./repository/ThreadCommentRepliesRepositoryPostgres')
 const ThreadCommentsRepositoryPostgres = require('./repository/ThreadCommentsRepositoryPostgres')
 const ThreadsRepositoryPostgres = require('./repository/ThreadsRepositoryPostgres')
 const UserRepositoryPostgres = require('./repository/UserRepositoryPostgres')
@@ -25,22 +27,38 @@ const UserRepositoryPostgres = require('./repository/UserRepositoryPostgres')
 const BcryptPasswordHash = require('./security/BcryptPasswordHash')
 const JwtTokenManager = require('./security/JwtTokenManager')
 
-// use case
-const AddCommentToThreadUsecase = require('../Applications/use_case/AddCommentToThreadUsecase')
-const AddThreadUseCase = require('../Applications/use_case/AddThreadUseCase')
-const AddUserUseCase = require('../Applications/use_case/AddUserUseCase')
-const GetCommentsFromThreadUsecase = require('../Applications/use_case/GetCommentsFromThreadUsecase')
-const LoginUserUseCase = require('../Applications/use_case/LoginUserUseCase')
-const LogoutUserUseCase = require('../Applications/use_case/LogoutUserUseCase')
-const RefreshAuthenticationUseCase = require('../Applications/use_case/RefreshAuthenticationUseCase')
-const SoftDeleteCommentUseCase = require('../Applications/use_case/SoftDeleteCommentUseCase')
-const GetThreadByIdUsecase = require('../Applications/use_case/GetThreadByIdUsecase')
+// use cases
+const AddUserUseCase = require('../Applications/use_cases/auth/AddUserUseCase')
+const LoginUserUseCase = require('../Applications/use_cases/auth/LoginUserUseCase')
+const RefreshAuthenticationUseCase = require('../Applications/use_cases/auth/RefreshAuthenticationUseCase')
+const LogoutUserUseCase = require('../Applications/use_cases/auth/LogoutUserUseCase')
+
+const AddThreadUseCase = require('../Applications/use_cases/threads/AddThreadUseCase')
+const GetThreadByIdUsecase = require('../Applications/use_cases/threads/GetThreadByIdUsecase')
+
+const AddCommentToThreadUsecase = require('../Applications/use_cases/threads/AddCommentToThreadUsecase')
+const GetCommentsFromThreadUsecase = require('../Applications/use_cases/threads/GetCommentsFromThreadUsecase')
+const SoftDeleteCommentUseCase = require('../Applications/use_cases/threads/SoftDeleteCommentUseCase')
+
+const AddReplyToCommentUsecase = require('../Applications/use_cases/threads/AddReplyToCommentUsecase')
+const GetRepliesFromCommentUsecase = require('../Applications/use_cases/threads/GetRepliesFromCommentUsecase')
+const SoftDeleteReplyUseCase = require('../Applications/use_cases/threads/SoftDeleteReplyUseCase')
 
 // creating container
 const container = createContainer()
 
 // registering services and repository
 container.register([
+  {
+    key: ThreadCommentRepliesRepository.name,
+    Class: ThreadCommentRepliesRepositoryPostgres,
+    parameter: {
+      dependencies: [
+        { concrete: pool },
+        { concrete: nanoid }
+      ]
+    }
+  },
   {
     key: ThreadCommentsRepository.name,
     Class: ThreadCommentsRepositoryPostgres,
@@ -112,6 +130,40 @@ container.register([
 
 // registering use cases
 container.register([
+  {
+    key: GetRepliesFromCommentUsecase.name,
+    Class: GetRepliesFromCommentUsecase,
+    parameter: {
+      injectType: 'destructuring',
+      dependencies: [
+        { name: 'threadCommentRepliesRepository', internal: ThreadCommentRepliesRepository.name }
+      ]
+    }
+  },
+  {
+    key: SoftDeleteReplyUseCase.name,
+    Class: SoftDeleteReplyUseCase,
+    parameter: {
+      injectType: 'destructuring',
+      dependencies: [
+        { name: 'threadCommentRepliesRepository', internal: ThreadCommentRepliesRepository.name },
+        { name: 'threadCommentsRepository', internal: ThreadCommentsRepository.name },
+        { name: 'threadsRepository', internal: ThreadsRepository.name }
+      ]
+    }
+  },
+  {
+    key: AddReplyToCommentUsecase.name,
+    Class: AddReplyToCommentUsecase,
+    parameter: {
+      injectType: 'destructuring',
+      dependencies: [
+        { name: 'threadCommentRepliesRepository', internal: ThreadCommentRepliesRepository.name },
+        { name: 'threadCommentsRepository', internal: ThreadCommentsRepository.name },
+        { name: 'threadsRepository', internal: ThreadsRepository.name }
+      ]
+    }
+  },
   {
     key: GetThreadByIdUsecase.name,
     Class: GetThreadByIdUsecase,

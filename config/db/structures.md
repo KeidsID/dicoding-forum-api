@@ -48,3 +48,19 @@ This file will define the tables structure on this database server.
 
 - `FOREIGN KEY(thread_id) REFERENCES threads(id) ON DELETE CASCADE`
 - `FOREIGN KEY(commenter) REFERENCES users(id) ON DELETE CASCADE`
+
+## thread_comment_replies
+
+| id          | comment_id  | content          | owner      | is_deleted | date                       |
+| ----------- | ----------- | ---------------- | ---------- | ---------- | -------------------------- |
+| "reply-xyz" | "thread-id" | "sebuah comment" | "user-ijk" | false      | "2021-09-08T07:19:09.775Z" |
+
+### Defaults
+
+- `is_deleted SET DEFAULT false`
+- `date SET DEFAULT CURRENT_TIMESTAMP`
+
+### Constraints
+
+- `FOREIGN KEY(comment_id) REFERENCES thread_comments(id) ON DELETE CASCADE`
+- `FOREIGN KEY(commenter) REFERENCES users(id) ON DELETE CASCADE`

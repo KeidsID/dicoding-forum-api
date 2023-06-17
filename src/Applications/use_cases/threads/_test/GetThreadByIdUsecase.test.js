@@ -1,10 +1,10 @@
-const ThreadsRepository = require('../../../Domains/threads/ThreadsRepository')
-const Thread = require('../../../Domains/threads/entities/Thread')
+const ThreadsRepository = require('../../../../Domains/threads/ThreadsRepository')
+const Thread = require('../../../../Domains/threads/entities/Thread')
 
 const GetThreadByIdUsecase = require('../GetThreadByIdUsecase')
 
 describe('GetThreadByIdUsecase', () => {
-  it('should orchestracting the add comment action correctly', async () => {
+  it('should orchestracting the get thread by id action correctly', async () => {
     // Arrange
     const mockThread = new Thread({
       id: 'thread-123',

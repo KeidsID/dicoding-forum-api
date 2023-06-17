@@ -12,28 +12,79 @@ threadId: thread-unique_id
 
 <Success>200 OK</Success>
 
-```json title="Response Body"
+```json title="Simplified Response Body"
+{
+  "status": "string",
+  "data": {
+    "thread": {
+      ...Thread,
+      "comments": [
+        {
+          ...CommentOrReply,
+          "replies": [ CommentOrReply ]
+        }
+      ]
+    }
+  }
+}
+```
+
+```json title="Thread"
+{
+  "id": "string",
+  "title": "string",
+  "body": "string",
+  "date": "date",
+  "username": "string"
+}
+```
+
+```json title="CommentOrReply"
+{
+  "id": "string",
+  "username": "string",
+  "date": "date",
+  "content": "string"
+}
+```
+
+```json title="Response Body Example"
 {
   "status": "success",
   "data": {
     "thread": {
-      "id": "thread-MfWWhYILNMtSePTjFUjiB",
+      "id": "thread--sOkeyiQbiReGR4OOdfgK",
       "title": "sebuah thread",
       "body": "sebuah body thread",
-      "date": "2023-06-16T07:25:48.449Z",
+      "date": "2023-06-17T15:10:13.329Z",
       "username": "dicoding",
       "comments": [
         {
-          "id": "comment-iV_fuu_d-UummaY9V2uNS",
-          "username": "johndoe",
-          "date": "2023-06-16T07:25:48.813Z",
-          "content": "sebuah comment"
+          "id": "comment-qup952IMTa9wfknxEbH-s",
+          "username": "dicoding",
+          "date": "2023-06-17T15:10:13.413Z",
+          "content": "sebuah comment",
+          "replies": [
+            {
+              "id": "reply-vZG9EVKV5XzBFakg-M6Bd",
+              "username": "johndoe",
+              "date": "2023-06-17T15:10:13.956Z",
+              "content": "**balasan telah dihapus**"
+            },
+            {
+              "id": "reply-mw4raqNU4_mi7nQyWMDOx",
+              "username": "dicoding",
+              "date": "2023-06-17T15:10:14.036Z",
+              "content": "sebuah balasan"
+            }
+          ]
         },
         {
-          "id": "comment-LU0Pb7ANm9ItE7lWJkvpU",
+          "id": "comment-g1AYNec8_qzV_hhc8530j",
           "username": "dicoding",
-          "date": "2023-06-16T07:25:48.919Z",
-          "content": "**komentar telah dihapus**"
+          "date": "2023-06-17T15:10:13.504Z",
+          "content": "**komentar telah dihapus**",
+          "replies": []
         }
       ]
     }

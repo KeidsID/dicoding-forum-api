@@ -1,0 +1,25 @@
+# Delete Comment From Thread
+
+`DELETE /threads/{threadId}/comments/{commentId}/replies/{replyId}`
+
+Delete your reply from a thread comment.
+
+```yaml title="Path Params"
+threadId: thread-unique_id
+commentId: comment-unique_id
+replyId: reply-unique_id
+```
+
+```yaml title="Headers"
+Authorization: Bearer {accessToken}
+```
+
+### Response
+
+<Success>200 OK</Success>
+
+```json title="Response Body"
+{
+  "status": "success"
+}
+```
