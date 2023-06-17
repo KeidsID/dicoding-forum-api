@@ -1,8 +1,15 @@
 {
   "name": "dicoding-forum-api",
   "version": "1.1.0",
-  "description": "Back-End Expert project assignment from dicoding.com",
+  "type": "commonjs",
   "main": "src/main.js",
+  "description": "Back-End Expert project assignment from dicoding.com",
+  "repository": "https://github.com/KeidsID/dicoding-forum-api",
+  "author": "KeidsID",
+  "license": "MIT",
+  "keywords": [
+    "hapi-js"
+  ],
   "scripts": {
     "start": "node src/main.js",
     "start:dev": "nodemon src/main.js",
@@ -11,11 +18,6 @@
     "pgm": "node-pg-migrate",
     "pgm:test": "node-pg-migrate -f config/db/test.json"
   },
-  "keywords": [
-    "hapi-js"
-  ],
-  "author": "KeidsID",
-  "license": "MIT",
   "dependencies": {
     "@hapi/hapi": "^20.1.5",
     "@hapi/jwt": "^2.0.1",
