@@ -210,8 +210,8 @@ describe('ThreadCommentsRepositoryPostgres', () => {
       await ThreadCommentsTableTestHelper.addCommentToThread({})
 
       // Action
-      await expect(repo.verifyCommentLocation('comment-123', 'thread-123'))
-        .rejects.toThrowError(new NotFoundError('komentar tidak valid'))
+      await expect(repo.verifyCommentLocation('comment-123', 'thread-xyz'))
+        .rejects.toThrowError(new NotFoundError('komentar tidak ditemukan pada thread ini'))
     })
   })
 })

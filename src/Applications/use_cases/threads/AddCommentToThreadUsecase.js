@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-const ThreadCommentsRepository = require('../../Domains/threads/ThreadCommentsRepository')
-const ThreadsRepository = require('../../Domains/threads/ThreadsRepository')
-const AddedComment = require('../../Domains/threads/entities/AddedComment')
-const NewComment = require('../../Domains/threads/entities/NewComment')
+const ThreadCommentsRepository = require('../../../Domains/threads/ThreadCommentsRepository')
+const ThreadsRepository = require('../../../Domains/threads/ThreadsRepository')
+const AddedComment = require('../../../Domains/threads/entities/AddedComment')
+const NewComment = require('../../../Domains/threads/entities/NewComment')
 
 class AddCommentToThreadUsecase {
   /**

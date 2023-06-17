@@ -96,7 +96,7 @@ class ThreadCommentsRepositoryPostgres extends ThreadCommentsRepository {
   async verifyCommentLocation (commentId, threadId) {
     const query = {
       text: `
-        SELECT owner FROM thread_comments
+        SELECT thread_id FROM thread_comments
         WHERE id = $1
       `,
       values: [commentId]
@@ -105,7 +105,7 @@ class ThreadCommentsRepositoryPostgres extends ThreadCommentsRepository {
 
     if (!rowCount) throw new NotFoundError('komentar tidak ditemukan')
 
-    if (rows[0].owner !== threadId) throw new NotFoundError('komentar tidak valid')
+    if (rows[0].thread_id !== threadId) throw new NotFoundError('komentar tidak ditemukan pada thread ini')
   }
 }
 

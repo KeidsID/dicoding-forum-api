@@ -3,6 +3,7 @@ const AuthenticationsTableTestHelper = require('../../../../tests/Authentication
 const ServerTestHelper = require('../../../../tests/ServerTestHelper')
 const ThreadsTableTestHelper = require('../../../../tests/ThreadsTableTestHelper')
 const ThreadCommentsTableTestHelper = require('../../../../tests/ThreadCommentsTableTestHelper')
+const ThreadCommentRepliesTableTestHelper = require('../../../../tests/ThreadCommentRepliesTableTestHelper')
 const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper')
 
 const container = require('../../container')
@@ -55,6 +56,9 @@ describe('/threads endpoint', () => {
       expect(response.statusCode).toEqual(201)
       expect(responseJson.status).toEqual('success')
       expect(responseJson.data.addedThread).toBeDefined()
+      expect(responseJson.data.addedThread.id).toBeDefined()
+      expect(responseJson.data.addedThread.title).toBeDefined()
+      expect(responseJson.data.addedThread.owner).toBeDefined()
     })
 
     it('should respond 400 status code when request a bad payload', async () => {
@@ -101,6 +105,111 @@ describe('/threads endpoint', () => {
       expect(response.statusCode).toEqual(401)
       expect(responseJson.error).toBeDefined()
       expect(responseJson.message).toEqual('Missing authentication')
+    })
+  })
+
+  describe('when GET /threads/{threadId}', () => {
+    it('should respond 404 status code when the thread is not found', async () => {
+      // Arrange
+      const server = await createServer(container)
+
+      await UsersTableTestHelper.addUser(dummyUser)
+
+      // Action
+      const response = await server.inject({
+        method: 'GET',
+        url: '/threads/thread-123'
+      })
+
+      // Assert
+      const responseJson = JSON.parse(response.payload)
+
+      expect(response.statusCode).toEqual(404)
+      expect(responseJson.status).toEqual('fail')
+      expect(responseJson.message).toEqual('thread tidak ditemukan')
+    })
+
+    it('should respond 200 with valid thread structures (contain valid comments and replies)', async () => {
+      // Arrange
+      const server = await createServer(container)
+
+      await UsersTableTestHelper.addUser(dummyUser)
+      await UsersTableTestHelper.addUser(dummyUser2)
+
+      await ThreadsTableTestHelper.addThread({ id: 'thread-123', owner: dummyUser.id })
+
+      await ThreadCommentsTableTestHelper.addCommentToThread({
+        commentId: 'comment-123',
+        threadId: 'thread-123',
+        content: `komentar dari ${dummyUser.username}`,
+        owner: dummyUser.id
+      })
+      await ThreadCommentsTableTestHelper.addCommentToThread({
+        commentId: 'comment-xyz',
+        threadId: 'thread-123',
+        content: `komentar dari ${dummyUser2.username}`,
+        owner: dummyUser2.id
+      })
+      await ThreadCommentsTableTestHelper.softDeleteComment('comment-xyz')
+
+      await ThreadCommentRepliesTableTestHelper.addReplyToComment({
+        replyId: 'reply-123',
+        commentId: 'comment-123',
+        content: `balasan dari ${dummyUser.username}`,
+        owner: dummyUser.id
+      })
+      await ThreadCommentRepliesTableTestHelper.addReplyToComment({
+        replyId: 'reply-xyz',
+        commentId: 'comment-123',
+        content: `balasan dari ${dummyUser2.username}`,
+        owner: dummyUser2.id
+      })
+
+      await ThreadCommentRepliesTableTestHelper.softDeleteReply('reply-xyz')
+
+      // Action
+      const response = await server.inject({
+        method: 'GET',
+        url: '/threads/thread-123'
+      })
+
+      // Assert
+      const responseJson = JSON.parse(response.payload)
+
+      expect(response.statusCode).toStrictEqual(200)
+      expect(responseJson.status).toStrictEqual('success')
+
+      const thread = responseJson.data.thread
+
+      expect(thread.id).toStrictEqual('thread-123')
+      expect(thread.title).toStrictEqual('sebuah thread')
+      expect(thread.body).toStrictEqual('sebuah body thread')
+      expect(new Date(thread.date).getMinutes()).toStrictEqual(new Date().getMinutes())
+      expect(thread.username).toStrictEqual(dummyUser.username)
+
+      const [dummyUserComment, dummyUser2Comment] = thread.comments
+
+      expect(dummyUserComment.id).toStrictEqual('comment-123')
+      expect(dummyUserComment.username).toStrictEqual(dummyUser.username)
+      expect(new Date(dummyUserComment.date).getMinutes()).toStrictEqual(new Date().getMinutes())
+      expect(dummyUserComment.content).toStrictEqual(`komentar dari ${dummyUser.username}`)
+
+      expect(dummyUser2Comment.id).toStrictEqual('comment-xyz')
+      expect(dummyUser2Comment.username).toStrictEqual(dummyUser2.username)
+      expect(new Date(dummyUser2Comment.date).getMinutes()).toStrictEqual(new Date().getMinutes())
+      expect(dummyUser2Comment.content).toStrictEqual('**komentar telah dihapus**')
+
+      const [dummyUserReply, dummyUser2Reply] = dummyUserComment.replies
+
+      expect(dummyUserReply.id).toStrictEqual('reply-123')
+      expect(dummyUserReply.username).toStrictEqual(dummyUser.username)
+      expect(new Date(dummyUserReply.date).getMinutes()).toStrictEqual(new Date().getMinutes())
+      expect(dummyUserReply.content).toStrictEqual(`balasan dari ${dummyUser.username}`)
+
+      expect(dummyUser2Reply.id).toStrictEqual('reply-xyz')
+      expect(dummyUser2Reply.username).toStrictEqual(dummyUser2.username)
+      expect(new Date(dummyUser2Reply.date).getMinutes()).toStrictEqual(new Date().getMinutes())
+      expect(dummyUser2Reply.content).toStrictEqual('**balasan telah dihapus**')
     })
   })
 
@@ -200,6 +309,9 @@ describe('/threads endpoint', () => {
       expect(response.statusCode).toEqual(201)
       expect(responseJson.status).toEqual('success')
       expect(responseJson.data.addedComment).toBeDefined()
+      expect(responseJson.data.addedComment.id).toBeDefined()
+      expect(responseJson.data.addedComment.content).toBeDefined()
+      expect(responseJson.data.addedComment.owner).toBeDefined()
     })
   })
 
@@ -332,17 +444,68 @@ describe('/threads endpoint', () => {
     })
   })
 
-  describe('when GET /threads/{threadId}', () => {
-    it('should respond 404 status code when the thread is not found', async () => {
+  describe('when POST /threads/{threadId}/comments/{commentID}/replies', () => {
+    const validTestUrl = '/threads/thread-123/comments/comment-123/replies'
+
+    it('should respond 401 status code when the request does not have an authentication', async () => {
       // Arrange
       const server = await createServer(container)
 
+      // Action
+      const response = await server.inject({
+        method: 'POST', url: validTestUrl
+      })
+
+      // Assert
+      const responseJson = JSON.parse(response.payload)
+
+      expect(response.statusCode).toEqual(401)
+      expect(responseJson.error).toBeDefined()
+      expect(responseJson.message).toEqual('Missing authentication')
+    })
+
+    it('should respond 400 status code when request a bad payload', async () => {
+      // Arrange
+      const reqPayload = { content: 400 }
+      const server = await createServer(container)
+
       await UsersTableTestHelper.addUser(dummyUser)
+      const accessToken = await ServerTestHelper.login(dummyUser)
 
       // Action
       const response = await server.inject({
-        method: 'GET',
-        url: '/threads/thread-123'
+        method: 'POST',
+        url: validTestUrl,
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        },
+        payload: reqPayload
+      })
+
+      // Assert
+      const responseJson = JSON.parse(response.payload)
+
+      expect(response.statusCode).toEqual(400)
+      expect(responseJson.status).toEqual('fail')
+      expect(responseJson.message).toEqual('tipe data pada balasan tidak valid')
+    })
+
+    it('should respond 404 status code when the thread is not found', async () => {
+      // Arrange
+      const reqPayload = { content: 'A Reply' }
+      const server = await createServer(container)
+
+      await UsersTableTestHelper.addUser(dummyUser)
+      const accessToken = await ServerTestHelper.login(dummyUser)
+
+      // Action
+      const response = await server.inject({
+        method: 'POST',
+        url: validTestUrl,
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        },
+        payload: reqPayload
       })
 
       // Assert
@@ -353,60 +516,220 @@ describe('/threads endpoint', () => {
       expect(responseJson.message).toEqual('thread tidak ditemukan')
     })
 
-    it('should respond 200 with valid thread structures (contain valid comment)', async () => {
+    it('should respond 404 status code when the comment is not found', async () => {
       // Arrange
+      const reqPayload = { content: 'A Reply' }
       const server = await createServer(container)
 
       await UsersTableTestHelper.addUser(dummyUser)
-      await UsersTableTestHelper.addUser(dummyUser2)
+      const accessToken = await ServerTestHelper.login(dummyUser)
 
-      await ThreadsTableTestHelper.addThread({ id: 'thread-123', owner: dummyUser.id })
-
-      await ThreadCommentsTableTestHelper.addCommentToThread({
-        commentId: 'comment-123',
-        threadId: 'thread-123',
-        content: `komentar dari ${dummyUser.username}`,
-        owner: dummyUser.id
-      })
-      await ThreadCommentsTableTestHelper.addCommentToThread({
-        commentId: 'comment-xyz',
-        threadId: 'thread-123',
-        content: `komentar dari ${dummyUser2.username}`,
-        owner: dummyUser2.id
-      })
-      await ThreadCommentsTableTestHelper.softDeleteComment('comment-xyz')
+      await ThreadsTableTestHelper.addThread({})
 
       // Action
       const response = await server.inject({
-        method: 'GET',
-        url: '/threads/thread-123'
+        method: 'POST',
+        url: validTestUrl,
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        },
+        payload: reqPayload
       })
 
       // Assert
       const responseJson = JSON.parse(response.payload)
 
-      expect(response.statusCode).toStrictEqual(200)
-      expect(responseJson.status).toStrictEqual('success')
+      expect(response.statusCode).toEqual(404)
+      expect(responseJson.status).toEqual('fail')
+      expect(responseJson.message).toEqual('komentar tidak ditemukan')
+    })
 
-      const thread = responseJson.data.thread
+    it('should respond 404 status code when the comment is not found ON THE THREAD', async () => {
+      // Arrange
+      const reqPayload = { content: 'A Reply' }
+      const server = await createServer(container)
 
-      expect(thread.id).toStrictEqual('thread-123')
-      expect(thread.title).toStrictEqual('sebuah thread')
-      expect(thread.body).toStrictEqual('sebuah body thread')
-      expect(new Date(thread.date).getMinutes()).toStrictEqual(new Date().getMinutes())
-      expect(thread.username).toStrictEqual(dummyUser.username)
+      await UsersTableTestHelper.addUser(dummyUser)
+      const accessToken = await ServerTestHelper.login(dummyUser)
 
-      const [dummyUserComment, dummyUser2Comment] = thread.comments
+      await ThreadsTableTestHelper.addThread({}) // thread-123
+      await ThreadsTableTestHelper.addThread({ id: 'thread-xyz' })
+      await ThreadCommentsTableTestHelper.addCommentToThread({}) // comment-123 on thread-123
 
-      expect(dummyUserComment.id).toStrictEqual('comment-123')
-      expect(dummyUserComment.username).toStrictEqual(dummyUser.username)
-      expect(new Date(dummyUserComment.date).getMinutes()).toStrictEqual(new Date().getMinutes())
-      expect(dummyUserComment.content).toStrictEqual(`komentar dari ${dummyUser.username}`)
+      // Action
+      const response = await server.inject({
+        method: 'POST',
+        url: '/threads/thread-xyz/comments/comment-123/replies',
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        },
+        payload: reqPayload
+      })
 
-      expect(dummyUser2Comment.id).toStrictEqual('comment-xyz')
-      expect(dummyUser2Comment.username).toStrictEqual(dummyUser2.username)
-      expect(new Date(dummyUser2Comment.date).getMinutes()).toStrictEqual(new Date().getMinutes())
-      expect(dummyUser2Comment.content).toStrictEqual('**komentar telah dihapus**')
+      // Assert
+      const responseJson = JSON.parse(response.payload)
+
+      expect(response.statusCode).toEqual(404)
+      expect(responseJson.status).toEqual('fail')
+      expect(responseJson.message).toEqual('komentar tidak ditemukan pada thread ini')
+    })
+
+    it('should respond 201 status code and added reply', async () => {
+      // Arrange
+      const reqPayload = { content: 'A Reply' }
+      const server = await createServer(container)
+
+      await UsersTableTestHelper.addUser(dummyUser)
+      const accessToken = await ServerTestHelper.login(dummyUser)
+
+      await ThreadsTableTestHelper.addThread({}) // thread-123
+      await ThreadCommentsTableTestHelper.addCommentToThread({}) // comment-123 on thread-123
+
+      // Action
+      const response = await server.inject({
+        method: 'POST',
+        url: validTestUrl,
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        },
+        payload: reqPayload
+      })
+
+      // Assert
+      const responseJson = JSON.parse(response.payload)
+
+      expect(response.statusCode).toEqual(201)
+      expect(responseJson.status).toEqual('success')
+      expect(responseJson.data.addedReply).toBeDefined()
+      expect(responseJson.data.addedReply.id).toBeDefined()
+      expect(responseJson.data.addedReply.content).toBeDefined()
+      expect(responseJson.data.addedReply.owner).toBeDefined()
+    })
+  })
+
+  describe('when DELETE /threads/{threadId}/comments/{commentId}/replies/{replyId}', () => {
+    const validTestUrl = '/threads/thread-123/comments/comment-123/replies/reply-123'
+
+    it('should respond 401 status code when the request does not have an authentication', async () => {
+      // Arrange
+      const server = await createServer(container)
+
+      // Action
+      const response = await server.inject({
+        method: 'DELETE', url: validTestUrl
+      })
+
+      // Assert
+      const responseJson = JSON.parse(response.payload)
+
+      expect(response.statusCode).toEqual(401)
+      expect(responseJson.error).toBeDefined()
+      expect(responseJson.message).toEqual('Missing authentication')
+    })
+
+    it('should respond 404 status code when the thread is not found', async () => {
+      // Arrange
+      const server = await createServer(container)
+
+      await UsersTableTestHelper.addUser(dummyUser)
+      const accessToken = await ServerTestHelper.login(dummyUser)
+
+      // Action
+      const response = await server.inject({
+        method: 'DELETE',
+        url: validTestUrl,
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      })
+
+      // Assert
+      const responseJson = JSON.parse(response.payload)
+
+      expect(response.statusCode).toEqual(404)
+      expect(responseJson.status).toEqual('fail')
+      expect(responseJson.message).toEqual('thread tidak ditemukan')
+    })
+
+    it('should respond 404 status code when the comment is not found', async () => {
+      // Arrange
+      const server = await createServer(container)
+
+      await UsersTableTestHelper.addUser(dummyUser)
+      const accessToken = await ServerTestHelper.login(dummyUser)
+
+      await ThreadsTableTestHelper.addThread({ id: 'thread-123', owner: dummyUser.id })
+
+      // Action
+      const response = await server.inject({
+        method: 'DELETE',
+        url: validTestUrl,
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      })
+
+      // Assert
+      const responseJson = JSON.parse(response.payload)
+
+      expect(response.statusCode).toEqual(404)
+      expect(responseJson.status).toEqual('fail')
+      expect(responseJson.message).toEqual('komentar tidak ditemukan')
+    })
+
+    it('should respond 404 status code when the comment is not found ON THE THREAD', async () => {
+      // Arrange
+      const server = await createServer(container)
+
+      await UsersTableTestHelper.addUser(dummyUser) // user-123
+      const accessToken = await ServerTestHelper.login(dummyUser)
+
+      await ThreadsTableTestHelper.addThread({}) // thread-123
+      await ThreadsTableTestHelper.addThread({ id: 'thread-xyz' })
+      await ThreadCommentsTableTestHelper.addCommentToThread({}) // comment-123 on thread-123
+
+      // Action
+      const response = await server.inject({
+        method: 'DELETE',
+        url: '/threads/thread-xyz/comments/comment-123/replies/reply-123',
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      })
+
+      // Assert
+      const responseJson = JSON.parse(response.payload)
+
+      expect(response.statusCode).toEqual(404)
+      expect(responseJson.status).toEqual('fail')
+      expect(responseJson.message).toEqual('komentar tidak ditemukan pada thread ini')
+    })
+
+    it('should respond 200 status code', async () => {
+      // Arrange
+      const server = await createServer(container)
+
+      await UsersTableTestHelper.addUser(dummyUser) // user-123
+      const accessToken = await ServerTestHelper.login(dummyUser)
+
+      await ThreadsTableTestHelper.addThread({}) // thread-123
+      await ThreadCommentsTableTestHelper.addCommentToThread({}) // comment-123 on thread-123
+      await ThreadCommentRepliesTableTestHelper.addReplyToComment({}) // reply-123 on comment-123
+
+      // Action
+      const response = await server.inject({
+        method: 'DELETE',
+        url: validTestUrl,
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      })
+
+      // Assert
+      const responseJson = JSON.parse(response.payload)
+
+      expect(response.statusCode).toEqual(200)
+      expect(responseJson.status).toEqual('success')
     })
   })
 })

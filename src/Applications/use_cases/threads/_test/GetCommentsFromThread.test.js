@@ -1,10 +1,10 @@
-const ThreadCommentsRepository = require('../../../Domains/threads/ThreadCommentsRepository')
-const Comment = require('../../../Domains/threads/entities/Comment')
+const ThreadCommentsRepository = require('../../../../Domains/threads/ThreadCommentsRepository')
+const Comment = require('../../../../Domains/threads/entities/Comment')
 
 const GetCommentsFromThreadUsecase = require('../GetCommentsFromThreadUsecase')
 
 describe('GetCommentsFromThreadUsecase', () => {
-  it('should orchestracting the add comment action correctly', async () => {
+  it('should orchestracting the get comments from thread action correctly', async () => {
     // Arrange
     const mockComment = new Comment({
       id: 'comment-123',

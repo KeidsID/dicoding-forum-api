@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
-const ThreadCommentRepliesRepository = require('../../Domains/threads/ThreadCommentRepliesRepository')
-const ThreadCommentsRepository = require('../../Domains/threads/ThreadCommentsRepository')
-const ThreadsRepository = require('../../Domains/threads/ThreadsRepository')
-const AddedComment = require('../../Domains/threads/entities/AddedComment')
-const NewReply = require('../../Domains/threads/entities/NewReply')
+const ThreadCommentRepliesRepository = require('../../../Domains/threads/ThreadCommentRepliesRepository')
+const ThreadCommentsRepository = require('../../../Domains/threads/ThreadCommentsRepository')
+const ThreadsRepository = require('../../../Domains/threads/ThreadsRepository')
+const AddedComment = require('../../../Domains/threads/entities/AddedComment')
+const NewReply = require('../../../Domains/threads/entities/NewReply')
 
 class AddReplyToCommentUsecase {
   /**

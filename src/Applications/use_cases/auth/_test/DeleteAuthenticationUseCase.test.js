@@ -1,14 +1,14 @@
-const AuthenticationRepository = require('../../../Domains/authentications/AuthenticationRepository')
-const LogoutUserUseCase = require('../LogoutUserUseCase')
+const AuthenticationRepository = require('../../../../Domains/authentications/AuthenticationRepository')
+const DeleteAuthenticationUseCase = require('../DeleteAuthenticationUseCase')
 
-describe('LogoutUserUseCase', () => {
+describe('DeleteAuthenticationUseCase', () => {
   it('should throw error if use case payload not contain refresh token', async () => {
     // Arrange
     const useCasePayload = {}
-    const logoutUserUseCase = new LogoutUserUseCase({})
+    const deleteAuthenticationUseCase = new DeleteAuthenticationUseCase({})
 
     // Action & Assert
-    await expect(logoutUserUseCase.execute(useCasePayload))
+    await expect(deleteAuthenticationUseCase.execute(useCasePayload))
       .rejects
       .toThrowError('DELETE_AUTHENTICATION_USE_CASE.NOT_CONTAIN_REFRESH_TOKEN')
   })
@@ -18,10 +18,10 @@ describe('LogoutUserUseCase', () => {
     const useCasePayload = {
       refreshToken: 123
     }
-    const logoutUserUseCase = new LogoutUserUseCase({})
+    const deleteAuthenticationUseCase = new DeleteAuthenticationUseCase({})
 
     // Action & Assert
-    await expect(logoutUserUseCase.execute(useCasePayload))
+    await expect(deleteAuthenticationUseCase.execute(useCasePayload))
       .rejects
       .toThrowError('DELETE_AUTHENTICATION_USE_CASE.PAYLOAD_NOT_MEET_DATA_TYPE_SPECIFICATION')
   })
@@ -37,12 +37,12 @@ describe('LogoutUserUseCase', () => {
     mockAuthenticationRepository.deleteToken = jest.fn()
       .mockImplementation(() => Promise.resolve())
 
-    const logoutUserUseCase = new LogoutUserUseCase({
+    const deleteAuthenticationUseCase = new DeleteAuthenticationUseCase({
       authenticationRepository: mockAuthenticationRepository
     })
 
     // Act
-    await logoutUserUseCase.execute(useCasePayload)
+    await deleteAuthenticationUseCase.execute(useCasePayload)
 
     // Assert
     expect(mockAuthenticationRepository.checkAvailabilityToken)

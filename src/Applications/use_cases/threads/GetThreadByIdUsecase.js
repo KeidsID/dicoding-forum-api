@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-const ThreadsRepository = require('../../Domains/threads/ThreadsRepository')
+const ThreadsRepository = require('../../../Domains/threads/ThreadsRepository')
 
 class GetThreadByIdUsecase {
   /**
