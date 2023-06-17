@@ -1,0 +1,38 @@
+# Add Reply To Thread Comment
+
+`POST /threads/{threadId}/comments/{commentId}/replies`
+
+Replying on existing thread comments.
+
+```yaml title="Path Params"
+threadId: thread-unique_id
+commentId: comment-unique_id
+```
+
+```yaml title="Headers"
+Authorization: Bearer {accessToken}
+Content-Type: application/json
+```
+
+```json title="Body"
+{
+  "content": "string"
+}
+```
+
+### Response
+
+<Success>201 Created</Success>
+
+```json title="Response Body"
+{
+  "status": "success",
+  "data": {
+    "addedReply": {
+      "id": "reply-LU0Pb7ANm9ItE7lWJkvpU",
+      "content": "sebuah balasan",
+      "owner": "user-RHtgDdcR7d0fOBQ1qPfRm"
+    }
+  }
+}
+```

@@ -13,11 +13,13 @@ const AuthenticationTokenManager = require('../Applications/security/Authenticat
 const PasswordHash = require('../Applications/security/PasswordHash')
 
 const AuthenticationRepository = require('../Domains/authentications/AuthenticationRepository')
+const ThreadCommentRepliesRepository = require('../Domains/threads/ThreadCommentRepliesRepository')
 const ThreadCommentsRepository = require('../Domains/threads/ThreadCommentsRepository')
 const ThreadsRepository = require('../Domains/threads/ThreadsRepository')
 const UserRepository = require('../Domains/users/UserRepository')
 
 const AuthenticationRepositoryPostgres = require('./repository/AuthenticationRepositoryPostgres')
+const ThreadCommentRepliesRepositoryPostgres = require('./repository/ThreadCommentRepliesRepositoryPostgres')
 const ThreadCommentsRepositoryPostgres = require('./repository/ThreadCommentsRepositoryPostgres')
 const ThreadsRepositoryPostgres = require('./repository/ThreadsRepositoryPostgres')
 const UserRepositoryPostgres = require('./repository/UserRepositoryPostgres')
@@ -41,6 +43,16 @@ const container = createContainer()
 
 // registering services and repository
 container.register([
+  {
+    key: ThreadCommentRepliesRepository.name,
+    Class: ThreadCommentRepliesRepositoryPostgres,
+    parameter: {
+      dependencies: [
+        { concrete: pool },
+        { concrete: nanoid }
+      ]
+    }
+  },
   {
     key: ThreadCommentsRepository.name,
     Class: ThreadCommentsRepositoryPostgres,

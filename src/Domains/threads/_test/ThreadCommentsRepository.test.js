@@ -17,5 +17,8 @@ describe('ThreadCommentsRepository', () => {
 
     await expect(threadCommentsRepo.getCommentsFromThread(''))
       .rejects.toThrowError('THREAD_COMMENTS_REPOSITORY.METHOD_NOT_IMPLEMENTED')
+
+    await expect(threadCommentsRepo.verifyCommentAccess('', ''))
+      .rejects.toThrowError('THREAD_COMMENTS_REPOSITORY.METHOD_NOT_IMPLEMENTED')
   })
 })

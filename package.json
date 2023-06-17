@@ -7,8 +7,7 @@
     "start": "node src/main.js",
     "start:dev": "nodemon src/main.js",
     "test": "jest --coverage --setupFiles dotenv/config -i",
-    "test:watch": "jest --watch --setupFiles dotenv/config -i",
-    "test:watchAll": "jest --watchAll --setupFiles dotenv/config -i",
+    "test:watch": "jest --watchAll --setupFiles dotenv/config -i",
     "pgm": "node-pg-migrate",
     "pgm:test": "node-pg-migrate -f config/db/test.json"
   },

@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 const ClientError = require('../../Common/exceptions/ClientError')
+const NotFoundError = require('../../Common/exceptions/NotFoundError')
 const AddedComment = require('./entities/AddedComment')
 const Comment = require('./entities/Comment')
 const NewComment = require('./entities/NewComment')
@@ -56,6 +57,19 @@ class ThreadCommentsRepository {
    * @return {Promise<Comment[]>} array of {id, username, date, content}
    */
   async getCommentsFromThread (threadId) {
+    throw new Error('THREAD_COMMENTS_REPOSITORY.METHOD_NOT_IMPLEMENTED')
+  }
+
+  /**
+   * Verify comment location.
+   *
+   * @param {string} commentId
+   * @param {string} threadId
+   *
+   * @throws `NotFoundError`
+   * @return {Promise<void>}
+   */
+  async verifyCommentLocation (commentId, threadId) {
     throw new Error('THREAD_COMMENTS_REPOSITORY.METHOD_NOT_IMPLEMENTED')
   }
 }
