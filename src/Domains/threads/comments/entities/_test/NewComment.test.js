@@ -26,9 +26,9 @@ describe('a NewComment entity', () => {
     }
 
     // Action
-    const { content } = new NewComment(payload)
+    const newComment = new NewComment(payload)
 
     // Assert
-    expect(content).toEqual(payload.content)
+    expect(newComment.content).toEqual(payload.content)
   })
 })

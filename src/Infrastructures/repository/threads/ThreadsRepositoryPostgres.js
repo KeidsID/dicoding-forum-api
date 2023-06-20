@@ -2,10 +2,10 @@
 const { Pool } = require('pg')
 const { nanoid } = require('nanoid')
 
-const ThreadsRepository = require('../../Domains/threads/ThreadsRepository')
-const AddedThread = require('../../Domains/threads/entities/AddedThread')
-const Thread = require('../../Domains/threads/entities/Thread')
-const NotFoundError = require('../../Common/exceptions/NotFoundError')
+const ThreadsRepository = require('../../../Domains/threads/ThreadsRepository')
+const AddedThread = require('../../../Domains/threads/entities/AddedThread')
+const Thread = require('../../../Domains/threads/entities/Thread')
+const NotFoundError = require('../../../Common/exceptions/NotFoundError')
 
 class ThreadsRepositoryPostgres extends ThreadsRepository {
   /**

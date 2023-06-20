@@ -10,7 +10,8 @@ describe('GetCommentsFromThreadUsecase', () => {
       id: 'comment-123',
       username: 'dicoding',
       date: new Date('2023-06-17T15:10:13.956Z'),
-      content: 'A comment'
+      content: 'A comment',
+      isDeleted: false
     })
 
     const mockThreadCommentsRepo = new ThreadCommentsRepository()
@@ -26,12 +27,12 @@ describe('GetCommentsFromThreadUsecase', () => {
     const comments = await usecase.execute('thread-123')
 
     // Assert
-    expect(comments).toStrictEqual([new Comment({
+    expect(comments).toEqual([{
       id: 'comment-123',
       username: 'dicoding',
       date: new Date('2023-06-17T15:10:13.956Z'),
       content: 'A comment'
-    })])
+    }])
 
     expect(mockThreadCommentsRepo.getCommentsFromThread).toBeCalledWith('thread-123')
   })

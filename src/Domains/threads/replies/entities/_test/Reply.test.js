@@ -1,43 +1,62 @@
 const Reply = require('../Reply')
 
 describe('a Reply entity', () => {
-  it('should throw error when payload did not contain needed property', () => {
-    // Arrange
-    const payload = {}
-
-    // Action and Assert
-    expect(() => new Reply(payload)).toThrowError('COMMENT.NOT_CONTAIN_NEEDED_PROPERTY')
+  it('should throw error when args did not contain needed property', () => {
+    // AAA
+    expect(() => new Reply({})).toThrowError('COMMENT.NOT_CONTAIN_NEEDED_PROPERTY')
   })
 
-  it('should throw error when payload did not meet data type specification', () => {
+  it('should throw error when args did not meet data type specification', () => {
     // Arrange
-    const payload = {
-      id: 'comment-123',
+    const args = {
+      id: 'reply-123',
       username: 'dicoding',
       date: Date.now(),
-      content: 'A comment'
+      content: 'A reply',
+      isDeleted: false
     }
 
     // Action and Assert
-    expect(() => new Reply(payload)).toThrowError('COMMENT.NOT_MEET_DATA_TYPE_SPECIFICATION')
+    expect(() => new Reply(args)).toThrowError('COMMENT.NOT_MEET_DATA_TYPE_SPECIFICATION')
   })
 
   it('should create Reply object correctly', () => {
     // Arrange
-    const payload = {
-      id: 'comment-123',
+    const args = {
+      id: 'reply-123',
       username: 'dicoding',
       date: new Date(),
-      content: 'A comment'
+      content: 'A reply',
+      isDeleted: false
     }
 
     // Action
-    const { id, username, date, content } = new Reply(payload)
+    const reply = new Reply(args)
 
     // Assert
-    expect(id).toEqual(payload.id)
-    expect(username).toEqual(payload.username)
-    expect(date).toEqual(payload.date)
-    expect(content).toEqual(payload.content)
+    expect(reply.id).toStrictEqual(args.id)
+    expect(reply.username).toStrictEqual(args.username)
+    expect(reply.date).toStrictEqual(args.date)
+    expect(reply.content).toStrictEqual(args.content)
+  })
+
+  it('should create Reply object correctly with modified content when isDeleted argument is true', () => {
+    // Arrange
+    const args = {
+      id: 'reply-123',
+      username: 'dicoding',
+      date: new Date(),
+      content: 'A reply',
+      isDeleted: true
+    }
+
+    // Action
+    const reply = new Reply(args)
+
+    // Assert
+    expect(reply.id).toStrictEqual(args.id)
+    expect(reply.username).toStrictEqual(args.username)
+    expect(reply.date).toStrictEqual(args.date)
+    expect(reply.content).toStrictEqual('**balasan telah dihapus**')
   })
 })

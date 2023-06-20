@@ -20,15 +20,7 @@ const createServer = async (container) => {
   server.route([{
     method: 'GET',
     path: '/',
-    handler: (req, h) => {
-      const response = h.response({
-        status: '301 Moved Permanently',
-        message: `Redirecting to ${docsUrl}`
-      }).redirect(docsUrl)
-      response.code(301)
-
-      return response
-    }
+    handler: (req, h) => h.response().redirect(docsUrl).permanent(true)
   }])
 
   // external plugins
@@ -70,7 +62,7 @@ const createServer = async (container) => {
     }
   ])
 
-  server.ext('onPreResponse', (request, h) => {
+  server.ext('onPreResponse', async (request, h) => {
     // mendapatkan konteks response dari request
     const { response } = request
 

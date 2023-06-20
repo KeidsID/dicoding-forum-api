@@ -2,13 +2,13 @@
 const { Pool } = require('pg')
 const { nanoid } = require('nanoid')
 
-const AuthorizationError = require('../../Common/exceptions/AuthorizationError')
-const NotFoundError = require('../../Common/exceptions/NotFoundError')
+const AuthorizationError = require('../../../Common/exceptions/AuthorizationError')
+const NotFoundError = require('../../../Common/exceptions/NotFoundError')
 
-const ThreadCommentsRepository = require('../../Domains/threads/comments/ThreadCommentsRepository')
+const ThreadCommentsRepository = require('../../../Domains/threads/comments/ThreadCommentsRepository')
 
-const AddedComment = require('../../Domains/threads/comments/entities/AddedComment')
-const Comment = require('../../Domains/threads/comments/entities/Comment')
+const AddedComment = require('../../../Domains/threads/comments/entities/AddedComment')
+const Comment = require('../../../Domains/threads/comments/entities/Comment')
 
 class ThreadCommentsRepositoryPostgres extends ThreadCommentsRepository {
   /**
@@ -68,8 +68,9 @@ class ThreadCommentsRepositoryPostgres extends ThreadCommentsRepository {
     const query = {
       text: `
         SELECT 
-          thread_comments.id, users.username, thread_comments.date, 
-          thread_comments.content, thread_comments.is_deleted
+          thread_comments.id, users.username, 
+          thread_comments.date, thread_comments.content, 
+          thread_comments.is_deleted AS "isDeleted"
         FROM thread_comments 
         LEFT JOIN users ON thread_comments.owner = users.id
         WHERE thread_id = $1
@@ -82,17 +83,7 @@ class ThreadCommentsRepositoryPostgres extends ThreadCommentsRepository {
 
     if (!rowCount) return []
 
-    const comments = rows.map((val, index, arr) => {
-      if (val.is_deleted) {
-        val.content = '**komentar telah dihapus**'
-      }
-
-      delete val.is_deleted
-
-      return new Comment({ ...val })
-    })
-
-    return comments
+    return rows.map((val) => new Comment(val))
   }
 
   async verifyCommentLocation (commentId, threadId) {

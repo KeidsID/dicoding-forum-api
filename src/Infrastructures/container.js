@@ -19,11 +19,12 @@ const ThreadsRepository = require('../Domains/threads/ThreadsRepository')
 const ThreadCommentsRepository = require('../Domains/threads/comments/ThreadCommentsRepository')
 const ThreadCommentRepliesRepository = require('../Domains/threads/replies/ThreadCommentRepliesRepository')
 
-const AuthenticationRepositoryPostgres = require('./repository/AuthenticationRepositoryPostgres')
-const ThreadCommentRepliesRepositoryPostgres = require('./repository/ThreadCommentRepliesRepositoryPostgres')
-const ThreadCommentsRepositoryPostgres = require('./repository/ThreadCommentsRepositoryPostgres')
-const ThreadsRepositoryPostgres = require('./repository/ThreadsRepositoryPostgres')
-const UserRepositoryPostgres = require('./repository/UserRepositoryPostgres')
+const AuthenticationRepositoryPostgres = require('./repository/auth/AuthenticationRepositoryPostgres')
+const UserRepositoryPostgres = require('./repository/auth/UserRepositoryPostgres')
+
+const ThreadsRepositoryPostgres = require('./repository/threads/ThreadsRepositoryPostgres')
+const ThreadCommentsRepositoryPostgres = require('./repository/threads/ThreadCommentsRepositoryPostgres')
+const ThreadCommentRepliesRepositoryPostgres = require('./repository/threads/ThreadCommentRepliesRepositoryPostgres')
 
 const BcryptPasswordHash = require('./security/BcryptPasswordHash')
 const JwtTokenManager = require('./security/JwtTokenManager')

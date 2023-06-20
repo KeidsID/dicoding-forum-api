@@ -2,13 +2,13 @@
 const { Pool } = require('pg')
 const { nanoid } = require('nanoid')
 
-const AuthorizationError = require('../../Common/exceptions/AuthorizationError')
-const NotFoundError = require('../../Common/exceptions/NotFoundError')
+const AuthorizationError = require('../../../Common/exceptions/AuthorizationError')
+const NotFoundError = require('../../../Common/exceptions/NotFoundError')
 
-const ThreadCommentRepliesRepository = require('../../Domains/threads/replies/ThreadCommentRepliesRepository')
+const ThreadCommentRepliesRepository = require('../../../Domains/threads/replies/ThreadCommentRepliesRepository')
 
-const AddedReply = require('../../Domains/threads/replies/entities/AddedReply')
-const Reply = require('../../Domains/threads/replies/entities/Reply')
+const AddedReply = require('../../../Domains/threads/replies/entities/AddedReply')
+const Reply = require('../../../Domains/threads/replies/entities/Reply')
 
 class ThreadCommentRepliesRepositoryPostgres extends ThreadCommentRepliesRepository {
   /**
@@ -72,7 +72,7 @@ class ThreadCommentRepliesRepositoryPostgres extends ThreadCommentRepliesReposit
           users.username, 
           thread_comment_replies.date, 
           thread_comment_replies.content, 
-          thread_comment_replies.is_deleted
+          thread_comment_replies.is_deleted AS "isDeleted"
         FROM thread_comment_replies 
         LEFT JOIN users 
           ON thread_comment_replies.owner = users.id
@@ -87,17 +87,7 @@ class ThreadCommentRepliesRepositoryPostgres extends ThreadCommentRepliesReposit
 
     if (!rowCount) return []
 
-    const replies = rows.map((val, index, arr) => {
-      if (val.is_deleted) {
-        val.content = '**balasan telah dihapus**'
-      }
-
-      delete val.is_deleted
-
-      return new Reply({ ...val })
-    })
-
-    return replies
+    return rows.map((val) => new Reply(val))
   }
 }
 

@@ -1,11 +1,11 @@
-const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper')
-const ThreadsTableTestHelper = require('../../../../tests/ThreadsTableTestHelper')
+const UsersTableTestHelper = require('../../../../../tests/UsersTableTestHelper')
+const ThreadsTableTestHelper = require('../../../../../tests/ThreadsTableTestHelper')
 
-const pool = require('../../database/postgres/pool')
-const NewThread = require('../../../Domains/threads/entities/NewThread')
-const AddedThread = require('../../../Domains/threads/entities/AddedThread')
+const pool = require('../../../database/postgres/pool')
+const NewThread = require('../../../../Domains/threads/entities/NewThread')
+const AddedThread = require('../../../../Domains/threads/entities/AddedThread')
 const ThreadsRepositoryPostgres = require('../ThreadsRepositoryPostgres')
-const NotFoundError = require('../../../Common/exceptions/NotFoundError')
+const NotFoundError = require('../../../../Common/exceptions/NotFoundError')
 
 describe('ThreadsRepositoryPostgres', () => {
   afterEach(async () => {

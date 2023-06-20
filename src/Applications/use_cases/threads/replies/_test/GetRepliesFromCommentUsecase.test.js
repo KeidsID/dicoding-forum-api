@@ -10,7 +10,8 @@ describe('GetRepliesFromCommentUsecase', () => {
       id: 'reply-123',
       username: 'dicoding',
       date: new Date('2023-06-17T15:10:13.956Z'),
-      content: 'A reply'
+      content: 'A reply',
+      isDeleted: false
     })
 
     const mockThreadCommentRepliesRepository = new ThreadCommentRepliesRepository()
@@ -26,12 +27,12 @@ describe('GetRepliesFromCommentUsecase', () => {
     const replies = await usecase.execute('comment-123')
 
     // Assert
-    expect(replies).toStrictEqual([new Reply({
+    expect(replies).toEqual([{
       id: 'reply-123',
       username: 'dicoding',
       date: new Date('2023-06-17T15:10:13.956Z'),
       content: 'A reply'
-    })])
+    }])
 
     expect(mockThreadCommentRepliesRepository.getRepliesFromComment).toBeCalledWith('comment-123')
   })

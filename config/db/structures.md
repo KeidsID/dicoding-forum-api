@@ -6,6 +6,7 @@ This file will define the tables structure on this database server.
 - [authentications](#authentications)
 - [threads](#threads)
 - [thread_comment](#thread_comment)
+- [thread_comment_replies](#thread_comment_replies)
 
 ## users
 

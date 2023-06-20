@@ -26,9 +26,9 @@ describe('a NewReply entity', () => {
     }
 
     // Action
-    const { content } = new NewReply(payload)
+    const newReply = new NewReply(payload)
 
     // Assert
-    expect(content).toEqual(payload.content)
+    expect(newReply.content).toStrictEqual(payload.content)
   })
 })

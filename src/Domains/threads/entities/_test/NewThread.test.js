@@ -30,10 +30,10 @@ describe('a NewThread entity', () => {
     }
 
     // Action
-    const { title, body } = new NewThread(payload)
+    const newThread = new NewThread(payload)
 
     // Assert
-    expect(title).toEqual(payload.title)
-    expect(body).toEqual(payload.body)
+    expect(newThread.title).toStrictEqual(payload.title)
+    expect(newThread.body).toStrictEqual(payload.body)
   })
 })

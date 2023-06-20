@@ -46,17 +46,13 @@ describe('HTTP server', () => {
 
     // Action
     const response = await server.inject({
-      method: 'GET',
-      url: '/'
+      method: 'GET', url: '/'
     })
 
     // Assert
     const resHeaders = response.headers
-    const resPayload = JSON.parse(response.payload)
 
     expect(response.statusCode).toEqual(301)
     expect(resHeaders.location).toEqual(docsUrl)
-    expect(resPayload.status).toStrictEqual('301 Moved Permanently')
-    expect(resPayload.message).toStrictEqual(`Redirecting to ${docsUrl}`)
   })
 })

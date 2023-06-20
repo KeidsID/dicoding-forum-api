@@ -30,11 +30,11 @@ describe('a AddedReply entities', () => {
     }
 
     // Action
-    const { id, content, owner } = new AddedReply(payload)
+    const addedReply = new AddedReply(payload)
 
     // Assert
-    expect(id).toEqual(payload.id)
-    expect(content).toEqual(payload.content)
-    expect(owner).toEqual(payload.owner)
+    expect(addedReply.id).toStrictEqual(payload.id)
+    expect(addedReply.content).toStrictEqual(payload.content)
+    expect(addedReply.owner).toStrictEqual(payload.owner)
   })
 })

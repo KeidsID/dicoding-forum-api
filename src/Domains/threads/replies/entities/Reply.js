@@ -1,28 +1,30 @@
 class Reply {
   /**
-   * @param {object} props
-   * @param {string} props.id
-   * @param {string} props.username
-   * @param {Date} props.date
-   * @param {string} props.content
+   * @param {object} args
+   * @param {string} args.id
+   * @param {string} args.username
+   * @param {Date} args.date
+   * @param {string} args.content
+   * @param {boolean} args.isDeleted
    */
-  constructor (props) {
-    this.#verifyProps(props)
+  constructor (args) {
+    this.#verifyArgs(args)
 
-    this.id = props.id
-    this.username = props.username
-    this.date = props.date
-    this.content = props.content
+    this.id = args.id
+    this.username = args.username
+    this.date = args.date
+    this.content = (args.isDeleted) ? '**balasan telah dihapus**' : args.content
   }
 
-  #verifyProps ({ id, username, date, content }) {
-    if (!id || !username || !date || !content) {
+  #verifyArgs ({ id, username, date, content, isDeleted }) {
+    if (!id || !username || !date || !content || typeof isDeleted === 'undefined') {
       throw new Error('COMMENT.NOT_CONTAIN_NEEDED_PROPERTY')
     }
 
     if (
       typeof id !== 'string' || typeof username !== 'string' ||
-      !(date instanceof Date) || typeof content !== 'string'
+      !(date instanceof Date) || typeof content !== 'string' ||
+      typeof isDeleted !== 'boolean'
     ) {
       throw new Error('COMMENT.NOT_MEET_DATA_TYPE_SPECIFICATION')
     }

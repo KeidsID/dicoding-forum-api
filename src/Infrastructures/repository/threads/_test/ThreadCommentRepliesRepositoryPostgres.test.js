@@ -1,18 +1,18 @@
-const pool = require('../../database/postgres/pool')
+const pool = require('../../../database/postgres/pool')
 
-const AuthorizationError = require('../../../Common/exceptions/AuthorizationError')
-const NotFoundError = require('../../../Common/exceptions/NotFoundError')
+const AuthorizationError = require('../../../../Common/exceptions/AuthorizationError')
+const NotFoundError = require('../../../../Common/exceptions/NotFoundError')
 
 const ThreadCommentRepliesRepositoryPostgres = require('../ThreadCommentRepliesRepositoryPostgres')
 
-const AddedReply = require('../../../Domains/threads/replies/entities/AddedReply')
-const NewReply = require('../../../Domains/threads/replies/entities/NewReply')
+const AddedReply = require('../../../../Domains/threads/replies/entities/AddedReply')
+const NewReply = require('../../../../Domains/threads/replies/entities/NewReply')
 
-const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper')
+const UsersTableTestHelper = require('../../../../../tests/UsersTableTestHelper')
 
-const ThreadsTableTestHelper = require('../../../../tests/ThreadsTableTestHelper')
-const ThreadCommentsTableTestHelper = require('../../../../tests/ThreadCommentsTableTestHelper')
-const ThreadCommentRepliesTableTestHelper = require('../../../../tests/ThreadCommentRepliesTableTestHelper')
+const ThreadsTableTestHelper = require('../../../../../tests/ThreadsTableTestHelper')
+const ThreadCommentsTableTestHelper = require('../../../../../tests/ThreadCommentsTableTestHelper')
+const ThreadCommentRepliesTableTestHelper = require('../../../../../tests/ThreadCommentRepliesTableTestHelper')
 
 describe('ThreadCommentRepliesRepositoryPostgres', () => {
   const dummyUser = {
