@@ -1,5 +1,5 @@
-const ThreadCommentsRepository = require('../../../../Domains/threads/ThreadCommentsRepository')
-const Comment = require('../../../../Domains/threads/entities/Comment')
+const ThreadCommentsRepository = require('../../../../../Domains/threads/comments/ThreadCommentsRepository')
+const Comment = require('../../../../../Domains/threads/comments/entities/Comment')
 
 const GetCommentsFromThreadUsecase = require('../GetCommentsFromThreadUsecase')
 
@@ -9,7 +9,7 @@ describe('GetCommentsFromThreadUsecase', () => {
     const mockComment = new Comment({
       id: 'comment-123',
       username: 'dicoding',
-      date: new Date(),
+      date: new Date('2023-06-17T15:10:13.956Z'),
       content: 'A comment'
     })
 
@@ -26,7 +26,12 @@ describe('GetCommentsFromThreadUsecase', () => {
     const comments = await usecase.execute('thread-123')
 
     // Assert
-    expect(comments).toStrictEqual([mockComment])
+    expect(comments).toStrictEqual([new Comment({
+      id: 'comment-123',
+      username: 'dicoding',
+      date: new Date('2023-06-17T15:10:13.956Z'),
+      content: 'A comment'
+    })])
 
     expect(mockThreadCommentsRepo.getCommentsFromThread).toBeCalledWith('thread-123')
   })

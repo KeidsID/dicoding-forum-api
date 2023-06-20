@@ -2,11 +2,13 @@
 const { Pool } = require('pg')
 const { nanoid } = require('nanoid')
 
-const ThreadCommentsRepository = require('../../Domains/threads/ThreadCommentsRepository')
-const AddedComment = require('../../Domains/threads/entities/AddedComment')
-const NotFoundError = require('../../Common/exceptions/NotFoundError')
 const AuthorizationError = require('../../Common/exceptions/AuthorizationError')
-const Comment = require('../../Domains/threads/entities/Comment')
+const NotFoundError = require('../../Common/exceptions/NotFoundError')
+
+const ThreadCommentsRepository = require('../../Domains/threads/comments/ThreadCommentsRepository')
+
+const AddedComment = require('../../Domains/threads/comments/entities/AddedComment')
+const Comment = require('../../Domains/threads/comments/entities/Comment')
 
 class ThreadCommentsRepositoryPostgres extends ThreadCommentsRepository {
   /**

@@ -1,27 +1,18 @@
-const ThreadCommentsRepository = require('../../../../Domains/threads/ThreadCommentsRepository')
-const ThreadsRepository = require('../../../../Domains/threads/ThreadsRepository')
-const Thread = require('../../../../Domains/threads/entities/Thread')
+const ThreadCommentsRepository = require('../../../../../Domains/threads/comments/ThreadCommentsRepository')
+const ThreadsRepository = require('../../../../../Domains/threads/ThreadsRepository')
 
 const SoftDeleteCommentUsecase = require('../SoftDeleteCommentUsecase')
 
 describe('SoftDeleteCommentUsecase', () => {
   it('should orchestracting the delete comment action correctly', async () => {
     // Arrange
-    const mockThread = new Thread({
-      id: 'thread-123',
-      title: 'A thread',
-      body: 'A thread body',
-      date: new Date(),
-      username: 'dicoding'
-    })
-
     const mockThreadCommentsRepo = new ThreadCommentsRepository()
     const mockThreadsRepo = new ThreadsRepository()
 
     mockThreadCommentsRepo.softDeleteCommentById = jest.fn()
       .mockImplementation(() => Promise.resolve())
     mockThreadsRepo.getThreadById = jest.fn()
-      .mockImplementation(() => Promise.resolve(mockThread))
+      .mockImplementation(() => Promise.resolve())
 
     const usecase = new SoftDeleteCommentUsecase({
       threadCommentsRepository: mockThreadCommentsRepo,

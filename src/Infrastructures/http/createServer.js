@@ -15,6 +15,22 @@ const createServer = async (container) => {
     port: Configs.server.port
   })
 
+  const docsUrl = 'https://docs.page/KeidsID/dicoding-forum-api'
+
+  server.route([{
+    method: 'GET',
+    path: '/',
+    handler: (req, h) => {
+      const response = h.response({
+        status: '301 Moved Permanently',
+        message: `Redirecting to ${docsUrl}`
+      }).redirect(docsUrl)
+      response.code(301)
+
+      return response
+    }
+  }])
+
   // external plugins
   await server.register([
     { plugin: Jwt }

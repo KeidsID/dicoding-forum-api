@@ -15,6 +15,7 @@
     "start:dev": "nodemon src/main.js",
     "test": "jest --coverage --setupFiles dotenv/config -i",
     "test:watch": "jest --watchAll --setupFiles dotenv/config -i",
+    "lint": "eslint ./src",
     "pgm": "node-pg-migrate",
     "pgm:test": "node-pg-migrate -f config/db/test.json"
   },

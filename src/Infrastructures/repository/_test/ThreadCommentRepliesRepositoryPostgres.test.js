@@ -1,14 +1,18 @@
+const pool = require('../../database/postgres/pool')
+
 const AuthorizationError = require('../../../Common/exceptions/AuthorizationError')
 const NotFoundError = require('../../../Common/exceptions/NotFoundError')
-const AddedComment = require('../../../Domains/threads/entities/AddedComment')
-const NewReply = require('../../../Domains/threads/entities/NewReply')
-const pool = require('../../database/postgres/pool')
+
 const ThreadCommentRepliesRepositoryPostgres = require('../ThreadCommentRepliesRepositoryPostgres')
 
-const ThreadCommentRepliesTableTestHelper = require('../../../../tests/ThreadCommentRepliesTableTestHelper')
-const ThreadCommentsTableTestHelper = require('../../../../tests/ThreadCommentsTableTestHelper')
-const ThreadsTableTestHelper = require('../../../../tests/ThreadsTableTestHelper')
+const AddedReply = require('../../../Domains/threads/replies/entities/AddedReply')
+const NewReply = require('../../../Domains/threads/replies/entities/NewReply')
+
 const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper')
+
+const ThreadsTableTestHelper = require('../../../../tests/ThreadsTableTestHelper')
+const ThreadCommentsTableTestHelper = require('../../../../tests/ThreadCommentsTableTestHelper')
+const ThreadCommentRepliesTableTestHelper = require('../../../../tests/ThreadCommentRepliesTableTestHelper')
 
 describe('ThreadCommentRepliesRepositoryPostgres', () => {
   const dummyUser = {
@@ -65,7 +69,7 @@ describe('ThreadCommentRepliesRepositoryPostgres', () => {
       expect(comments).toHaveLength(1)
     })
 
-    it('should return AddedComment correctly', async () => {
+    it('should return AddedReply correctly', async () => {
       // Arrange
       const newReply = new NewReply({ content: 'A reply' })
       const fakeIdGen = () => '123'
@@ -76,7 +80,7 @@ describe('ThreadCommentRepliesRepositoryPostgres', () => {
       const addedReply = await repo.addReplyToComment(dummyComment.id, newReply, dummyUser.id)
 
       // Assert
-      expect(addedReply).toStrictEqual(new AddedComment({
+      expect(addedReply).toStrictEqual(new AddedReply({
         id: 'reply-123',
         content: newReply.content,
         owner: dummyUser.id

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-const ClientError = require('../../Common/exceptions/ClientError')
-const AddedComment = require('./entities/AddedComment')
-const Comment = require('./entities/Comment')
+const ClientError = require('../../../Common/exceptions/ClientError')
+const AddedReply = require('./entities/AddedReply')
+const Reply = require('./entities/Reply')
 const NewReply = require('./entities/NewReply')
 
 class ThreadCommentRepliesRepository {
@@ -12,7 +12,7 @@ class ThreadCommentRepliesRepository {
    * @param {NewReply} newReply - { content }
    * @param {string} owner - user id
    *
-   * @return {Promise<AddedComment>} { id, content, owner }
+   * @return {Promise<AddedReply>} { id, content, owner }
    */
   async addReplyToComment (commentId, newReply, owner) {
     throw new Error('THREAD_COMMENT_REPLIES_REPOSITORY.METHOD_NOT_IMPLEMENTED')
@@ -53,7 +53,7 @@ class ThreadCommentRepliesRepository {
    *
    * @param {string} commentId
    *
-   * @return {Promise<Comment[]>} array of {id, username, date, content}
+   * @return {Promise<Reply[]>} array of {id, username, date, content}
    */
   async getRepliesFromComment (commentId) {
     throw new Error('THREAD_COMMENT_REPLIES_REPOSITORY.METHOD_NOT_IMPLEMENTED')

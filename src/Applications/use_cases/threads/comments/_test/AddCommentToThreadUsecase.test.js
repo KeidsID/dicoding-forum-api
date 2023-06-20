@@ -1,8 +1,8 @@
-const AddedComment = require('../../../../Domains/threads/entities/AddedComment')
-const NewComment = require('../../../../Domains/threads/entities/NewComment')
-const Thread = require('../../../../Domains/threads/entities/Thread')
-const ThreadCommentsRepository = require('../../../../Domains/threads/ThreadCommentsRepository')
-const ThreadsRepository = require('../../../../Domains/threads/ThreadsRepository')
+const ThreadsRepository = require('../../../../../Domains/threads/ThreadsRepository')
+
+const AddedComment = require('../../../../../Domains/threads/comments/entities/AddedComment')
+const NewComment = require('../../../../../Domains/threads/comments/entities/NewComment')
+const ThreadCommentsRepository = require('../../../../../Domains/threads/comments/ThreadCommentsRepository')
 
 const AddCommentToThreadUsecase = require('../AddCommentToThreadUsecase')
 
@@ -19,13 +19,6 @@ describe('AddCommentToThreadUsecase', () => {
       content: payload.content,
       owner
     })
-    const mockThread = new Thread({
-      id: 'thread-123',
-      title: 'A thread',
-      body: 'A thread body',
-      date: new Date(),
-      username: 'dicoding'
-    })
 
     const mockThreadCommentsRepo = new ThreadCommentsRepository()
     const mockThreadsRepo = new ThreadsRepository()
@@ -33,7 +26,7 @@ describe('AddCommentToThreadUsecase', () => {
     mockThreadCommentsRepo.addCommentToThread = jest.fn()
       .mockImplementation(() => Promise.resolve(mockAddedComment))
     mockThreadsRepo.getThreadById = jest.fn()
-      .mockImplementation(() => Promise.resolve(mockThread))
+      .mockImplementation(() => Promise.resolve())
 
     const addCommentToThreadUsecase = new AddCommentToThreadUsecase({
       threadCommentsRepository: mockThreadCommentsRepo,
@@ -44,15 +37,13 @@ describe('AddCommentToThreadUsecase', () => {
     const addedComment = await addCommentToThreadUsecase.execute('thread-123', payload, owner)
 
     // Assert
-    expect(addedComment).toStrictEqual(mockAddedComment)
+    expect(addedComment).toStrictEqual(new AddedComment({
+      id: 'comment-123', content: 'A comment', owner
+    }))
 
-    expect(mockThreadsRepo.getThreadById).toBeCalledWith(
-      'thread-123'
-    )
+    expect(mockThreadsRepo.getThreadById).toBeCalledWith('thread-123')
     expect(mockThreadCommentsRepo.addCommentToThread).toBeCalledWith(
-      'thread-123',
-      new NewComment(payload),
-      owner
+      'thread-123', new NewComment(payload), owner
     )
   })
 })

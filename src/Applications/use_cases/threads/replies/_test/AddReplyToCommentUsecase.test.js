@@ -1,9 +1,8 @@
-const AddedComment = require('../../../../Domains/threads/entities/AddedComment')
-const NewReply = require('../../../../Domains/threads/entities/NewReply')
-const Thread = require('../../../../Domains/threads/entities/Thread')
-const ThreadCommentRepliesRepository = require('../../../../Domains/threads/ThreadCommentRepliesRepository')
-const ThreadCommentsRepository = require('../../../../Domains/threads/ThreadCommentsRepository')
-const ThreadsRepository = require('../../../../Domains/threads/ThreadsRepository')
+const ThreadsRepository = require('../../../../../Domains/threads/ThreadsRepository')
+const ThreadCommentsRepository = require('../../../../../Domains/threads/comments/ThreadCommentsRepository')
+const ThreadCommentRepliesRepository = require('../../../../../Domains/threads/replies/ThreadCommentRepliesRepository')
+const AddedReply = require('../../../../../Domains/threads/replies/entities/AddedReply')
+const NewReply = require('../../../../../Domains/threads/replies/entities/NewReply')
 
 const AddReplyToCommentUsecase = require('../AddReplyToCommentUsecase')
 
@@ -15,17 +14,10 @@ describe('AddReplyToCommentUsecase', () => {
     }
     const owner = 'user-123'
 
-    const mockAddedReply = new AddedComment({
+    const mockAddedReply = new AddedReply({
       id: 'reply-123',
       content: payload.content,
       owner
-    })
-    const mockThread = new Thread({
-      id: 'thread-123',
-      title: 'A thread',
-      body: 'A thread body',
-      date: new Date(),
-      username: 'dicoding'
     })
 
     const mockThreadCommentRepliesRepo = new ThreadCommentRepliesRepository()
@@ -37,7 +29,7 @@ describe('AddReplyToCommentUsecase', () => {
     mockThreadCommentsRepo.verifyCommentLocation = jest.fn()
       .mockImplementation(() => Promise.resolve())
     mockThreadsRepo.getThreadById = jest.fn()
-      .mockImplementation(() => Promise.resolve(mockThread))
+      .mockImplementation(() => Promise.resolve())
 
     const addCommentToThreadUsecase = new AddReplyToCommentUsecase({
       threadCommentRepliesRepository: mockThreadCommentRepliesRepo,
@@ -47,16 +39,17 @@ describe('AddReplyToCommentUsecase', () => {
 
     // Action
     const addedReply = await addCommentToThreadUsecase.execute(
-      mockThread.id, 'comment-123',
-      payload, owner
+      'thread-123', 'comment-123', payload, owner
     )
 
     // Assert
-    expect(addedReply).toStrictEqual(mockAddedReply)
+    expect(addedReply).toStrictEqual(new AddedReply({
+      id: 'reply-123', content: payload.content, owner
+    }))
 
-    expect(mockThreadsRepo.getThreadById).toBeCalledWith(mockThread.id)
+    expect(mockThreadsRepo.getThreadById).toBeCalledWith('thread-123')
     expect(mockThreadCommentsRepo.verifyCommentLocation).toBeCalledWith(
-      'comment-123', mockThread.id
+      'comment-123', 'thread-123'
     )
     expect(mockThreadCommentRepliesRepo.addReplyToComment).toBeCalledWith(
       'comment-123', new NewReply(payload), owner

@@ -1,21 +1,12 @@
-const ThreadCommentRepliesRepository = require('../../../../Domains/threads/ThreadCommentRepliesRepository')
-const ThreadCommentsRepository = require('../../../../Domains/threads/ThreadCommentsRepository')
-const ThreadsRepository = require('../../../../Domains/threads/ThreadsRepository')
-const Thread = require('../../../../Domains/threads/entities/Thread')
+const ThreadsRepository = require('../../../../../Domains/threads/ThreadsRepository')
+const ThreadCommentsRepository = require('../../../../../Domains/threads/comments/ThreadCommentsRepository')
+const ThreadCommentRepliesRepository = require('../../../../../Domains/threads/replies/ThreadCommentRepliesRepository')
 
 const SoftDeleteReplyUsecase = require('../SoftDeleteReplyUsecase')
 
 describe('SoftDeleteReplyUsecase', () => {
   it('should orchestracting the delete reply action correctly', async () => {
     // Arrange
-    const mockThread = new Thread({
-      id: 'thread-123',
-      title: 'A thread',
-      body: 'A thread body',
-      date: new Date(),
-      username: 'dicoding'
-    })
-
     const mockThreadCommentRepliesRepo = new ThreadCommentRepliesRepository()
     const mockThreadCommentsRepo = new ThreadCommentsRepository()
     const mockThreadsRepo = new ThreadsRepository()
@@ -25,7 +16,7 @@ describe('SoftDeleteReplyUsecase', () => {
     mockThreadCommentsRepo.verifyCommentLocation = jest.fn()
       .mockImplementation(() => Promise.resolve())
     mockThreadsRepo.getThreadById = jest.fn()
-      .mockImplementation(() => Promise.resolve(mockThread))
+      .mockImplementation(() => Promise.resolve())
 
     const usecase = new SoftDeleteReplyUsecase({
       threadCommentRepliesRepository: mockThreadCommentRepliesRepo,
@@ -39,7 +30,7 @@ describe('SoftDeleteReplyUsecase', () => {
     // Assert
     expect(mockThreadsRepo.getThreadById).toBeCalledWith('thread-123')
     expect(mockThreadCommentsRepo.verifyCommentLocation).toBeCalledWith(
-      'comment-123', mockThread.id
+      'comment-123', 'thread-123'
     )
     expect(mockThreadCommentRepliesRepo.softDeleteReply).toBeCalledWith(
       'reply-123', 'user-123'

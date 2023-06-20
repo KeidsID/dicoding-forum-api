@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-const ThreadCommentsRepository = require('../../../Domains/threads/ThreadCommentsRepository')
-const Comment = require('../../../Domains/threads/entities/Comment')
+const ThreadCommentsRepository = require('../../../../Domains/threads/comments/ThreadCommentsRepository')
+const Comment = require('../../../../Domains/threads/comments/entities/Comment')
 
 class GetCommentsFromThreadUsecase {
   /**

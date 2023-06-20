@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-const ThreadCommentRepliesRepository = require('../../../Domains/threads/ThreadCommentRepliesRepository')
-const Comment = require('../../../Domains/threads/entities/Comment')
+const ThreadCommentRepliesRepository = require('../../../../Domains/threads/replies/ThreadCommentRepliesRepository')
+const Reply = require('../../../../Domains/threads/replies/entities/Reply')
 
 class GetRepliesFromThreadUsecase {
   /**
@@ -18,7 +18,7 @@ class GetRepliesFromThreadUsecase {
    *
    * @param {string} commentId
    *
-   * @return {Promise<Comment[]>} `{id, username, date, content}[]`
+   * @return {Promise<Reply[]>} `{id, username, date, content}[]`
    */
   async execute (commentId) {
     return this.#threadCommentRepliesRepository.getRepliesFromComment(commentId)

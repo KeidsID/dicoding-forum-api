@@ -1,13 +1,14 @@
+const pool = require('../../database/postgres/pool')
 const AuthorizationError = require('../../../Common/exceptions/AuthorizationError')
 const NotFoundError = require('../../../Common/exceptions/NotFoundError')
-const AddedComment = require('../../../Domains/threads/entities/AddedComment')
-const NewComment = require('../../../Domains/threads/entities/NewComment')
-const pool = require('../../database/postgres/pool')
-const ThreadCommentsRepositoryPostgres = require('../ThreadCommentsRepositoryPostgres')
 
-const ThreadCommentsTableTestHelper = require('../../../../tests/ThreadCommentsTableTestHelper')
-const ThreadsTableTestHelper = require('../../../../tests/ThreadsTableTestHelper')
+const ThreadCommentsRepositoryPostgres = require('../ThreadCommentsRepositoryPostgres')
+const AddedComment = require('../../../Domains/threads/comments/entities/AddedComment')
+const NewComment = require('../../../Domains/threads/comments/entities/NewComment')
+
 const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper')
+const ThreadsTableTestHelper = require('../../../../tests/ThreadsTableTestHelper')
+const ThreadCommentsTableTestHelper = require('../../../../tests/ThreadCommentsTableTestHelper')
 
 describe('ThreadCommentsRepositoryPostgres', () => {
   const dummyUser = {

@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
-const ClientError = require('../../../Common/exceptions/ClientError')
-const ThreadCommentRepliesRepository = require('../../../Domains/threads/ThreadCommentRepliesRepository')
-const ThreadCommentsRepository = require('../../../Domains/threads/ThreadCommentsRepository')
-const ThreadsRepository = require('../../../Domains/threads/ThreadsRepository')
+const ClientError = require('../../../../Common/exceptions/ClientError')
+
+const ThreadsRepository = require('../../../../Domains/threads/ThreadsRepository')
+const ThreadCommentsRepository = require('../../../../Domains/threads/comments/ThreadCommentsRepository')
+const ThreadCommentRepliesRepository = require('../../../../Domains/threads/replies/ThreadCommentRepliesRepository')
 
 class SoftDeleteReplyUsecase {
   /**

@@ -13,10 +13,11 @@ const AuthenticationTokenManager = require('../Applications/security/Authenticat
 const PasswordHash = require('../Applications/security/PasswordHash')
 
 const AuthenticationRepository = require('../Domains/authentications/AuthenticationRepository')
-const ThreadCommentRepliesRepository = require('../Domains/threads/ThreadCommentRepliesRepository')
-const ThreadCommentsRepository = require('../Domains/threads/ThreadCommentsRepository')
-const ThreadsRepository = require('../Domains/threads/ThreadsRepository')
 const UserRepository = require('../Domains/users/UserRepository')
+
+const ThreadsRepository = require('../Domains/threads/ThreadsRepository')
+const ThreadCommentsRepository = require('../Domains/threads/comments/ThreadCommentsRepository')
+const ThreadCommentRepliesRepository = require('../Domains/threads/replies/ThreadCommentRepliesRepository')
 
 const AuthenticationRepositoryPostgres = require('./repository/AuthenticationRepositoryPostgres')
 const ThreadCommentRepliesRepositoryPostgres = require('./repository/ThreadCommentRepliesRepositoryPostgres')
@@ -36,13 +37,13 @@ const LogoutUserUseCase = require('../Applications/use_cases/auth/LogoutUserUseC
 const AddThreadUseCase = require('../Applications/use_cases/threads/AddThreadUseCase')
 const GetThreadByIdUsecase = require('../Applications/use_cases/threads/GetThreadByIdUsecase')
 
-const AddCommentToThreadUsecase = require('../Applications/use_cases/threads/AddCommentToThreadUsecase')
-const GetCommentsFromThreadUsecase = require('../Applications/use_cases/threads/GetCommentsFromThreadUsecase')
-const SoftDeleteCommentUseCase = require('../Applications/use_cases/threads/SoftDeleteCommentUseCase')
+const AddCommentToThreadUsecase = require('../Applications/use_cases/threads/comments/AddCommentToThreadUsecase')
+const GetCommentsFromThreadUsecase = require('../Applications/use_cases/threads/comments/GetCommentsFromThreadUsecase')
+const SoftDeleteCommentUseCase = require('../Applications/use_cases/threads/comments/SoftDeleteCommentUseCase')
 
-const AddReplyToCommentUsecase = require('../Applications/use_cases/threads/AddReplyToCommentUsecase')
-const GetRepliesFromCommentUsecase = require('../Applications/use_cases/threads/GetRepliesFromCommentUsecase')
-const SoftDeleteReplyUseCase = require('../Applications/use_cases/threads/SoftDeleteReplyUseCase')
+const AddReplyToCommentUsecase = require('../Applications/use_cases/threads/replies/AddReplyToCommentUsecase')
+const GetRepliesFromCommentUsecase = require('../Applications/use_cases/threads/replies/GetRepliesFromCommentUsecase')
+const SoftDeleteReplyUseCase = require('../Applications/use_cases/threads/replies/SoftDeleteReplyUseCase')
 
 // creating container
 const container = createContainer()

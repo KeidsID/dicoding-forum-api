@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
-const ThreadCommentRepliesRepository = require('../../../Domains/threads/ThreadCommentRepliesRepository')
-const ThreadCommentsRepository = require('../../../Domains/threads/ThreadCommentsRepository')
-const ThreadsRepository = require('../../../Domains/threads/ThreadsRepository')
-const AddedComment = require('../../../Domains/threads/entities/AddedComment')
-const NewReply = require('../../../Domains/threads/entities/NewReply')
+const ThreadsRepository = require('../../../../Domains/threads/ThreadsRepository')
+const ThreadCommentsRepository = require('../../../../Domains/threads/comments/ThreadCommentsRepository')
+const ThreadCommentRepliesRepository = require('../../../../Domains/threads/replies/ThreadCommentRepliesRepository')
+const AddedReply = require('../../../../Domains/threads/replies/entities/AddedReply')
+const NewReply = require('../../../../Domains/threads/replies/entities/NewReply')
 
 class AddReplyToCommentUsecase {
   /**
@@ -37,7 +37,7 @@ class AddReplyToCommentUsecase {
    *
    * @throws `NotFoundError`
    *
-   * @return {Promise<AddedComment>}
+   * @return {Promise<AddedReply>} `{ id, content, owner }`
    */
   async execute (threadId, commentId, payload, owner) {
     const newReply = new NewReply(payload)

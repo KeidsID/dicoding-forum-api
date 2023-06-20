@@ -10,7 +10,7 @@ describe('GetThreadByIdUsecase', () => {
       id: 'thread-123',
       title: 'A thread',
       body: 'A thread body',
-      date: new Date(),
+      date: new Date('2023-06-17T15:10:13.956Z'),
       username: 'dicoding'
     })
 
@@ -24,9 +24,17 @@ describe('GetThreadByIdUsecase', () => {
     })
 
     // Action
-    await usecase.execute('thread-123')
+    const thread = await usecase.execute('thread-123')
 
     // Assert
+    expect(thread).toStrictEqual(new Thread({
+      id: 'thread-123',
+      title: 'A thread',
+      body: 'A thread body',
+      date: new Date('2023-06-17T15:10:13.956Z'),
+      username: 'dicoding'
+    }))
+
     expect(mockThreadsRepo.getThreadById).toBeCalledWith('thread-123')
   })
 })

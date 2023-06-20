@@ -2,11 +2,13 @@
 const { Pool } = require('pg')
 const { nanoid } = require('nanoid')
 
-const ThreadCommentRepliesRepository = require('../../Domains/threads/ThreadCommentRepliesRepository')
-const AddedComment = require('../../Domains/threads/entities/AddedComment')
-const NotFoundError = require('../../Common/exceptions/NotFoundError')
 const AuthorizationError = require('../../Common/exceptions/AuthorizationError')
-const Comment = require('../../Domains/threads/entities/Comment')
+const NotFoundError = require('../../Common/exceptions/NotFoundError')
+
+const ThreadCommentRepliesRepository = require('../../Domains/threads/replies/ThreadCommentRepliesRepository')
+
+const AddedReply = require('../../Domains/threads/replies/entities/AddedReply')
+const Reply = require('../../Domains/threads/replies/entities/Reply')
 
 class ThreadCommentRepliesRepositoryPostgres extends ThreadCommentRepliesRepository {
   /**
@@ -34,7 +36,7 @@ class ThreadCommentRepliesRepositoryPostgres extends ThreadCommentRepliesReposit
     }
     const { rows } = await this.#pool.query(query)
 
-    return new AddedComment({ ...rows[0] })
+    return new AddedReply({ ...rows[0] })
   }
 
   async verifyReplyAccess (replyId, userId) {
@@ -92,7 +94,7 @@ class ThreadCommentRepliesRepositoryPostgres extends ThreadCommentRepliesReposit
 
       delete val.is_deleted
 
-      return new Comment({ ...val })
+      return new Reply({ ...val })
     })
 
     return replies

@@ -9,4 +9,5 @@ package-lock.json
 # Misc.
 coverage
 config/db/test.json
-.env
+*.env
+*.pem

@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
-const ClientError = require('../../Common/exceptions/ClientError')
-const NotFoundError = require('../../Common/exceptions/NotFoundError')
+const ClientError = require('../../../Common/exceptions/ClientError')
+const NotFoundError = require('../../../Common/exceptions/NotFoundError')
+
 const AddedComment = require('./entities/AddedComment')
 const Comment = require('./entities/Comment')
 const NewComment = require('./entities/NewComment')
