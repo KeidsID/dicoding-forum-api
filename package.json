@@ -1,6 +1,6 @@
 {
   "name": "dicoding-forum-api",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "type": "commonjs",
   "main": "src/main.js",
   "description": "Back-End Expert project assignment from dicoding.com",
@@ -8,13 +8,16 @@
   "author": "KeidsID",
   "license": "MIT",
   "keywords": [
-    "hapi-js"
+    "hapi-js",
+    "postgre-sql",
+    "jest"
   ],
   "scripts": {
     "start": "node src/main.js",
     "start:dev": "nodemon src/main.js",
     "test": "jest --coverage --setupFiles dotenv/config -i",
     "test:watch": "jest --watchAll --setupFiles dotenv/config -i",
+    "lint": "eslint ./src",
     "pgm": "node-pg-migrate",
     "pgm:test": "node-pg-migrate -f config/db/test.json"
   },

@@ -37,4 +37,22 @@ describe('HTTP server', () => {
     expect(responseJson.status).toEqual('error')
     expect(responseJson.message).toEqual('terjadi kegagalan pada server kami')
   })
+
+  it('when request "GET /", should redirect to docs.page', async () => {
+    // Arrange
+    const docsUrl = 'https://docs.page/KeidsID/dicoding-forum-api'
+
+    const server = await createServer({}) // fake injection
+
+    // Action
+    const response = await server.inject({
+      method: 'GET', url: '/'
+    })
+
+    // Assert
+    const resHeaders = response.headers
+
+    expect(response.statusCode).toEqual(301)
+    expect(resHeaders.location).toEqual(docsUrl)
+  })
 })

@@ -1,4 +1,19 @@
+## 1.1.1
+
+### Added
+
+- Root endpoint ("/") that redirect to
+  https://docs.page/KeidsID/dicoding-forum-api
+
+### Changed
+
+- Refactor folder structures
+- Test files update
+- Moved comment and reply is_deleted logic to Domain folder
+
 ## 1.1.0
+
+### Added
 
 - Reply features on "/threads" endpoint.
   - `POST /threads/{threadId}/comments/{commentId}/replies` - Reply on comment

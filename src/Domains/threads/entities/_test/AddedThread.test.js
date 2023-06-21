@@ -33,11 +33,11 @@ describe('a AddedThread entities', () => {
     }
 
     // Action
-    const { id, title, owner } = new AddedThread(payload)
+    const addedThread = new AddedThread(payload)
 
     // Assert
-    expect(id).toEqual(payload.id)
-    expect(title).toEqual(payload.title)
-    expect(owner).toEqual(payload.owner)
+    expect(addedThread.id).toStrictEqual(payload.id)
+    expect(addedThread.title).toStrictEqual(payload.title)
+    expect(addedThread.owner).toStrictEqual(payload.owner)
   })
 })

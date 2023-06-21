@@ -15,6 +15,14 @@ const createServer = async (container) => {
     port: Configs.server.port
   })
 
+  const docsUrl = 'https://docs.page/KeidsID/dicoding-forum-api'
+
+  server.route([{
+    method: 'GET',
+    path: '/',
+    handler: (req, h) => h.response().redirect(docsUrl).permanent(true)
+  }])
+
   // external plugins
   await server.register([
     { plugin: Jwt }
@@ -54,7 +62,7 @@ const createServer = async (container) => {
     }
   ])
 
-  server.ext('onPreResponse', (request, h) => {
+  server.ext('onPreResponse', async (request, h) => {
     // mendapatkan konteks response dari request
     const { response } = request
 

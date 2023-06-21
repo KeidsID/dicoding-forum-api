@@ -32,14 +32,11 @@ describe('AddThreadUseCase', () => {
 
     // Assert
     expect(addedThread).toStrictEqual(new AddedThread({
-      id: 'thread-123',
-      title: payload.title,
-      owner
+      id: 'thread-123', title: payload.title, owner
     }))
 
     expect(mockThreadsRepository.addThread).toBeCalledWith(
-      new NewThread({ title: payload.title, body: payload.body }),
-      owner
+      new NewThread(payload), owner
     )
   })
 })

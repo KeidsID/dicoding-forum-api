@@ -36,13 +36,13 @@ describe('a Thread entity', () => {
     }
 
     // Action
-    const { id, title, body, date, username } = new Thread(payload)
+    const thread = new Thread(payload)
 
     // Assert
-    expect(id).toEqual(payload.id)
-    expect(title).toEqual(payload.title)
-    expect(body).toEqual(payload.body)
-    expect(date).toEqual(payload.date)
-    expect(username).toEqual(payload.username)
+    expect(thread.id).toStrictEqual(payload.id)
+    expect(thread.title).toStrictEqual(payload.title)
+    expect(thread.body).toStrictEqual(payload.body)
+    expect(thread.date).toStrictEqual(payload.date)
+    expect(thread.username).toStrictEqual(payload.username)
   })
 })

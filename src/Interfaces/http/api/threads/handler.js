@@ -3,13 +3,15 @@ const Hapi = require('@hapi/hapi')
 const { Container } = require('instances-container')
 
 const AddThreadsUseCase = require('../../../../Applications/use_cases/threads/AddThreadUseCase')
-const AddCommentToThreadUsecase = require('../../../../Applications/use_cases/threads/AddCommentToThreadUsecase')
-const SoftDeleteCommentUsecase = require('../../../../Applications/use_cases/threads/SoftDeleteCommentUseCase')
 const GetThreadByIdUsecase = require('../../../../Applications/use_cases/threads/GetThreadByIdUsecase')
-const GetCommentsFromThreadUsecase = require('../../../../Applications/use_cases/threads/GetCommentsFromThreadUsecase')
-const AddReplyToCommentUsecase = require('../../../../Applications/use_cases/threads/AddReplyToCommentUsecase')
-const GetRepliesFromThreadUsecase = require('../../../../Applications/use_cases/threads/GetRepliesFromCommentUsecase')
-const SoftDeleteReplyUsecase = require('../../../../Applications/use_cases/threads/SoftDeleteReplyUseCase')
+
+const AddCommentToThreadUsecase = require('../../../../Applications/use_cases/threads/comments/AddCommentToThreadUsecase')
+const GetCommentsFromThreadUsecase = require('../../../../Applications/use_cases/threads/comments/GetCommentsFromThreadUsecase')
+const SoftDeleteCommentUsecase = require('../../../../Applications/use_cases/threads/comments/SoftDeleteCommentUseCase')
+
+const AddReplyToCommentUsecase = require('../../../../Applications/use_cases/threads/replies/AddReplyToCommentUsecase')
+const GetRepliesFromThreadUsecase = require('../../../../Applications/use_cases/threads/replies/GetRepliesFromCommentUsecase')
+const SoftDeleteReplyUsecase = require('../../../../Applications/use_cases/threads/replies/SoftDeleteReplyUseCase')
 
 /**
  * Handler for "/threads" endpoint routes.
