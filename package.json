@@ -1,6 +1,6 @@
 {
   "name": "dicoding-forum-api",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "type": "commonjs",
   "main": "src/main.js",
   "description": "Back-End Expert project assignment from dicoding.com",
@@ -8,7 +8,9 @@
   "author": "KeidsID",
   "license": "MIT",
   "keywords": [
-    "hapi-js"
+    "hapi-js",
+    "postgre-sql",
+    "jest"
   ],
   "scripts": {
     "start": "node src/main.js",

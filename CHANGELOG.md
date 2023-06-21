@@ -1,8 +1,9 @@
-## 1.1.1-alpha
+## 1.1.1
 
 ### Added
 
-- Root endpoint ("/") that redirect to https://docs.page/KeidsID/dicoding-forum-api
+- Root endpoint ("/") that redirect to
+  https://docs.page/KeidsID/dicoding-forum-api
 
 ### Changed
 

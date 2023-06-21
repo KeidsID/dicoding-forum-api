@@ -31,13 +31,19 @@ fast to deploy, and has reliable security by industry standards.
    HOST=<localhost/your server host>
    PORT=<desired port>
 
-   # PostgreSQL config
-   PGHOST=<localhost/your server>
+   # PostgreSQL prod config
+   PGHOST=<your psql server host>
+   PGPORT=<your psql server port>
    PGUSER=<your psql user>
    PGPASSWORD=<your psql password>
-   PGPORT=<5432/your psql port>
    PGDATABASE=<desired database>
-   PGDATABASE_TEST=<desired database but not same as the previous>
+
+   # PostgreSQL test config
+   PGHOST_TEST=<your psql test server host>
+   PGPORT_TEST=<your psql test server port>
+   PGUSER_TEST=<your psql user>
+   PGPASSWORD_TEST=<your psql password>
+   PGDATABASE_TEST=<desired database>
 
    # JWT config
    ACCESS_TOKEN_KEY=<random string>
@@ -45,38 +51,15 @@ fast to deploy, and has reliable security by industry standards.
    ACCESS_TOKEN_AGE=<duration in ms>
    ```
 
-   example:
-
-   ```sh
-   # Server config
-   HOST=localhost
-   PORT=5000
-
-   # PostgreSQL config
-   PGHOST=localhost
-   PGPORT=5432
-   PGUSER=developer
-   PGPASSWORD=supersecretpassword
-   PGDATABASE=forum_api
-   PGDATABASE_TEST=forum_api_test
-
-
-   # JWT config
-   ACCESS_TOKEN_KEY=779h179b8ebc8ej8dj81j89
-   REFRESH_TOKEN_KEY=uidquiyq38n8cn9qn3
-   ACCCESS_TOKEN_AGE=3000
-   ```
-
-2. Add `test.json` to the `config/db` folder with the configuration from `.env`
-   (note that the database config is `PGDATABASE_TEST`).
+2. Add `test.json` to the `config/db` folder with the test config from `.env`.
 
    ```json
    {
-     "host": "localhost",
-     "port": 5432,
-     "user": "developer",
-     "password": "supersecretpassword",
-     "database": "forum_api_test"
+     "host": "PGHOST_TEST",
+     "port": PGPORT_TEST,
+     "user": "PGUSER_TEST",
+     "password": "PGPASSWORD_TEST",
+     "database": "PGDATABASE_TEST",
    }
    ```
 
