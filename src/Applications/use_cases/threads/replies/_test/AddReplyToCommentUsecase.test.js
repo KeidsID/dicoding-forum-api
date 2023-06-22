@@ -1,5 +1,8 @@
 const ThreadsRepository = require('../../../../../Domains/threads/ThreadsRepository')
+const Thread = require('../../../../../Domains/threads/entities/Thread')
+
 const ThreadCommentsRepository = require('../../../../../Domains/threads/comments/ThreadCommentsRepository')
+
 const ThreadCommentRepliesRepository = require('../../../../../Domains/threads/replies/ThreadCommentRepliesRepository')
 const AddedReply = require('../../../../../Domains/threads/replies/entities/AddedReply')
 const NewReply = require('../../../../../Domains/threads/replies/entities/NewReply')
@@ -19,6 +22,13 @@ describe('AddReplyToCommentUsecase', () => {
       content: payload.content,
       owner
     })
+    const mockThread = new Thread({
+      id: 'thread-123',
+      title: 'thread',
+      body: 'thread body',
+      date: new Date(),
+      username: 'dicoding'
+    })
 
     const mockThreadCommentRepliesRepo = new ThreadCommentRepliesRepository()
     const mockThreadCommentsRepo = new ThreadCommentsRepository()
@@ -29,7 +39,7 @@ describe('AddReplyToCommentUsecase', () => {
     mockThreadCommentsRepo.verifyCommentLocation = jest.fn()
       .mockImplementation(() => Promise.resolve())
     mockThreadsRepo.getThreadById = jest.fn()
-      .mockImplementation(() => Promise.resolve())
+      .mockImplementation(() => Promise.resolve(mockThread))
 
     const addCommentToThreadUsecase = new AddReplyToCommentUsecase({
       threadCommentRepliesRepository: mockThreadCommentRepliesRepo,
