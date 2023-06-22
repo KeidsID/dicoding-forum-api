@@ -1,3 +1,9 @@
+## 1.1.2
+
+### Added
+
+- Reduced server workload with `verifyThread` method
+
 ## 1.1.1
 
 ### Added

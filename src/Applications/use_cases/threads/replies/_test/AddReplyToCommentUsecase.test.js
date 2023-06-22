@@ -1,8 +1,5 @@
 const ThreadsRepository = require('../../../../../Domains/threads/ThreadsRepository')
-const Thread = require('../../../../../Domains/threads/entities/Thread')
-
 const ThreadCommentsRepository = require('../../../../../Domains/threads/comments/ThreadCommentsRepository')
-
 const ThreadCommentRepliesRepository = require('../../../../../Domains/threads/replies/ThreadCommentRepliesRepository')
 const AddedReply = require('../../../../../Domains/threads/replies/entities/AddedReply')
 const NewReply = require('../../../../../Domains/threads/replies/entities/NewReply')
@@ -22,13 +19,6 @@ describe('AddReplyToCommentUsecase', () => {
       content: payload.content,
       owner
     })
-    const mockThread = new Thread({
-      id: 'thread-123',
-      title: 'thread',
-      body: 'thread body',
-      date: new Date(),
-      username: 'dicoding'
-    })
 
     const mockThreadCommentRepliesRepo = new ThreadCommentRepliesRepository()
     const mockThreadCommentsRepo = new ThreadCommentsRepository()
@@ -38,8 +28,8 @@ describe('AddReplyToCommentUsecase', () => {
       .mockImplementation(() => Promise.resolve(mockAddedReply))
     mockThreadCommentsRepo.verifyCommentLocation = jest.fn()
       .mockImplementation(() => Promise.resolve())
-    mockThreadsRepo.getThreadById = jest.fn()
-      .mockImplementation(() => Promise.resolve(mockThread))
+    mockThreadsRepo.verifyThread = jest.fn()
+      .mockImplementation(() => Promise.resolve())
 
     const addCommentToThreadUsecase = new AddReplyToCommentUsecase({
       threadCommentRepliesRepository: mockThreadCommentRepliesRepo,
@@ -57,7 +47,7 @@ describe('AddReplyToCommentUsecase', () => {
       id: 'reply-123', content: payload.content, owner
     }))
 
-    expect(mockThreadsRepo.getThreadById).toBeCalledWith('thread-123')
+    expect(mockThreadsRepo.verifyThread).toBeCalledWith('thread-123')
     expect(mockThreadCommentsRepo.verifyCommentLocation).toBeCalledWith(
       'comment-123', 'thread-123'
     )

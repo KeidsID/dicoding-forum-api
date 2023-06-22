@@ -31,7 +31,7 @@ class SoftDeleteCommentUsecase {
    * @throws {ClientError}
    */
   async execute (threadId, commentId, userId) {
-    await this.#threadsRepository.getThreadById(threadId)
+    await this.#threadsRepository.verifyThread(threadId)
 
     await this.#threadCommentsRepository.softDeleteCommentById(commentId, userId)
   }
