@@ -25,7 +25,7 @@ describe('AddCommentToThreadUsecase', () => {
 
     mockThreadCommentsRepo.addCommentToThread = jest.fn()
       .mockImplementation(() => Promise.resolve(mockAddedComment))
-    mockThreadsRepo.getThreadById = jest.fn()
+    mockThreadsRepo.verifyThread = jest.fn()
       .mockImplementation(() => Promise.resolve())
 
     const addCommentToThreadUsecase = new AddCommentToThreadUsecase({
@@ -41,7 +41,7 @@ describe('AddCommentToThreadUsecase', () => {
       id: 'comment-123', content: 'A comment', owner
     }))
 
-    expect(mockThreadsRepo.getThreadById).toBeCalledWith('thread-123')
+    expect(mockThreadsRepo.verifyThread).toBeCalledWith('thread-123')
     expect(mockThreadCommentsRepo.addCommentToThread).toBeCalledWith(
       'thread-123', new NewComment(payload), owner
     )

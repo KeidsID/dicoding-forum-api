@@ -93,4 +93,15 @@ describe('ThreadsRepositoryPostgres', () => {
       expect(thread.username).toEqual('dicoding')
     })
   })
+
+  describe('verifyThread method', () => {
+    it('should throw NotFoundError if thread is not found', async () => {
+      // Arrange
+      const repoPostgres = new ThreadsRepositoryPostgres(pool, {})
+
+      // Action & Assert
+      await expect(repoPostgres.verifyThread('thread-123'))
+        .rejects.toThrowError(NotFoundError)
+    })
+  })
 })

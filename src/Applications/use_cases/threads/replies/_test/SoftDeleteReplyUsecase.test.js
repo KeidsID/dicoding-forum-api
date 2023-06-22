@@ -15,7 +15,7 @@ describe('SoftDeleteReplyUsecase', () => {
       .mockImplementation(() => Promise.resolve())
     mockThreadCommentsRepo.verifyCommentLocation = jest.fn()
       .mockImplementation(() => Promise.resolve())
-    mockThreadsRepo.getThreadById = jest.fn()
+    mockThreadsRepo.verifyThread = jest.fn()
       .mockImplementation(() => Promise.resolve())
 
     const usecase = new SoftDeleteReplyUsecase({
@@ -28,7 +28,7 @@ describe('SoftDeleteReplyUsecase', () => {
     await usecase.execute('thread-123', 'comment-123', 'reply-123', 'user-123')
 
     // Assert
-    expect(mockThreadsRepo.getThreadById).toBeCalledWith('thread-123')
+    expect(mockThreadsRepo.verifyThread).toBeCalledWith('thread-123')
     expect(mockThreadCommentsRepo.verifyCommentLocation).toBeCalledWith(
       'comment-123', 'thread-123'
     )
