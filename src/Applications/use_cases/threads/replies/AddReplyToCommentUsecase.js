@@ -42,10 +42,7 @@ class AddReplyToCommentUsecase {
   async execute (threadId, commentId, payload, owner) {
     const newReply = new NewReply(payload)
 
-    // To verify valid thread
-    await this.#threadsRepository.getThreadById(threadId)
-
-    // To verify valid comment
+    await this.#threadsRepository.verifyThread(threadId)
     await this.#threadCommentsRepository.verifyCommentLocation(commentId, threadId)
 
     return this.#threadCommentRepliesRepository.addReplyToComment(commentId, newReply, owner)

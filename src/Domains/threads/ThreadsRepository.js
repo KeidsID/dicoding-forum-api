@@ -30,13 +30,13 @@ class ThreadsRepository {
   async getThreadById (threadId) {
     throw new Error('THREADS_REPOSITORY.METHOD_NOT_IMPLEMENTED')
   }
-  
+
   /**
    * Verifies whether a thread exists or not
-   * 
+   *
    * - Throw `NotFoundError` if thread is not found
-   * 
-   * @param {string} threadId 
+   *
+   * @param {string} threadId
   */
   async verifyThread (threadId) {
     throw new Error('THREADS_REPOSITORY.METHOD_NOT_IMPLEMENTED')

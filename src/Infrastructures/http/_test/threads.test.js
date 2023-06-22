@@ -187,31 +187,31 @@ describe('/threads endpoint', () => {
       expect(thread.id).toStrictEqual('thread-123')
       expect(thread.title).toStrictEqual('sebuah thread')
       expect(thread.body).toStrictEqual('sebuah body thread')
-      expect(new Date(thread.date).getMinutes()).toStrictEqual(new Date().getMinutes())
+      expect(new Date(thread.date).getHours()).toStrictEqual(new Date().getHours())
       expect(thread.username).toStrictEqual(dummyUser.username)
 
       const [dummyUserComment, dummyUser2Comment] = thread.comments
 
       expect(dummyUserComment.id).toStrictEqual('comment-123')
       expect(dummyUserComment.username).toStrictEqual(dummyUser.username)
-      expect(new Date(dummyUserComment.date).getMinutes()).toStrictEqual(new Date().getMinutes())
+      expect(new Date(dummyUserComment.date).getHours()).toStrictEqual(new Date().getHours())
       expect(dummyUserComment.content).toStrictEqual(`komentar dari ${dummyUser.username}`)
 
       expect(dummyUser2Comment.id).toStrictEqual('comment-xyz')
       expect(dummyUser2Comment.username).toStrictEqual(dummyUser2.username)
-      expect(new Date(dummyUser2Comment.date).getMinutes()).toStrictEqual(new Date().getMinutes())
+      expect(new Date(dummyUser2Comment.date).getHours()).toStrictEqual(new Date().getHours())
       expect(dummyUser2Comment.content).toStrictEqual('**komentar telah dihapus**')
 
       const [dummyUserReply, dummyUser2Reply] = dummyUserComment.replies
 
       expect(dummyUserReply.id).toStrictEqual('reply-123')
       expect(dummyUserReply.username).toStrictEqual(dummyUser.username)
-      expect(new Date(dummyUserReply.date).getMinutes()).toStrictEqual(new Date().getMinutes())
+      expect(new Date(dummyUserReply.date).getHours()).toStrictEqual(new Date().getHours())
       expect(dummyUserReply.content).toStrictEqual(`balasan dari ${dummyUser.username}`)
 
       expect(dummyUser2Reply.id).toStrictEqual('reply-xyz')
       expect(dummyUser2Reply.username).toStrictEqual(dummyUser2.username)
-      expect(new Date(dummyUser2Reply.date).getMinutes()).toStrictEqual(new Date().getMinutes())
+      expect(new Date(dummyUser2Reply.date).getHours()).toStrictEqual(new Date().getHours())
       expect(dummyUser2Reply.content).toStrictEqual('**balasan telah dihapus**')
     })
   })
