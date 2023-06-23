@@ -3,14 +3,12 @@ const Hapi = require('@hapi/hapi')
 const { Container } = require('instances-container')
 
 const AddThreadsUseCase = require('../../../../Applications/use_cases/threads/AddThreadUseCase')
-const GetThreadByIdUsecase = require('../../../../Applications/use_cases/threads/GetThreadByIdUsecase')
+const GetThreadDetailsUsecase = require('../../../../Applications/use_cases/threads/GetThreadDetailsUsecase')
 
 const AddCommentToThreadUsecase = require('../../../../Applications/use_cases/threads/comments/AddCommentToThreadUsecase')
-const GetCommentsFromThreadUsecase = require('../../../../Applications/use_cases/threads/comments/GetCommentsFromThreadUsecase')
 const SoftDeleteCommentUsecase = require('../../../../Applications/use_cases/threads/comments/SoftDeleteCommentUseCase')
 
 const AddReplyToCommentUsecase = require('../../../../Applications/use_cases/threads/replies/AddReplyToCommentUsecase')
-const GetRepliesFromThreadUsecase = require('../../../../Applications/use_cases/threads/replies/GetRepliesFromCommentUsecase')
 const SoftDeleteReplyUsecase = require('../../../../Applications/use_cases/threads/replies/SoftDeleteReplyUseCase')
 
 /**
@@ -63,44 +61,20 @@ class ThreadsHandler {
    *
    * @return {Promise<Hapi.ResponseObject>}
    */
-  async getThread (req, h) {
+  async getThreadDetails (req, h) {
     const { threadId } = req.params
 
     /**
-     * @type {GetThreadByIdUsecase}
+     * @type {GetThreadDetailsUsecase}
      */
-    const getThreadByIdUsecase = this.#container
-      .getInstance(GetThreadByIdUsecase.name)
+    const getThreadDetails = this.#container
+      .getInstance(GetThreadDetailsUsecase.name)
 
-    /**
-     * @type {GetCommentsFromThreadUsecase}
-     */
-    const getCommentsFromThreadUsecase = this.#container
-      .getInstance(GetCommentsFromThreadUsecase.name)
-
-    /**
-     * @type {GetRepliesFromThreadUsecase}
-     */
-    const getRepliesFromCommentUsecase = this.#container
-      .getInstance(GetRepliesFromThreadUsecase.name)
-
-    const thread = await getThreadByIdUsecase.execute(threadId)
-    const rawComments = await getCommentsFromThreadUsecase.execute(threadId)
-
-    const comments = await Promise.all(rawComments.map(async (val, i, arr) => {
-      const replies = await getRepliesFromCommentUsecase.execute(val.id)
-
-      return { ...val, replies }
-    }))
+    const thread = await getThreadDetails.execute(threadId)
 
     return {
       status: 'success',
-      data: {
-        thread: {
-          ...thread,
-          comments
-        }
-      }
+      data: { thread }
     }
   }
 

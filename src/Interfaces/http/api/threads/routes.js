@@ -18,7 +18,7 @@ const routes = (handler) => ([
   {
     method: 'GET',
     path: '/threads/{threadId}',
-    handler: (req, h) => handler.getThread(req, h)
+    handler: (req, h) => handler.getThreadDetails(req, h)
   },
 
   {

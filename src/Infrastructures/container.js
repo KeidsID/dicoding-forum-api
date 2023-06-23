@@ -36,14 +36,12 @@ const RefreshAuthenticationUseCase = require('../Applications/use_cases/auth/Ref
 const LogoutUserUseCase = require('../Applications/use_cases/auth/LogoutUserUseCase')
 
 const AddThreadUseCase = require('../Applications/use_cases/threads/AddThreadUseCase')
-const GetThreadByIdUsecase = require('../Applications/use_cases/threads/GetThreadByIdUsecase')
+const GetThreadDetailsUsecase = require('../Applications/use_cases/threads/GetThreadDetailsUsecase')
 
 const AddCommentToThreadUsecase = require('../Applications/use_cases/threads/comments/AddCommentToThreadUsecase')
-const GetCommentsFromThreadUsecase = require('../Applications/use_cases/threads/comments/GetCommentsFromThreadUsecase')
 const SoftDeleteCommentUseCase = require('../Applications/use_cases/threads/comments/SoftDeleteCommentUseCase')
 
 const AddReplyToCommentUsecase = require('../Applications/use_cases/threads/replies/AddReplyToCommentUsecase')
-const GetRepliesFromCommentUsecase = require('../Applications/use_cases/threads/replies/GetRepliesFromCommentUsecase')
 const SoftDeleteReplyUseCase = require('../Applications/use_cases/threads/replies/SoftDeleteReplyUseCase')
 
 // creating container
@@ -133,16 +131,6 @@ container.register([
 // registering use cases
 container.register([
   {
-    key: GetRepliesFromCommentUsecase.name,
-    Class: GetRepliesFromCommentUsecase,
-    parameter: {
-      injectType: 'destructuring',
-      dependencies: [
-        { name: 'threadCommentRepliesRepository', internal: ThreadCommentRepliesRepository.name }
-      ]
-    }
-  },
-  {
     key: SoftDeleteReplyUseCase.name,
     Class: SoftDeleteReplyUseCase,
     parameter: {
@@ -167,12 +155,14 @@ container.register([
     }
   },
   {
-    key: GetThreadByIdUsecase.name,
-    Class: GetThreadByIdUsecase,
+    key: GetThreadDetailsUsecase.name,
+    Class: GetThreadDetailsUsecase,
     parameter: {
       injectType: 'destructuring',
       dependencies: [
-        { name: 'threadsRepository', internal: ThreadsRepository.name }
+        { name: 'threadsRepository', internal: ThreadsRepository.name },
+        { name: 'threadCommentsRepository', internal: ThreadCommentsRepository.name },
+        { name: 'threadCommentRepliesRepository', internal: ThreadCommentRepliesRepository.name }
       ]
     }
   },
@@ -184,16 +174,6 @@ container.register([
       dependencies: [
         { name: 'threadCommentsRepository', internal: ThreadCommentsRepository.name },
         { name: 'threadsRepository', internal: ThreadsRepository.name }
-      ]
-    }
-  },
-  {
-    key: GetCommentsFromThreadUsecase.name,
-    Class: GetCommentsFromThreadUsecase,
-    parameter: {
-      injectType: 'destructuring',
-      dependencies: [
-        { name: 'threadCommentsRepository', internal: ThreadCommentsRepository.name }
       ]
     }
   },
