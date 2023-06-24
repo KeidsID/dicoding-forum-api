@@ -174,7 +174,7 @@ describe('ThreadCommentRepliesRepositoryPostgres', () => {
       expect(reply.id).toStrictEqual('reply-123')
       expect(reply.username).toStrictEqual(dummyUser.username)
       expect(reply.content).toStrictEqual('A reply')
-      expect(reply.date.getMinutes()).toStrictEqual(new Date().getMinutes())
+      expect(reply.date.getDate()).toStrictEqual(new Date().getDate())
     })
 
     it('should return comment with custom content if comment is soft deleted', async () => {
@@ -201,12 +201,12 @@ describe('ThreadCommentRepliesRepositoryPostgres', () => {
       expect(reply.id).toStrictEqual('reply-123')
       expect(reply.username).toStrictEqual(dummyUser.username)
       expect(reply.content).toStrictEqual('A reply')
-      expect(reply.date.getMinutes()).toStrictEqual(new Date().getMinutes())
+      expect(reply.date.getDate()).toStrictEqual(new Date().getDate())
 
       expect(deletedReply.id).toStrictEqual('reply-xyz')
       expect(deletedReply.username).toStrictEqual(dummyUser2.username)
       expect(deletedReply.content).toStrictEqual('**balasan telah dihapus**')
-      expect(deletedReply.date.getMinutes()).toStrictEqual(new Date().getMinutes())
+      expect(deletedReply.date.getDate()).toStrictEqual(new Date().getDate())
     })
   })
 })

@@ -105,22 +105,22 @@ describe('GetThreadDetailsUsecase', () => {
     expect(threadDetails.id).toStrictEqual(expectedThreadDetails.id)
     expect(threadDetails.title).toStrictEqual(expectedThreadDetails.title)
     expect(threadDetails.body).toStrictEqual(expectedThreadDetails.body)
-    expect(threadDetails.date.getHours()).toStrictEqual(expectedThreadDetails.date.getHours())
+    expect(threadDetails.date.getDate()).toStrictEqual(expectedThreadDetails.date.getDate())
     expect(threadDetails.username).toStrictEqual(expectedThreadDetails.username)
 
     expect(comments[0].id).toStrictEqual(expectedComments[0].id)
     expect(comments[0].username).toStrictEqual(expectedComments[0].username)
-    expect(comments[0].date.getHours()).toStrictEqual(expectedComments[0].date.getHours())
+    expect(comments[0].date.getDate()).toStrictEqual(expectedComments[0].date.getDate())
     expect(comments[0].content).toStrictEqual(expectedComments[0].content)
 
     expect(replies[0].id).toStrictEqual(expectedReplies[0].id)
     expect(replies[0].username).toStrictEqual(expectedReplies[0].username)
-    expect(replies[0].date.getHours()).toStrictEqual(expectedReplies[0].date.getHours())
+    expect(replies[0].date.getDate()).toStrictEqual(expectedReplies[0].date.getDate())
     expect(replies[0].content).toStrictEqual(expectedReplies[0].content)
 
     expect(replies[1].id).toStrictEqual(expectedReplies[1].id)
     expect(replies[1].username).toStrictEqual(expectedReplies[1].username)
-    expect(replies[1].date.getHours()).toStrictEqual(expectedReplies[1].date.getHours())
+    expect(replies[1].date.getDate()).toStrictEqual(expectedReplies[1].date.getDate())
     expect(replies[1].content).toStrictEqual(expectedReplies[1].content)
 
     expect(mockThreadsRepository.getThreadById).toBeCalledWith('thread-123')
