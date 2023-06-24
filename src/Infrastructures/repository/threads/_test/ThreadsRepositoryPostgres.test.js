@@ -103,5 +103,17 @@ describe('ThreadsRepositoryPostgres', () => {
       await expect(repoPostgres.verifyThread('thread-123'))
         .rejects.toThrowError(NotFoundError)
     })
+
+    it('should not throw NotFoundError when thread is found', async () => {
+      // Arrange
+      await UsersTableTestHelper.addUser({ id: 'user-123', username: 'dicoding' })
+      await ThreadsTableTestHelper.addThread({ id: 'thread-123' })
+
+      const repoPostgre = new ThreadsRepositoryPostgres(pool, {})
+
+      // Action & Assert
+      await expect(repoPostgre.verifyThread('thread-123'))
+        .resolves.not.toThrowError(NotFoundError)
+    })
   })
 })

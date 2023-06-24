@@ -124,5 +124,7 @@ describe('GetThreadDetailsUsecase', () => {
     expect(replies[1].content).toStrictEqual(expectedReplies[1].content)
 
     expect(mockThreadsRepository.getThreadById).toBeCalledWith('thread-123')
+    expect(mockThreadCommentsRepository.getCommentsFromThread).toBeCalledWith('thread-123')
+    expect(mockThreadCommentRepliesRepository.getRepliesFromComment).toBeCalledWith('comment-123')
   })
 })
