@@ -63,10 +63,9 @@ fast to deploy, and has reliable security by industry standards.
    }
    ```
 
-3. Run the commands below to setup the database:
+3. Run the commands below to install dependencies and setup the database:
    ```sh
+   npm install
    npm run pgm up
-   ```
-   ```sh
    npm run pgm:test up
    ```
