@@ -2,6 +2,7 @@
 const ThreadsRepository = require('../../../Domains/threads/ThreadsRepository')
 const ThreadCommentsRepository = require('../../../Domains/threads/comments/ThreadCommentsRepository')
 const ThreadCommentRepliesRepository = require('../../../Domains/threads/replies/ThreadCommentRepliesRepository')
+const Reply = require('../../../Domains/threads/replies/entities/Reply')
 
 class GetThreadDetailsUsecase {
   /**
@@ -32,22 +33,45 @@ class GetThreadDetailsUsecase {
    * @param {string} threadId
    *
    * @throws {NotFoundError}
-   * @return {Promise<object>} - Thread Details object (contain comments and replies)
+   * @return {Promise<object>}
    *
-   * `{ id, title, body, date, username, comments }`
+   * - Thread Details object (contain comments and replies):
    *
-   * `comments -> {id, username, content, date, replies}[]`
-   *
-   * `replies -> {id, username, content, date}[]`
+   * ```json
+   * {
+   *   "id": "string",
+   *   "title": "string",
+   *   "body": "string",
+   *   "date": "Date",
+   *   "username": "string",
+   *   "comments": {
+   *     "id": "string",
+   *     "username": "string",
+   *     "date": "Date",
+   *     "content": "string",
+   *     "replies": {
+   *       "id": "string",
+   *       "username": "string",
+   *       "date": "Date",
+   *       "content": "string",
+   *     }[]
+   *   }[]
+   * }
+   * ```
    */
   async execute (threadId) {
     const thread = await this.#threadsRepository.getThreadById(threadId)
-    const rawComment = await this.#threadCommentsRepository.getCommentsFromThread(threadId)
-    const comments = await Promise.all(rawComment.map(async (val) => {
-      const replies = await this.#threadCommentRepliesRepository.getRepliesFromComment(val.id)
+    const rawComments = await this.#threadCommentsRepository.getCommentsFromThread(threadId)
 
-      return { ...val, replies }
-    }))
+    const commentIds = rawComments.map((comment) => comment.id)
+    const rawRepliesOfComments = await this.#threadCommentRepliesRepository.getRawRepliesFromComments(commentIds)
+
+    const comments = rawComments.map((comment) => {
+      const rawReplies = rawRepliesOfComments.filter((reply) => reply.commentId === comment.id)
+      const replies = rawReplies.map((reply) => new Reply(reply))
+
+      return { ...comment, replies }
+    })
 
     return { ...thread, comments }
   }
