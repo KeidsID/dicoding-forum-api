@@ -9,6 +9,7 @@ const NewComment = require('../../../../Domains/threads/comments/entities/NewCom
 const UsersTableTestHelper = require('../../../../../tests/UsersTableTestHelper')
 const ThreadsTableTestHelper = require('../../../../../tests/ThreadsTableTestHelper')
 const ThreadCommentsTableTestHelper = require('../../../../../tests/ThreadCommentsTableTestHelper')
+const ClientError = require('../../../../Common/exceptions/ClientError')
 
 describe('ThreadCommentsRepositoryPostgres', () => {
   const dummyUser = {
@@ -94,6 +95,17 @@ describe('ThreadCommentsRepositoryPostgres', () => {
       // Action & Assert
       await expect(repo.verifyCommentAccess('comment-123', dummyUser2.id))
         .rejects.toThrowError(AuthorizationError)
+    })
+
+    it('should not throw ClientError if the comment exist and user is the comment owner', async () => {
+      // Arrange
+      const repo = new ThreadCommentsRepositoryPostgres(pool, {})
+
+      await ThreadCommentsTableTestHelper.addCommentToThread({ id: 'comment-123', owner: dummyUser.id })
+
+      // Action & Assert
+      await expect(repo.verifyCommentAccess('comment-123', dummyUser.id))
+        .resolves.not.toThrowError(ClientError)
     })
   })
 

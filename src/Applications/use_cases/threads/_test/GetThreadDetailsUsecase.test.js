@@ -5,7 +5,6 @@ const ThreadCommentsRepository = require('../../../../Domains/threads/comments/T
 const Comment = require('../../../../Domains/threads/comments/entities/Comment')
 
 const ThreadCommentRepliesRepository = require('../../../../Domains/threads/replies/ThreadCommentRepliesRepository')
-const Reply = require('../../../../Domains/threads/replies/entities/Reply')
 
 const GetThreadDetailsUsecase = require('../GetThreadDetailsUsecase')
 
@@ -26,23 +25,48 @@ describe('GetThreadDetailsUsecase', () => {
         date: new Date(),
         content: 'a comment',
         isDeleted: false
+      }),
+      new Comment({
+        id: 'comment-xyz',
+        username: 'fulan',
+        date: new Date(),
+        content: 'a comment',
+        isDeleted: true
       })
     ]
-    const mockReplies = [
-      new Reply({
+    const mockRawReplies = [
+      {
         id: 'reply-123',
         username: 'dicoding',
         date: new Date(),
         content: 'a reply',
-        isDeleted: false
-      }),
-      new Reply({
+        isDeleted: false,
+        commentId: 'comment-123'
+      },
+      {
         id: 'reply-xyz',
         username: 'dicoding',
         date: new Date(),
         content: 'a reply',
-        isDeleted: true
-      })
+        isDeleted: true,
+        commentId: 'comment-123'
+      },
+      {
+        id: 'reply-ijk',
+        username: 'fulan',
+        date: new Date(),
+        content: 'a reply',
+        isDeleted: false,
+        commentId: 'comment-xyz'
+      },
+      {
+        id: 'reply-dummy',
+        username: 'dicoding',
+        date: new Date(),
+        content: 'a reply',
+        isDeleted: true,
+        commentId: 'comment-xyz'
+      }
     ]
 
     const mockThreadsRepository = new ThreadsRepository()
@@ -53,8 +77,8 @@ describe('GetThreadDetailsUsecase', () => {
       .mockImplementation(() => Promise.resolve(mockThread))
     mockThreadCommentsRepository.getCommentsFromThread = jest.fn()
       .mockImplementation(() => Promise.resolve(mockComments))
-    mockThreadCommentRepliesRepository.getRepliesFromComment = jest.fn()
-      .mockImplementation(() => Promise.resolve(mockReplies))
+    mockThreadCommentRepliesRepository.getRawRepliesFromComments = jest.fn()
+      .mockImplementation(() => Promise.resolve(mockRawReplies))
 
     const usecase = new GetThreadDetailsUsecase({
       threadsRepository: mockThreadsRepository,
@@ -92,6 +116,26 @@ describe('GetThreadDetailsUsecase', () => {
               content: '**balasan telah dihapus**'
             }
           ]
+        },
+        {
+          id: 'comment-xyz',
+          username: 'fulan',
+          date: new Date(),
+          content: '**komentar telah dihapus**',
+          replies: [
+            {
+              id: 'reply-ijk',
+              username: 'fulan',
+              date: new Date(),
+              content: 'a reply'
+            },
+            {
+              id: 'reply-dummy',
+              username: 'dicoding',
+              date: new Date(),
+              content: '**balasan telah dihapus**'
+            }
+          ]
         }
       ]
     }
@@ -99,8 +143,11 @@ describe('GetThreadDetailsUsecase', () => {
     const comments = threadDetails.comments
     const expectedComments = expectedThreadDetails.comments
 
-    const replies = comments[0].replies
-    const expectedReplies = expectedComments[0].replies
+    const commentReplies = comments[0].replies
+    const expectedCommentReplies = expectedComments[0].replies
+
+    const comment2Replies = comments[1].replies
+    const expectedComment2Replies = expectedComments[1].replies
 
     expect(threadDetails.id).toStrictEqual(expectedThreadDetails.id)
     expect(threadDetails.title).toStrictEqual(expectedThreadDetails.title)
@@ -113,18 +160,30 @@ describe('GetThreadDetailsUsecase', () => {
     expect(comments[0].date.getDate()).toStrictEqual(expectedComments[0].date.getDate())
     expect(comments[0].content).toStrictEqual(expectedComments[0].content)
 
-    expect(replies[0].id).toStrictEqual(expectedReplies[0].id)
-    expect(replies[0].username).toStrictEqual(expectedReplies[0].username)
-    expect(replies[0].date.getDate()).toStrictEqual(expectedReplies[0].date.getDate())
-    expect(replies[0].content).toStrictEqual(expectedReplies[0].content)
+    expect(commentReplies[0].id).toStrictEqual(expectedCommentReplies[0].id)
+    expect(commentReplies[0].username).toStrictEqual(expectedCommentReplies[0].username)
+    expect(commentReplies[0].date.getDate()).toStrictEqual(expectedCommentReplies[0].date.getDate())
+    expect(commentReplies[0].content).toStrictEqual(expectedCommentReplies[0].content)
 
-    expect(replies[1].id).toStrictEqual(expectedReplies[1].id)
-    expect(replies[1].username).toStrictEqual(expectedReplies[1].username)
-    expect(replies[1].date.getDate()).toStrictEqual(expectedReplies[1].date.getDate())
-    expect(replies[1].content).toStrictEqual(expectedReplies[1].content)
+    expect(commentReplies[1].id).toStrictEqual(expectedCommentReplies[1].id)
+    expect(commentReplies[1].username).toStrictEqual(expectedCommentReplies[1].username)
+    expect(commentReplies[1].date.getDate()).toStrictEqual(expectedCommentReplies[1].date.getDate())
+    expect(commentReplies[1].content).toStrictEqual(expectedCommentReplies[1].content)
+
+    expect(comment2Replies[0].id).toStrictEqual(expectedComment2Replies[0].id)
+    expect(comment2Replies[0].username).toStrictEqual(expectedComment2Replies[0].username)
+    expect(comment2Replies[0].date.getDate()).toStrictEqual(expectedComment2Replies[0].date.getDate())
+    expect(comment2Replies[0].content).toStrictEqual(expectedComment2Replies[0].content)
+
+    expect(comment2Replies[1].id).toStrictEqual(expectedComment2Replies[1].id)
+    expect(comment2Replies[1].username).toStrictEqual(expectedComment2Replies[1].username)
+    expect(comment2Replies[1].date.getDate()).toStrictEqual(expectedComment2Replies[1].date.getDate())
+    expect(comment2Replies[1].content).toStrictEqual(expectedComment2Replies[1].content)
 
     expect(mockThreadsRepository.getThreadById).toBeCalledWith('thread-123')
     expect(mockThreadCommentsRepository.getCommentsFromThread).toBeCalledWith('thread-123')
-    expect(mockThreadCommentRepliesRepository.getRepliesFromComment).toBeCalledWith('comment-123')
+    expect(mockThreadCommentRepliesRepository.getRawRepliesFromComments).toBeCalledWith(
+      ['comment-123', 'comment-xyz']
+    )
   })
 })

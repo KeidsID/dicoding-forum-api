@@ -64,30 +64,31 @@ class ThreadCommentRepliesRepositoryPostgres extends ThreadCommentRepliesReposit
     await this.#pool.query(query)
   }
 
-  async getRepliesFromComment (commentId) {
+  async getRawRepliesFromComments (commentIds) {
     const query = {
       text: `
-        SELECT 
+        SELECT
           thread_comment_replies.id, 
           users.username, 
-          thread_comment_replies.date, 
+          thread_comment_replies.date,
           thread_comment_replies.content, 
-          thread_comment_replies.is_deleted AS "isDeleted"
-        FROM thread_comment_replies 
-        LEFT JOIN users 
+          thread_comment_replies.is_deleted AS "isDeleted",
+          thread_comment_replies.comment_id AS "commentId"
+        FROM thread_comment_replies
+        LEFT JOIN users
           ON thread_comment_replies.owner = users.id
-        WHERE comment_id = $1
+        WHERE comment_id = ANY($1::TEXT[])
         GROUP BY 
           thread_comment_replies.id, users.username
         ORDER BY date
       `,
-      values: [commentId]
+      values: [commentIds]
     }
     const { rows, rowCount } = await this.#pool.query(query)
 
     if (!rowCount) return []
 
-    return rows.map((val) => new Reply(val))
+    return rows
   }
 }
 

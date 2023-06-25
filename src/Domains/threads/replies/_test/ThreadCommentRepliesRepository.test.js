@@ -15,7 +15,7 @@ describe('ThreadCommentRepliesRepository', () => {
     await expect(threadCommentsRepo.softDeleteReply('', ''))
       .rejects.toThrowError('THREAD_COMMENT_REPLIES_REPOSITORY.METHOD_NOT_IMPLEMENTED')
 
-    await expect(threadCommentsRepo.getRepliesFromComment(''))
+    await expect(threadCommentsRepo.getRawRepliesFromComments(['']))
       .rejects.toThrowError('THREAD_COMMENT_REPLIES_REPOSITORY.METHOD_NOT_IMPLEMENTED')
   })
 })

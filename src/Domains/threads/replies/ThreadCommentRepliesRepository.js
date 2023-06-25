@@ -49,13 +49,13 @@ class ThreadCommentRepliesRepository {
   }
 
   /**
-   * Fetch replies from the database based on provided comment id.
+   * Fetch raw replies of comments from the database based on provided comment ids.
    *
-   * @param {string} commentId
+   * @param {string[]} commentIds
    *
-   * @return {Promise<Reply[]>} array of {id, username, date, content}
+   * @return {Promise<object[]>} `{id, username, date, content, isDeleted, commentId}[]`
    */
-  async getRepliesFromComment (commentId) {
+  async getRawRepliesFromComments (commentIds) {
     throw new Error('THREAD_COMMENT_REPLIES_REPOSITORY.METHOD_NOT_IMPLEMENTED')
   }
 }
