@@ -1,4 +1,4 @@
-name: Local CI
+name: CI-alpha
 
 on:
   push:
@@ -15,6 +15,12 @@ jobs:
       matrix:
         node-version: [16.x]
 
+        psql-host: [localhost]
+        psql-port: [5432]
+        psql-user: [developer]
+        psql-password: [testing]
+        psql-database: [forum_api]
+
     steps:
       - uses: actions/checkout@v3
 
@@ -22,9 +28,9 @@ jobs:
         uses: Harmon758/postgresql-action@v1.0.0
         with:
           postgresql version: latest
-          postgresql db: forum_api
-          postgresql user: developer
-          postgresql password: testing
+          postgresql user: ${{ matrix.psql-user }}
+          postgresql password: ${{ matrix.psql-password }}
+          postgresql db: ${{ matrix.psql-database }}
 
       - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
@@ -40,22 +46,22 @@ jobs:
         run: npm run pgm up
         env:
           # PostgreSQL config
-          PGHOST: localhost
-          PGPORT: 5432
-          PGUSER: developer
-          PGPASSWORD: testing
-          PGDATABASE: forum_api
+          PGHOST: ${{ matrix.psql-host }}
+          PGPORT: ${{ matrix.psql-port }}
+          PGUSER: ${{ matrix.psql-user }}
+          PGPASSWORD: ${{ matrix.psql-password }}
+          PGDATABASE: ${{ matrix.psql-database }}
 
       - name: jest test with coverage
         run: npm run test
         env:
           CI: true
           # PostgreSQL config
-          PGHOST_TEST: localhost
-          PGPORT_TEST: 5432
-          PGUSER_TEST: developer
-          PGPASSWORD_TEST: testing
-          PGDATABASE_TEST: forum_api
+          PGHOST_TEST: ${{ matrix.psql-host }}
+          PGPORT_TEST: ${{ matrix.psql-port }}
+          PGUSER_TEST: ${{ matrix.psql-user }}
+          PGPASSWORD_TEST: ${{ matrix.psql-password }}
+          PGDATABASE_TEST: ${{ matrix.psql-database }}
 
           # JWT config
           ACCESS_TOKEN_KEY: ${{ secrets.ACCESS_TOKEN_KEY }}
