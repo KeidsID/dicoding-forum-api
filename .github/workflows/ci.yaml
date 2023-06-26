@@ -1,0 +1,63 @@
+name: Local CI
+
+on:
+  push:
+    branches: ["ci-impl"] # GH Action test. Delete on PR resolve
+
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  test-with-coverage:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup PostgreSQL
+        uses: Harmon758/postgresql-action@v1.0.0
+        with:
+          postgresql version: latest
+          postgresql db: forum_api
+          postgresql user: developer
+          postgresql password: testing
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+          cache-dependency-path: ./package.json
+
+      - name: install depedencies
+        run: npm install
+
+      - name: setup db environments
+        run: npm run pgm up
+        env:
+          # PostgreSQL config
+          PGHOST: localhost
+          PGPORT: 5432
+          PGUSER: developer
+          PGPASSWORD: testing
+          PGDATABASE: forum_api
+
+      - name: jest test with coverage
+        run: npm run test
+        env:
+          CI: true
+          # PostgreSQL config
+          PGHOST_TEST: localhost
+          PGPORT_TEST: 5432
+          PGUSER_TEST: developer
+          PGPASSWORD_TEST: testing
+          PGDATABASE_TEST: forum_api
+
+          # JWT config
+          ACCESS_TOKEN_KEY: ${{ secrets.ACCESS_TOKEN_KEY }}
+          REFRESH_TOKEN_KEY: ${{ secrets.REFRESH_TOKEN_KEY }}
+          ACCCESS_TOKEN_AGE: ${{ secrets.ACCCESS_TOKEN_AGE }}

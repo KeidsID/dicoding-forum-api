@@ -28,21 +28,21 @@ fast to deploy, and has reliable security by industry standards.
 
    ```sh
    # Server config
-   HOST=<localhost/your server host>
-   PORT=<desired port>
+   HOST=<your server host>
+   PORT=<desired port for nodejs>
 
-   # PostgreSQL prod config
-   PGHOST=<your psql server host>
-   PGPORT=<your psql server port>
-   PGUSER=<your psql user>
-   PGPASSWORD=<your psql password>
+   # PostgreSQL config
+   PGHOST=<psql server host>
+   PGPORT=<psql server port>
+   PGUSER=<psql user>
+   PGPASSWORD=<psql password>
    PGDATABASE=<desired database>
 
-   # PostgreSQL test config
-   PGHOST_TEST=<your psql test server host>
-   PGPORT_TEST=<your psql test server port>
-   PGUSER_TEST=<your psql user>
-   PGPASSWORD_TEST=<your psql password>
+   # PostgreSQL config for testing
+   PGHOST_TEST=<psql server host>
+   PGPORT_TEST=<psql server port>
+   PGUSER_TEST=<psql user>
+   PGPASSWORD_TEST=<psql password>
    PGDATABASE_TEST=<desired database>
 
    # JWT config
