@@ -39,6 +39,14 @@ jobs:
           cache: "npm"
           cache-dependency-path: ./package.json
 
+      - name: Print working directory
+        run: |
+          pwd
+          ls -la
+
+      - name: Print cloned repository path
+        run: echo $GITHUB_WORKSPACE
+
       - name: install depedencies
         run: npm install
 
@@ -53,7 +61,7 @@ jobs:
           PGDATABASE: ${{ matrix.psql-database }}
 
       - name: jest test with coverage
-        run: npm run test
+        run: npm run test:coverage
         env:
           CI: true
           # PostgreSQL config
