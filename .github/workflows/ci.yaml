@@ -1,4 +1,4 @@
-name: CI-alpha
+name: CI
 
 on:
   push:
@@ -39,14 +39,6 @@ jobs:
           cache: "npm"
           cache-dependency-path: ./package.json
 
-      - name: Print working directory
-        run: |
-          pwd
-          ls -la
-
-      - name: Print cloned repository path
-        run: echo $GITHUB_WORKSPACE
-
       - name: install depedencies
         run: npm install
 
@@ -59,6 +51,14 @@ jobs:
           PGUSER: ${{ matrix.psql-user }}
           PGPASSWORD: ${{ matrix.psql-password }}
           PGDATABASE: ${{ matrix.psql-database }}
+
+      - name: Print cloned repository path
+        run: echo $GITHUB_WORKSPACE
+
+      - name: Print working directory
+        run: |
+          pwd
+          ls -d */
 
       - name: jest test with coverage
         run: npm run test:coverage
