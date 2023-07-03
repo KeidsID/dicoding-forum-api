@@ -22,9 +22,7 @@ jobs:
         psql-database: [forum_api]
 
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Setup PostgreSQL
+      - name: Setup PostgreSQL on ${{ matrix.psql-host }}
         uses: Harmon758/postgresql-action@v1.0.0
         with:
           postgresql version: latest
@@ -32,7 +30,11 @@ jobs:
           postgresql password: ${{ matrix.psql-password }}
           postgresql db: ${{ matrix.psql-database }}
 
-      - name: Setup Node.js ${{ matrix.node-version }}
+      - uses: actions/checkout@v3
+        with:
+          ref: main
+
+      - name: Setup Node.js ${{ matrix.node-version }} ${{github}}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
@@ -51,14 +53,6 @@ jobs:
           PGUSER: ${{ matrix.psql-user }}
           PGPASSWORD: ${{ matrix.psql-password }}
           PGDATABASE: ${{ matrix.psql-database }}
-
-      - name: Print cloned repository path
-        run: echo $GITHUB_WORKSPACE
-
-      - name: Print working directory
-        run: |
-          pwd
-          ls -d */
 
       - name: jest test with coverage
         run: npm run test:coverage
