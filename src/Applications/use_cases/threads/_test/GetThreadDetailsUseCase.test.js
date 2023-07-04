@@ -6,9 +6,9 @@ const Comment = require('../../../../Domains/threads/comments/entities/Comment')
 
 const ThreadCommentRepliesRepository = require('../../../../Domains/threads/replies/ThreadCommentRepliesRepository')
 
-const GetThreadDetailsUsecase = require('../GetThreadDetailsUsecase')
+const GetThreadDetailsUseCase = require('../GetThreadDetailsUseCase')
 
-describe('GetThreadDetailsUsecase', () => {
+describe('GetThreadDetailsUseCase', () => {
   it('should orchestracting the get thread details by thread id action correctly', async () => {
     // Arrange
     const mockThread = new Thread({
@@ -80,7 +80,7 @@ describe('GetThreadDetailsUsecase', () => {
     mockThreadCommentRepliesRepository.getRawRepliesFromComments = jest.fn()
       .mockImplementation(() => Promise.resolve(mockRawReplies))
 
-    const usecase = new GetThreadDetailsUsecase({
+    const usecase = new GetThreadDetailsUseCase({
       threadsRepository: mockThreadsRepository,
       threadCommentsRepository: mockThreadCommentsRepository,
       threadCommentRepliesRepository: mockThreadCommentRepliesRepository

@@ -4,9 +4,9 @@ const AddedComment = require('../../../../../Domains/threads/comments/entities/A
 const NewComment = require('../../../../../Domains/threads/comments/entities/NewComment')
 const ThreadCommentsRepository = require('../../../../../Domains/threads/comments/ThreadCommentsRepository')
 
-const AddCommentToThreadUsecase = require('../AddCommentToThreadUsecase')
+const AddCommentToThreadUseCase = require('../AddCommentToThreadUseCase')
 
-describe('AddCommentToThreadUsecase', () => {
+describe('AddCommentToThreadUseCase', () => {
   it('should orchestracting the add comment action correctly', async () => {
     // Arrange
     const payload = {
@@ -28,13 +28,13 @@ describe('AddCommentToThreadUsecase', () => {
     mockThreadsRepo.verifyThread = jest.fn()
       .mockImplementation(() => Promise.resolve())
 
-    const addCommentToThreadUsecase = new AddCommentToThreadUsecase({
+    const addCommentToThreadUseCase = new AddCommentToThreadUseCase({
       threadCommentsRepository: mockThreadCommentsRepo,
       threadsRepository: mockThreadsRepo
     })
 
     // Action
-    const addedComment = await addCommentToThreadUsecase.execute('thread-123', payload, owner)
+    const addedComment = await addCommentToThreadUseCase.execute('thread-123', payload, owner)
 
     // Assert
     expect(addedComment).toStrictEqual(new AddedComment({

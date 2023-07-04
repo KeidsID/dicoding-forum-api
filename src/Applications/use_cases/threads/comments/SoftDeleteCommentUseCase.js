@@ -4,7 +4,7 @@ const ClientError = require('../../../../Common/exceptions/ClientError')
 const ThreadsRepository = require('../../../../Domains/threads/ThreadsRepository')
 const ThreadCommentsRepository = require('../../../../Domains/threads/comments/ThreadCommentsRepository')
 
-class SoftDeleteCommentUsecase {
+class SoftDeleteCommentUseCase {
   /**
    * @param {object} dependencies
    * @param {ThreadCommentsRepository} dependencies.threadCommentsRepository
@@ -37,4 +37,4 @@ class SoftDeleteCommentUsecase {
   }
 }
 
-module.exports = SoftDeleteCommentUsecase
+module.exports = SoftDeleteCommentUseCase

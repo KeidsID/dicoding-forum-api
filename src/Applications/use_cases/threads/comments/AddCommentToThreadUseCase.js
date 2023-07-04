@@ -5,7 +5,7 @@ const ThreadCommentsRepository = require('../../../../Domains/threads/comments/T
 const AddedComment = require('../../../../Domains/threads/comments/entities/AddedComment')
 const NewComment = require('../../../../Domains/threads/comments/entities/NewComment')
 
-class AddCommentToThreadUsecase {
+class AddCommentToThreadUseCase {
   /**
    * @param {object} depedencies
    * @param {ThreadCommentsRepository} depedencies.threadCommentsRepository
@@ -40,4 +40,4 @@ class AddCommentToThreadUsecase {
   }
 }
 
-module.exports = AddCommentToThreadUsecase
+module.exports = AddCommentToThreadUseCase

@@ -1,9 +1,9 @@
 const ThreadCommentsRepository = require('../../../../../Domains/threads/comments/ThreadCommentsRepository')
 const ThreadsRepository = require('../../../../../Domains/threads/ThreadsRepository')
 
-const SoftDeleteCommentUsecase = require('../SoftDeleteCommentUsecase')
+const SoftDeleteCommentUseCase = require('../SoftDeleteCommentUseCase')
 
-describe('SoftDeleteCommentUsecase', () => {
+describe('SoftDeleteCommentUseCase', () => {
   it('should orchestracting the delete comment action correctly', async () => {
     // Arrange
     const mockThreadCommentsRepo = new ThreadCommentsRepository()
@@ -14,7 +14,7 @@ describe('SoftDeleteCommentUsecase', () => {
     mockThreadsRepo.verifyThread = jest.fn()
       .mockImplementation(() => Promise.resolve())
 
-    const usecase = new SoftDeleteCommentUsecase({
+    const usecase = new SoftDeleteCommentUseCase({
       threadCommentsRepository: mockThreadCommentsRepo,
       threadsRepository: mockThreadsRepo
     })

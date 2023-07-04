@@ -3,13 +3,13 @@ const Hapi = require('@hapi/hapi')
 const { Container } = require('instances-container')
 
 const AddThreadsUseCase = require('../../../../Applications/use_cases/threads/AddThreadUseCase')
-const GetThreadDetailsUsecase = require('../../../../Applications/use_cases/threads/GetThreadDetailsUsecase')
+const GetThreadDetailsUseCase = require('../../../../Applications/use_cases/threads/GetThreadDetailsUseCase')
 
-const AddCommentToThreadUsecase = require('../../../../Applications/use_cases/threads/comments/AddCommentToThreadUsecase')
-const SoftDeleteCommentUsecase = require('../../../../Applications/use_cases/threads/comments/SoftDeleteCommentUseCase')
+const AddCommentToThreadUseCase = require('../../../../Applications/use_cases/threads/comments/AddCommentToThreadUseCase')
+const SoftDeleteCommentUseCase = require('../../../../Applications/use_cases/threads/comments/SoftDeleteCommentUseCase')
 
-const AddReplyToCommentUsecase = require('../../../../Applications/use_cases/threads/replies/AddReplyToCommentUsecase')
-const SoftDeleteReplyUsecase = require('../../../../Applications/use_cases/threads/replies/SoftDeleteReplyUseCase')
+const AddReplyToCommentUseCase = require('../../../../Applications/use_cases/threads/replies/AddReplyToCommentUseCase')
+const SoftDeleteReplyUseCase = require('../../../../Applications/use_cases/threads/replies/SoftDeleteReplyUseCase')
 
 /**
  * Handler for "/threads" endpoint routes.
@@ -65,10 +65,10 @@ class ThreadsHandler {
     const { threadId } = req.params
 
     /**
-     * @type {GetThreadDetailsUsecase}
+     * @type {GetThreadDetailsUseCase}
      */
     const getThreadDetails = this.#container
-      .getInstance(GetThreadDetailsUsecase.name)
+      .getInstance(GetThreadDetailsUseCase.name)
 
     const thread = await getThreadDetails.execute(threadId)
 
@@ -91,12 +91,12 @@ class ThreadsHandler {
     const { threadId } = req.params
 
     /**
-     * @type {AddCommentToThreadUsecase}
+     * @type {AddCommentToThreadUseCase}
      */
-    const addCommentToThreadUsecase = this.#container
-      .getInstance(AddCommentToThreadUsecase.name)
+    const addCommentToThreadUseCase = this.#container
+      .getInstance(AddCommentToThreadUseCase.name)
 
-    const addedComment = await addCommentToThreadUsecase.execute(
+    const addedComment = await addCommentToThreadUseCase.execute(
       threadId, req.payload, id
     )
 
@@ -122,12 +122,12 @@ class ThreadsHandler {
     const { id } = req.auth.credentials
 
     /**
-     * @type {SoftDeleteCommentUsecase}
+     * @type {SoftDeleteCommentUseCase}
      */
-    const softDeleteCommentUsecase = this.#container
-      .getInstance(SoftDeleteCommentUsecase.name)
+    const softDeleteCommentUseCase = this.#container
+      .getInstance(SoftDeleteCommentUseCase.name)
 
-    await softDeleteCommentUsecase.execute(threadId, commentId, id)
+    await softDeleteCommentUseCase.execute(threadId, commentId, id)
 
     return {
       status: 'success'
@@ -147,12 +147,12 @@ class ThreadsHandler {
     const { threadId, commentId } = req.params
 
     /**
-     * @type {AddReplyToCommentUsecase}
+     * @type {AddReplyToCommentUseCase}
      */
-    const addReplyToCommentUsecase = this.#container
-      .getInstance(AddReplyToCommentUsecase.name)
+    const addReplyToCommentUseCase = this.#container
+      .getInstance(AddReplyToCommentUseCase.name)
 
-    const addedReply = await addReplyToCommentUsecase.execute(
+    const addedReply = await addReplyToCommentUseCase.execute(
       threadId, commentId, req.payload, id
     )
 
@@ -178,12 +178,12 @@ class ThreadsHandler {
     const { id } = req.auth.credentials
 
     /**
-     * @type {SoftDeleteReplyUsecase}
+     * @type {SoftDeleteReplyUseCase}
      */
-    const softDeleteReplyUsecase = this.#container
-      .getInstance(SoftDeleteReplyUsecase.name)
+    const softDeleteReplyUseCase = this.#container
+      .getInstance(SoftDeleteReplyUseCase.name)
 
-    await softDeleteReplyUsecase.execute(threadId, commentId, replyId, id)
+    await softDeleteReplyUseCase.execute(threadId, commentId, replyId, id)
 
     return {
       status: 'success'
