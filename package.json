@@ -15,8 +15,8 @@
   "scripts": {
     "start": "node src/main.js",
     "start:dev": "nodemon src/main.js",
-    "test": "jest --setupFiles dotenv/config -i",
-    "test:coverage": "jest --coverage --setupFiles dotenv/config -i",
+    "test": "jest --coverage --setupFiles dotenv/config -i",
+    "test:no-coverage": "jest --setupFiles dotenv/config -i",
     "test:watch": "jest --watchAll --setupFiles dotenv/config -i",
     "lint": "eslint ./src",
     "pgm": "node-pg-migrate",

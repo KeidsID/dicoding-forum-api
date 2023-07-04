@@ -22,7 +22,7 @@ jobs:
         psql-database: [forum_api]
 
     steps:
-      - name: Setup PostgreSQL on ${{ matrix.psql-host }}
+      - name: setup psql on ${{ matrix.psql-host }}
         uses: Harmon758/postgresql-action@v1.0.0
         with:
           postgresql version: latest
@@ -30,18 +30,18 @@ jobs:
           postgresql password: ${{ matrix.psql-password }}
           postgresql db: ${{ matrix.psql-database }}
 
-      - uses: actions/checkout@v3
-        with:
-          ref: main
-
-      - name: Setup Node.js ${{ matrix.node-version }} ${{github}}
+      - name: setup node v${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-          cache-dependency-path: ./package.json
 
-      - name: install depedencies
+      - name: checkout main branch
+        uses: actions/checkout@v3
+        with:
+          ref: main
+
+      - name: install dependencies
         run: npm install
 
       - name: setup db environments
@@ -54,8 +54,8 @@ jobs:
           PGPASSWORD: ${{ matrix.psql-password }}
           PGDATABASE: ${{ matrix.psql-database }}
 
-      - name: jest test with coverage
-        run: npm run test:coverage
+      - name: run test
+        run: npm test
         env:
           CI: true
           # PostgreSQL config

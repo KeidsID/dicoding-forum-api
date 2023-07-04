@@ -6,15 +6,17 @@ exports.up = pgm => {
     thread_id: { type: 'VARCHAR(50)', notNull: true },
     content: { type: 'TEXT', notNull: true },
     owner: { type: 'VARCHAR(50)', notNull: true },
-    is_deleted: { type: 'BOOLEAN', notNull: true },
-    date: { type: 'TIMESTAMPTZ', notNull: true }
+    is_deleted: {
+      type: 'BOOLEAN',
+      notNull: true,
+      default: pgm.func('FALSE')
+    },
+    date: {
+      type: 'TIMESTAMPTZ',
+      notNull: true,
+      default: pgm.func('CURRENT_TIMESTAMP')
+    }
   })
-
-  pgm.sql(`
-    ALTER TABLE thread_comments 
-      ALTER is_deleted SET DEFAULT FALSE,
-      ALTER date SET DEFAULT CURRENT_TIMESTAMP
-  `.trim())
 
   pgm.addConstraint('thread_comments', 'fk_thread_comments.thread_id_threads.id',
     'FOREIGN KEY(thread_id) REFERENCES threads(id) ON DELETE CASCADE'
