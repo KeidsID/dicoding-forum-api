@@ -35,6 +35,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
+          cache-dependency-path: "package.json"
 
       - name: checkout main branch
         uses: actions/checkout@v3
