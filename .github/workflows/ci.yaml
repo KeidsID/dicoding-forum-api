@@ -17,10 +17,8 @@ jobs:
         psql-database: [forum_api]
 
     steps:
-      - name: checkout main branch
+      - name: checkout ${{ github.ref_name }} ${{ github.ref_type }}
         uses: actions/checkout@v3
-        with:
-          ref: main
 
       - name: setup psql on ${{ matrix.psql-host }}
         uses: Harmon758/postgresql-action@v1.0.0
