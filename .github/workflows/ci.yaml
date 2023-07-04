@@ -22,6 +22,11 @@ jobs:
         psql-database: [forum_api]
 
     steps:
+      - name: checkout main branch
+        uses: actions/checkout@v3
+        with:
+          ref: main
+
       - name: setup psql on ${{ matrix.psql-host }}
         uses: Harmon758/postgresql-action@v1.0.0
         with:
@@ -35,12 +40,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-          cache-dependency-path: "./package.json"
-
-      - name: checkout main branch
-        uses: actions/checkout@v3
-        with:
-          ref: main
+          cache-dependency-path: "package.json"
 
       - name: install dependencies
         run: npm install
