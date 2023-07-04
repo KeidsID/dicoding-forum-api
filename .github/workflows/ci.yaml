@@ -1,9 +1,6 @@
 name: CI
 
 on:
-  push:
-    branches: ["ci-impl"] # GH Action test. Delete on PR resolve
-
   pull_request:
     branches: ["main"]
 
@@ -22,8 +19,10 @@ jobs:
         psql-database: [forum_api]
 
     steps:
-      - name: checkout repo
+      - name: checkout main branch
         uses: actions/checkout@v3
+        with:
+          ref: main
 
       - name: setup psql on ${{ matrix.psql-host }}
         uses: Harmon758/postgresql-action@v1.0.0
