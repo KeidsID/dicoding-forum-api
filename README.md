@@ -4,6 +4,9 @@
 
 # dicoding-forum-api
 
+[![CI](https://github.com/KeidsID/dicoding-forum-api/actions/workflows/ci.yaml/badge.svg?branch=main&event=push)](https://github.com/KeidsID/dicoding-forum-api/actions/workflows/ci.yaml)
+[![codecov](https://codecov.io/gh/KeidsID/dicoding-forum-api/branch/main/graph/badge.svg?token=J44SKMPO19)](https://codecov.io/gh/KeidsID/dicoding-forum-api)
+
 Back-End Expert project assignment from [dicoding.com][class-link]. With this
 assignment, students are expected to be able to create a back-end application in
 the form of a RESTful API that is testable, scalable, reliable, agile, easy and
