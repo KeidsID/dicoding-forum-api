@@ -18,7 +18,7 @@
     "test": "jest --coverage --setupFiles dotenv/config -i",
     "test:no-coverage": "jest --setupFiles dotenv/config -i",
     "test:watch": "jest --watchAll --setupFiles dotenv/config -i",
-    "lint": "eslint ./",
+    "lint": "eslint src/ tests/",
     "pgm": "node-pg-migrate",
     "pgm:test": "node-pg-migrate -f config/db/test.json"
   },
