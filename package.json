@@ -16,8 +16,9 @@
     "start": "node src/main.js",
     "start:dev": "nodemon src/main.js",
     "test": "jest --coverage --setupFiles dotenv/config -i",
+    "test:no-coverage": "jest --setupFiles dotenv/config -i",
     "test:watch": "jest --watchAll --setupFiles dotenv/config -i",
-    "lint": "eslint ./src",
+    "lint": "eslint src/ tests/ migrations/",
     "pgm": "node-pg-migrate",
     "pgm:test": "node-pg-migrate -f config/db/test.json"
   },
@@ -32,10 +33,10 @@
   },
   "devDependencies": {
     "@types/jest": "^26.0.24",
-    "eslint": "^8.42.0",
+    "eslint": "^8.44.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-n": "^16.0.0",
+    "eslint-plugin-n": "^16.0.1",
     "eslint-plugin-promise": "^6.1.1",
     "jest": "^27.0.6",
     "node-pg-migrate": "^5.10.0",

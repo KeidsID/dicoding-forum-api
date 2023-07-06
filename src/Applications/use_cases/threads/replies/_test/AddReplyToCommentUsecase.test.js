@@ -4,9 +4,9 @@ const ThreadCommentRepliesRepository = require('../../../../../Domains/threads/r
 const AddedReply = require('../../../../../Domains/threads/replies/entities/AddedReply')
 const NewReply = require('../../../../../Domains/threads/replies/entities/NewReply')
 
-const AddReplyToCommentUsecase = require('../AddReplyToCommentUsecase')
+const AddReplyToCommentUseCase = require('../AddReplyToCommentUseCase')
 
-describe('AddReplyToCommentUsecase', () => {
+describe('AddReplyToCommentUseCase', () => {
   it('should orchestracting the add reply action correctly', async () => {
     // Arrange
     const payload = {
@@ -31,14 +31,14 @@ describe('AddReplyToCommentUsecase', () => {
     mockThreadsRepo.verifyThread = jest.fn()
       .mockImplementation(() => Promise.resolve())
 
-    const addCommentToThreadUsecase = new AddReplyToCommentUsecase({
+    const addCommentToThreadUseCase = new AddReplyToCommentUseCase({
       threadCommentRepliesRepository: mockThreadCommentRepliesRepo,
       threadCommentsRepository: mockThreadCommentsRepo,
       threadsRepository: mockThreadsRepo
     })
 
     // Action
-    const addedReply = await addCommentToThreadUsecase.execute(
+    const addedReply = await addCommentToThreadUseCase.execute(
       'thread-123', 'comment-123', payload, owner
     )
 

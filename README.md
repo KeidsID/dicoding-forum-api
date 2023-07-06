@@ -4,6 +4,9 @@
 
 # dicoding-forum-api
 
+[![CI](https://github.com/KeidsID/dicoding-forum-api/actions/workflows/ci.yaml/badge.svg?branch=main&event=push)](https://github.com/KeidsID/dicoding-forum-api/actions/workflows/ci.yaml)
+[![codecov](https://codecov.io/gh/KeidsID/dicoding-forum-api/branch/main/graph/badge.svg?token=J44SKMPO19)](https://codecov.io/gh/KeidsID/dicoding-forum-api)
+
 Back-End Expert project assignment from [dicoding.com][class-link]. With this
 assignment, students are expected to be able to create a back-end application in
 the form of a RESTful API that is testable, scalable, reliable, agile, easy and
@@ -28,21 +31,21 @@ fast to deploy, and has reliable security by industry standards.
 
    ```sh
    # Server config
-   HOST=<localhost/your server host>
-   PORT=<desired port>
+   HOST=<your server host>
+   PORT=<desired port for nodejs>
 
-   # PostgreSQL prod config
-   PGHOST=<your psql server host>
-   PGPORT=<your psql server port>
-   PGUSER=<your psql user>
-   PGPASSWORD=<your psql password>
+   # PostgreSQL config
+   PGHOST=<psql server host>
+   PGPORT=<psql server port>
+   PGUSER=<psql user>
+   PGPASSWORD=<psql password>
    PGDATABASE=<desired database>
 
-   # PostgreSQL test config
-   PGHOST_TEST=<your psql test server host>
-   PGPORT_TEST=<your psql test server port>
-   PGUSER_TEST=<your psql user>
-   PGPASSWORD_TEST=<your psql password>
+   # PostgreSQL config for testing
+   PGHOST_TEST=<psql server host>
+   PGPORT_TEST=<psql server port>
+   PGUSER_TEST=<psql user>
+   PGPASSWORD_TEST=<psql password>
    PGDATABASE_TEST=<desired database>
 
    # JWT config

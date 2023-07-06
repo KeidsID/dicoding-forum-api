@@ -91,8 +91,7 @@ const createServer = async (container) => {
         message: 'terjadi kegagalan pada server kami',
         error: {
           name: response.name,
-          message: response.message,
-          data: response.data
+          message: response.message
         }
       })
       newResponse.code(500)

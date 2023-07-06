@@ -4,7 +4,7 @@ const ThreadCommentsRepository = require('../../../Domains/threads/comments/Thre
 const ThreadCommentRepliesRepository = require('../../../Domains/threads/replies/ThreadCommentRepliesRepository')
 const Reply = require('../../../Domains/threads/replies/entities/Reply')
 
-class GetThreadDetailsUsecase {
+class GetThreadDetailsUseCase {
   /**
    * @param {object} dependencies
    * @param {ThreadsRepository} dependencies.threadsRepository
@@ -77,4 +77,4 @@ class GetThreadDetailsUsecase {
   }
 }
 
-module.exports = GetThreadDetailsUsecase
+module.exports = GetThreadDetailsUseCase

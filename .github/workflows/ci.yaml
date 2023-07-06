@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request_review:
+    types:
+      - submitted
+      - edited
+
+jobs:
+  test-with-coverage:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+        psql-host: [localhost]
+        psql-port: [5432]
+        psql-user: [developer]
+        psql-password: [testing]
+        psql-database: [forum_api]
+
+    steps:
+      - name: checkout ${{ github.ref_name }} ${{ github.ref_type }}
+        uses: actions/checkout@v3
+
+      - name: setup psql on ${{ matrix.psql-host }}
+        uses: Harmon758/postgresql-action@v1.0.0
+        with:
+          postgresql version: latest
+          postgresql user: ${{ matrix.psql-user }}
+          postgresql password: ${{ matrix.psql-password }}
+          postgresql db: ${{ matrix.psql-database }}
+
+      - name: setup node v${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+          cache-dependency-path: "package.json"
+
+      - name: install dependencies
+        run: npm install
+
+      - name: run eslint
+        run: npm run lint
+
+      - name: setup db environments
+        run: npm run pgm up
+        env:
+          # PostgreSQL config
+          PGHOST: ${{ matrix.psql-host }}
+          PGPORT: ${{ matrix.psql-port }}
+          PGUSER: ${{ matrix.psql-user }}
+          PGPASSWORD: ${{ matrix.psql-password }}
+          PGDATABASE: ${{ matrix.psql-database }}
+
+      - name: run test
+        run: npm test
+        env:
+          CI: true
+          # PostgreSQL config
+          PGHOST_TEST: ${{ matrix.psql-host }}
+          PGPORT_TEST: ${{ matrix.psql-port }}
+          PGUSER_TEST: ${{ matrix.psql-user }}
+          PGPASSWORD_TEST: ${{ matrix.psql-password }}
+          PGDATABASE_TEST: ${{ matrix.psql-database }}
+
+          # JWT config
+          ACCESS_TOKEN_KEY: ${{ secrets.ACCESS_TOKEN_KEY }}
+          REFRESH_TOKEN_KEY: ${{ secrets.REFRESH_TOKEN_KEY }}
+          ACCCESS_TOKEN_AGE: ${{ secrets.ACCCESS_TOKEN_AGE }}
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

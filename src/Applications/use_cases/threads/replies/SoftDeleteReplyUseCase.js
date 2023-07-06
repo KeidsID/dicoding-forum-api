@@ -1,16 +1,16 @@
 /* eslint-disable no-unused-vars */
+const ClientError = require('../../../../Common/exceptions/ClientError')
+
 const ThreadsRepository = require('../../../../Domains/threads/ThreadsRepository')
 const ThreadCommentsRepository = require('../../../../Domains/threads/comments/ThreadCommentsRepository')
 const ThreadCommentRepliesRepository = require('../../../../Domains/threads/replies/ThreadCommentRepliesRepository')
-const AddedReply = require('../../../../Domains/threads/replies/entities/AddedReply')
-const NewReply = require('../../../../Domains/threads/replies/entities/NewReply')
 
-class AddReplyToCommentUsecase {
+class SoftDeleteReplyUseCase {
   /**
-   * @param {object} depedencies
-   * @param {ThreadCommentRepliesRepository} depedencies.threadCommentRepliesRepository
-   * @param {ThreadCommentsRepository} depedencies.threadCommentsRepository
-   * @param {ThreadsRepository} depedencies.threadsRepository
+   * @param {object} dependencies
+   * @param {ThreadCommentRepliesRepository} dependencies.threadCommentRepliesRepository
+   * @param {ThreadCommentsRepository} dependencies.threadCommentsRepository
+   * @param {ThreadsRepository} dependencies.threadsRepository
    */
   constructor ({
     threadCommentRepliesRepository,
@@ -27,26 +27,24 @@ class AddReplyToCommentUsecase {
   #threadsRepository
 
   /**
-   * Add reply to a comment.
+   * Soft delete a reply from the database.
+   *
+   * - Throw `NotFoundError` if thread/comment/reply is not found.
+   * - Throw `AuthorizationError` if user is not the reply owner.
    *
    * @param {string} threadId
    * @param {string} commentId
-   * @param {object} payload
-   * @param {object} payload.content
-   * @param {string} owner
+   * @param {string} replyId
+   * @param {string} userId
    *
-   * @throws `NotFoundError`
-   *
-   * @return {Promise<AddedReply>} `{ id, content, owner }`
+   * @throws {ClientError}
    */
-  async execute (threadId, commentId, payload, owner) {
-    const newReply = new NewReply(payload)
-
+  async execute (threadId, commentId, replyId, userId) {
     await this.#threadsRepository.verifyThread(threadId)
     await this.#threadCommentsRepository.verifyCommentLocation(commentId, threadId)
 
-    return this.#threadCommentRepliesRepository.addReplyToComment(commentId, newReply, owner)
+    await this.#threadCommentRepliesRepository.softDeleteReply(replyId, userId)
   }
 }
 
-module.exports = AddReplyToCommentUsecase
+module.exports = SoftDeleteReplyUseCase

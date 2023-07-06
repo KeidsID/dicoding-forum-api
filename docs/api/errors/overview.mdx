@@ -2,7 +2,7 @@
 
 Sever's response to an error that occurs is quite simple.
 
-### Common
+### Common Error Response
 
 <Error>Any status code</Error>
 
@@ -23,8 +23,7 @@ Sever's response to an error that occurs is quite simple.
   "message": "terjadi kegagalan pada server kami",
   "error": {
     "name": "Error",
-    "message": "connect ECONNREFUSED 127.0.0.1:5432",
-    "data": null
+    "message": "connect ECONNREFUSED 127.0.0.1:5432"
   }
 }
 ```
@@ -33,7 +32,7 @@ Sever's response to an error that occurs is quite simple.
 
 ### Others
 
-<Error>401 Unauthorized</Error>
+<Error>Default Error Response From Hapi.js</Error>
 
 ```json title="Response body"
 {

@@ -36,12 +36,12 @@ const RefreshAuthenticationUseCase = require('../Applications/use_cases/auth/Ref
 const LogoutUserUseCase = require('../Applications/use_cases/auth/LogoutUserUseCase')
 
 const AddThreadUseCase = require('../Applications/use_cases/threads/AddThreadUseCase')
-const GetThreadDetailsUsecase = require('../Applications/use_cases/threads/GetThreadDetailsUsecase')
+const GetThreadDetailsUseCase = require('../Applications/use_cases/threads/GetThreadDetailsUseCase')
 
-const AddCommentToThreadUsecase = require('../Applications/use_cases/threads/comments/AddCommentToThreadUsecase')
+const AddCommentToThreadUseCase = require('../Applications/use_cases/threads/comments/AddCommentToThreadUseCase')
 const SoftDeleteCommentUseCase = require('../Applications/use_cases/threads/comments/SoftDeleteCommentUseCase')
 
-const AddReplyToCommentUsecase = require('../Applications/use_cases/threads/replies/AddReplyToCommentUsecase')
+const AddReplyToCommentUseCase = require('../Applications/use_cases/threads/replies/AddReplyToCommentUseCase')
 const SoftDeleteReplyUseCase = require('../Applications/use_cases/threads/replies/SoftDeleteReplyUseCase')
 
 // creating container
@@ -143,8 +143,8 @@ container.register([
     }
   },
   {
-    key: AddReplyToCommentUsecase.name,
-    Class: AddReplyToCommentUsecase,
+    key: AddReplyToCommentUseCase.name,
+    Class: AddReplyToCommentUseCase,
     parameter: {
       injectType: 'destructuring',
       dependencies: [
@@ -155,8 +155,8 @@ container.register([
     }
   },
   {
-    key: GetThreadDetailsUsecase.name,
-    Class: GetThreadDetailsUsecase,
+    key: GetThreadDetailsUseCase.name,
+    Class: GetThreadDetailsUseCase,
     parameter: {
       injectType: 'destructuring',
       dependencies: [
@@ -178,8 +178,8 @@ container.register([
     }
   },
   {
-    key: AddCommentToThreadUsecase.name,
-    Class: AddCommentToThreadUsecase,
+    key: AddCommentToThreadUseCase.name,
+    Class: AddCommentToThreadUseCase,
     parameter: {
       injectType: 'destructuring',
       dependencies: [
