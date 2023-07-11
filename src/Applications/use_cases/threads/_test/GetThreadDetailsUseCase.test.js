@@ -24,6 +24,7 @@ describe('GetThreadDetailsUseCase', () => {
         username: 'dicoding',
         date: new Date(),
         content: 'a comment',
+        likeCount: 0,
         isDeleted: false
       }),
       new Comment({
@@ -31,6 +32,7 @@ describe('GetThreadDetailsUseCase', () => {
         username: 'fulan',
         date: new Date(),
         content: 'a comment',
+        likeCount: 0,
         isDeleted: true
       })
     ]
@@ -102,6 +104,7 @@ describe('GetThreadDetailsUseCase', () => {
           username: 'dicoding',
           date: new Date(),
           content: 'a comment',
+          likeCount: 0,
           replies: [
             {
               id: 'reply-123',
@@ -122,6 +125,7 @@ describe('GetThreadDetailsUseCase', () => {
           username: 'fulan',
           date: new Date(),
           content: '**komentar telah dihapus**',
+          likeCount: 0,
           replies: [
             {
               id: 'reply-ijk',
@@ -159,6 +163,13 @@ describe('GetThreadDetailsUseCase', () => {
     expect(comments[0].username).toStrictEqual(expectedComments[0].username)
     expect(comments[0].date.getDate()).toStrictEqual(expectedComments[0].date.getDate())
     expect(comments[0].content).toStrictEqual(expectedComments[0].content)
+    expect(comments[0].likeCount).toStrictEqual(expectedComments[0].likeCount)
+
+    expect(comments[1].id).toStrictEqual(expectedComments[1].id)
+    expect(comments[1].username).toStrictEqual(expectedComments[1].username)
+    expect(comments[1].date.getDate()).toStrictEqual(expectedComments[1].date.getDate())
+    expect(comments[1].content).toStrictEqual(expectedComments[1].content)
+    expect(comments[1].likeCount).toStrictEqual(expectedComments[1].likeCount)
 
     expect(commentReplies[0].id).toStrictEqual(expectedCommentReplies[0].id)
     expect(commentReplies[0].username).toStrictEqual(expectedCommentReplies[0].username)

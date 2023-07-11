@@ -68,18 +68,16 @@ class ThreadCommentRepliesRepositoryPostgres extends ThreadCommentRepliesReposit
     const query = {
       text: `
         SELECT
-          thread_comment_replies.id, 
-          users.username, 
-          thread_comment_replies.date,
-          thread_comment_replies.content, 
-          thread_comment_replies.is_deleted AS "isDeleted",
-          thread_comment_replies.comment_id AS "commentId"
-        FROM thread_comment_replies
+          tcr.id, users.username, 
+          tcr.date, tcr.content, 
+          tcr.is_deleted AS "isDeleted",
+          tcr.comment_id AS "commentId"
+        FROM thread_comment_replies AS tcr
         LEFT JOIN users
-          ON thread_comment_replies.owner = users.id
+          ON tcr.owner = users.id
         WHERE comment_id = ANY($1::TEXT[])
         GROUP BY 
-          thread_comment_replies.id, users.username
+          tcr.id, users.username
         ORDER BY date
       `,
       values: [commentIds]
