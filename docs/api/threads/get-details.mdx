@@ -21,7 +21,11 @@ threadId: thread-unique_id
       "comments": [
         {
           ...CommentOrReply,
-          "replies": [ CommentOrReply ]
+          "likeCount": "int",
+          "replies": [
+            CommentOrReply,
+            CommentOrReply
+          ]
         }
       ]
     }

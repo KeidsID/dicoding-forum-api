@@ -18,7 +18,7 @@
       "Threads",
       [
         ["Post Thread", "/api/threads/post"],
-        ["Thread Details", "/api/threads/get-details"]
+        ["View Thread Details", "/api/threads/get-details"]
       ]
     ],
     [
