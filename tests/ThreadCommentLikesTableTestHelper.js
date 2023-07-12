@@ -28,5 +28,20 @@ module.exports = {
     }
 
     await pool.query(query)
+  },
+
+  async getCommentLike (commentLikeId) {
+    const query = {
+      text: 'SELECT comment_id AS "commentId", liker FROM thread_comment_likes WHERE id = $1',
+      values: [commentLikeId]
+    }
+
+    const { rows } = await pool.query(query)
+
+    return rows
+  },
+
+  async cleanTable () {
+    await pool.query('DELETE FROM thread_comment_likes')
   }
 }
