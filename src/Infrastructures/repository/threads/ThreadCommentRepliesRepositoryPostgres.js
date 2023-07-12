@@ -5,10 +5,10 @@ const { nanoid } = require('nanoid')
 const AuthorizationError = require('../../../Common/exceptions/AuthorizationError')
 const NotFoundError = require('../../../Common/exceptions/NotFoundError')
 
-const ThreadCommentRepliesRepository = require('../../../Domains/threads/replies/ThreadCommentRepliesRepository')
+const ThreadCommentRepliesRepository = require('../../../Domains/threads/comments/replies/ThreadCommentRepliesRepository')
 
-const AddedReply = require('../../../Domains/threads/replies/entities/AddedReply')
-const Reply = require('../../../Domains/threads/replies/entities/Reply')
+const AddedReply = require('../../../Domains/threads/comments/replies/entities/AddedReply')
+const Reply = require('../../../Domains/threads/comments/replies/entities/Reply')
 
 class ThreadCommentRepliesRepositoryPostgres extends ThreadCommentRepliesRepository {
   /**

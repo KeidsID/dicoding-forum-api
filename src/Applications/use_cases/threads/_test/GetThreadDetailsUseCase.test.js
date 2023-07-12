@@ -4,7 +4,7 @@ const Thread = require('../../../../Domains/threads/entities/Thread')
 const ThreadCommentsRepository = require('../../../../Domains/threads/comments/ThreadCommentsRepository')
 const Comment = require('../../../../Domains/threads/comments/entities/Comment')
 
-const ThreadCommentRepliesRepository = require('../../../../Domains/threads/replies/ThreadCommentRepliesRepository')
+const ThreadCommentRepliesRepository = require('../../../../Domains/threads/comments/replies/ThreadCommentRepliesRepository')
 
 const GetThreadDetailsUseCase = require('../GetThreadDetailsUseCase')
 

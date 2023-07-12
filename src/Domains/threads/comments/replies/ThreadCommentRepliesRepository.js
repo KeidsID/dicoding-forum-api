@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
-const ClientError = require('../../../Common/exceptions/ClientError')
+const ClientError = require('../../../../Common/exceptions/ClientError')
+
 const AddedReply = require('./entities/AddedReply')
 const Reply = require('./entities/Reply')
 const NewReply = require('./entities/NewReply')

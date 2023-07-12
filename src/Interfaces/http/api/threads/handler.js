@@ -8,8 +8,8 @@ const GetThreadDetailsUseCase = require('../../../../Applications/use_cases/thre
 const AddCommentToThreadUseCase = require('../../../../Applications/use_cases/threads/comments/AddCommentToThreadUseCase')
 const SoftDeleteCommentUseCase = require('../../../../Applications/use_cases/threads/comments/SoftDeleteCommentUseCase')
 
-const AddReplyToCommentUseCase = require('../../../../Applications/use_cases/threads/replies/AddReplyToCommentUseCase')
-const SoftDeleteReplyUseCase = require('../../../../Applications/use_cases/threads/replies/SoftDeleteReplyUseCase')
+const AddReplyToCommentUseCase = require('../../../../Applications/use_cases/threads/comments/replies/AddReplyToCommentUseCase')
+const SoftDeleteReplyUseCase = require('../../../../Applications/use_cases/threads/comments/replies/SoftDeleteReplyUseCase')
 
 /**
  * Handler for "/threads" endpoint routes.
