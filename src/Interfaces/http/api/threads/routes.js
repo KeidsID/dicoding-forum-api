@@ -33,6 +33,12 @@ const routes = (handler) => ([
     handler: (req, h) => handler.deleteComment(req, h),
     options: { auth: Constants.idUsernameAuthStrategy }
   },
+  {
+    method: 'PUT',
+    path: '/threads/{threadId}/comments/{commentId}/likes',
+    handler: (req, h) => handler.likeOrDislikeComment(req, h),
+    options: { auth: Constants.idUsernameAuthStrategy }
+  },
 
   {
     method: 'POST',
@@ -46,7 +52,6 @@ const routes = (handler) => ([
     handler: (req, h) => handler.deleteReply(req, h),
     options: { auth: Constants.idUsernameAuthStrategy }
   }
-
 ])
 
 module.exports = routes

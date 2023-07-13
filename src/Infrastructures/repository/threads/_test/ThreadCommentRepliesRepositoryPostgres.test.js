@@ -5,8 +5,8 @@ const NotFoundError = require('../../../../Common/exceptions/NotFoundError')
 
 const ThreadCommentRepliesRepositoryPostgres = require('../ThreadCommentRepliesRepositoryPostgres')
 
-const AddedReply = require('../../../../Domains/threads/replies/entities/AddedReply')
-const NewReply = require('../../../../Domains/threads/replies/entities/NewReply')
+const AddedReply = require('../../../../Domains/threads/comments/replies/entities/AddedReply')
+const NewReply = require('../../../../Domains/threads/comments/replies/entities/NewReply')
 
 const UsersTableTestHelper = require('../../../../../tests/UsersTableTestHelper')
 

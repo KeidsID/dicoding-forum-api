@@ -50,6 +50,17 @@ This file will define the tables structure on this database server.
 - `FOREIGN KEY(thread_id) REFERENCES threads(id) ON DELETE CASCADE`
 - `FOREIGN KEY(commenter) REFERENCES users(id) ON DELETE CASCADE`
 
+## thread_comment_likes
+
+| id                 | comment_id    | liker      |
+| ------------------ | ------------- | ---------- |
+| "comment-like-xyz" | "comment-xyz" | "user-xyz" |
+
+### Constraints
+
+- `FOREIGN KEY(comment_id) REFERENCES thread_comments(id) ON DELETE CASCADE`
+- `FOREIGN KEY(liker) REFERENCES users(id) ON DELETE CASCADE`
+
 ## thread_comment_replies
 
 | id          | comment_id  | content          | owner      | is_deleted | date                       |

@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 const ThreadsRepository = require('../../../Domains/threads/ThreadsRepository')
 const ThreadCommentsRepository = require('../../../Domains/threads/comments/ThreadCommentsRepository')
-const ThreadCommentRepliesRepository = require('../../../Domains/threads/replies/ThreadCommentRepliesRepository')
-const Reply = require('../../../Domains/threads/replies/entities/Reply')
+const ThreadCommentRepliesRepository = require('../../../Domains/threads/comments/replies/ThreadCommentRepliesRepository')
+const Reply = require('../../../Domains/threads/comments/replies/entities/Reply')
 
 class GetThreadDetailsUseCase {
   /**

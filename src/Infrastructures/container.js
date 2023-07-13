@@ -17,13 +17,15 @@ const UserRepository = require('../Domains/users/UserRepository')
 
 const ThreadsRepository = require('../Domains/threads/ThreadsRepository')
 const ThreadCommentsRepository = require('../Domains/threads/comments/ThreadCommentsRepository')
-const ThreadCommentRepliesRepository = require('../Domains/threads/replies/ThreadCommentRepliesRepository')
+const ThreadCommentLikesRepository = require('../Domains/threads/comments/ThreadCommentLikesRepository')
+const ThreadCommentRepliesRepository = require('../Domains/threads/comments/replies/ThreadCommentRepliesRepository')
 
 const AuthenticationRepositoryPostgres = require('./repository/auth/AuthenticationRepositoryPostgres')
 const UserRepositoryPostgres = require('./repository/auth/UserRepositoryPostgres')
 
 const ThreadsRepositoryPostgres = require('./repository/threads/ThreadsRepositoryPostgres')
 const ThreadCommentsRepositoryPostgres = require('./repository/threads/ThreadCommentsRepositoryPostgres')
+const ThreadCommentLikesRepositoryPostgres = require('./repository/threads/ThreadCommentLikesRepositoryPostgres')
 const ThreadCommentRepliesRepositoryPostgres = require('./repository/threads/ThreadCommentRepliesRepositoryPostgres')
 
 const BcryptPasswordHash = require('./security/BcryptPasswordHash')
@@ -40,15 +42,26 @@ const GetThreadDetailsUseCase = require('../Applications/use_cases/threads/GetTh
 
 const AddCommentToThreadUseCase = require('../Applications/use_cases/threads/comments/AddCommentToThreadUseCase')
 const SoftDeleteCommentUseCase = require('../Applications/use_cases/threads/comments/SoftDeleteCommentUseCase')
+const LikeOrDislikeCommentUseCase = require('../Applications/use_cases/threads/comments/LikeOrDislikeCommentUseCase')
 
-const AddReplyToCommentUseCase = require('../Applications/use_cases/threads/replies/AddReplyToCommentUseCase')
-const SoftDeleteReplyUseCase = require('../Applications/use_cases/threads/replies/SoftDeleteReplyUseCase')
+const AddReplyToCommentUseCase = require('../Applications/use_cases/threads/comments/replies/AddReplyToCommentUseCase')
+const SoftDeleteReplyUseCase = require('../Applications/use_cases/threads/comments/replies/SoftDeleteReplyUseCase')
 
 // creating container
 const container = createContainer()
 
 // registering services and repository
 container.register([
+  {
+    key: ThreadCommentLikesRepository.name,
+    Class: ThreadCommentLikesRepositoryPostgres,
+    parameter: {
+      dependencies: [
+        { concrete: pool },
+        { concrete: nanoid }
+      ]
+    }
+  },
   {
     key: ThreadCommentRepliesRepository.name,
     Class: ThreadCommentRepliesRepositoryPostgres,
@@ -130,6 +143,18 @@ container.register([
 
 // registering use cases
 container.register([
+  {
+    key: LikeOrDislikeCommentUseCase.name,
+    Class: LikeOrDislikeCommentUseCase,
+    parameter: {
+      injectType: 'destructuring',
+      dependencies: [
+        { name: 'threadsRepository', internal: ThreadsRepository.name },
+        { name: 'threadCommentsRepository', internal: ThreadCommentsRepository.name },
+        { name: 'threadCommentLikesRepository', internal: ThreadCommentLikesRepository.name }
+      ]
+    }
+  },
   {
     key: SoftDeleteReplyUseCase.name,
     Class: SoftDeleteReplyUseCase,

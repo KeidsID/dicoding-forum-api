@@ -18,14 +18,15 @@
       "Threads",
       [
         ["Post Thread", "/api/threads/post"],
-        ["Thread Details", "/api/threads/get-details"]
+        ["View Thread Details", "/api/threads/get-details"]
       ]
     ],
     [
       "Thread Comments",
       [
         ["Comment On Thread", "/api/threads/comments/post"],
-        ["Delete Comment", "/api/threads/comments/delete"]
+        ["Delete Comment", "/api/threads/comments/delete"],
+        ["Like Or Dislike A Comment", "/api/threads/comments/likes"]
       ]
     ],
     [

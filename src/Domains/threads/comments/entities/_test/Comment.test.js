@@ -13,6 +13,7 @@ describe('a Comment entity', () => {
       username: 'dicoding',
       date: Date.now(),
       content: 'A comment',
+      likeCount: 0,
       isDeleted: false
     }
 
@@ -27,6 +28,7 @@ describe('a Comment entity', () => {
       username: 'dicoding',
       date: new Date(),
       content: 'A comment',
+      likeCount: 0,
       isDeleted: false
     }
 
@@ -38,6 +40,7 @@ describe('a Comment entity', () => {
     expect(comment.username).toStrictEqual(args.username)
     expect(comment.date).toStrictEqual(args.date)
     expect(comment.content).toStrictEqual(args.content)
+    expect(comment.likeCount).toStrictEqual(args.likeCount)
   })
 
   it('should create Comment object correctly with modified content when isDeleted argument is true', () => {
@@ -47,6 +50,7 @@ describe('a Comment entity', () => {
       username: 'dicoding',
       date: new Date(),
       content: 'A comment',
+      likeCount: 0,
       isDeleted: true
     }
 

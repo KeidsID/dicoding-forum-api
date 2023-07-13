@@ -68,13 +68,15 @@ class ThreadCommentsRepositoryPostgres extends ThreadCommentsRepository {
     const query = {
       text: `
         SELECT 
-          thread_comments.id, users.username, 
-          thread_comments.date, thread_comments.content, 
-          thread_comments.is_deleted AS "isDeleted"
-        FROM thread_comments 
-        LEFT JOIN users ON thread_comments.owner = users.id
+          tc.id, users.username, 
+          tc.date, tc.content, 
+          tc.is_deleted AS "isDeleted",
+          COALESCE(COUNT(tcl.id), 0)::INT AS "likeCount"
+        FROM thread_comments AS tc
+        LEFT JOIN users ON tc.owner = users.id
+        LEFT JOIN thread_comment_likes AS tcl ON tc.id = tcl.comment_id
         WHERE thread_id = $1
-        GROUP BY thread_comments.id, users.username
+        GROUP BY tc.id, users.username
         ORDER BY date
       `,
       values: [threadId]

@@ -1,8 +1,8 @@
-const ThreadsRepository = require('../../../../../Domains/threads/ThreadsRepository')
-const ThreadCommentsRepository = require('../../../../../Domains/threads/comments/ThreadCommentsRepository')
-const ThreadCommentRepliesRepository = require('../../../../../Domains/threads/replies/ThreadCommentRepliesRepository')
-const AddedReply = require('../../../../../Domains/threads/replies/entities/AddedReply')
-const NewReply = require('../../../../../Domains/threads/replies/entities/NewReply')
+const ThreadsRepository = require('../../../../../../Domains/threads/ThreadsRepository')
+const ThreadCommentsRepository = require('../../../../../../Domains/threads/comments/ThreadCommentsRepository')
+const ThreadCommentRepliesRepository = require('../../../../../../Domains/threads/comments/replies/ThreadCommentRepliesRepository')
+const AddedReply = require('../../../../../../Domains/threads/comments/replies/entities/AddedReply')
+const NewReply = require('../../../../../../Domains/threads/comments/replies/entities/NewReply')
 
 const AddReplyToCommentUseCase = require('../AddReplyToCommentUseCase')
 

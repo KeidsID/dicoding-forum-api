@@ -1,3 +1,16 @@
+## 1.2.0
+
+### Added
+
+- Feature to like and dislike a comment.
+  Method and Endpoint: `PUT threads/{threadId}/comments/{commentId}/likes`
+
+- Thread details will respond like count too.
+
+### Fixed
+
+- Fix wrong script on CD workflow.
+
 ## 1.1.2
 
 ### Added

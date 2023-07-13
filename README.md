@@ -20,6 +20,7 @@ fast to deploy, and has reliable security by industry standards.
 - [x] Viewing Threads.
 - [x] Adding and Deleting Thread Comments.
 - [x] Adding and Deleting Replies to Thread Comments.
+- [x] Like and Dislike Comment.
 
 ## Project utils
 

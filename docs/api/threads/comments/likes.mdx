@@ -1,0 +1,24 @@
+# Like Or Dislike A Comment
+
+`PUT /threads/{threadId}/comments/{commentId}/likes`
+
+Liking a comment if it's not yet liked, and vice versa.
+
+```yaml title="Path Params"
+threadId: thread-unique_id
+commentId: comment-unique_id
+```
+
+```yaml title="Headers"
+Authorization: Bearer {accessToken}
+```
+
+### Response
+
+<Success>200 OK</Success>
+
+```json title="Response Body"
+{
+  "status": "success"
+}
+```

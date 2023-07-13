@@ -21,7 +21,11 @@ threadId: thread-unique_id
       "comments": [
         {
           ...CommentOrReply,
-          "replies": [ CommentOrReply ]
+          "likeCount": "int",
+          "replies": [
+            CommentOrReply,
+            CommentOrReply
+          ]
         }
       ]
     }
@@ -64,6 +68,7 @@ threadId: thread-unique_id
           "username": "dicoding",
           "date": "2023-06-17T15:10:13.413Z",
           "content": "sebuah comment",
+          "likeCount": 2,
           "replies": [
             {
               "id": "reply-vZG9EVKV5XzBFakg-M6Bd",
@@ -84,6 +89,7 @@ threadId: thread-unique_id
           "username": "dicoding",
           "date": "2023-06-17T15:10:13.504Z",
           "content": "**komentar telah dihapus**",
+          "likeCount": 0,
           "replies": []
         }
       ]

@@ -1,12 +1,16 @@
 # Getting Started
 
-<Success>Server Base URL: http://13.229.143.139:5000</Success>
+<Success>Server Base URL: https://dicoding-forum-api.site</Success>
 
 Welcome to the Dicoding Forum API Docs. This is where you will find the
 definitive list of currently available methods of the API. Use the base url
 above to access the server.
 
-<Info>Root endpoint (GET http://13.229.143.139:5000/) will redirect you back to this docs page</Info>
+```powershell title="Fetch thread detail (/threads/{threadId} endpoint) example"
+curl -X GET "https://dicoding-forum-api.site/threads/thread-xyz"
+```
+
+<Info>Root endpoint (GET https://dicoding-forum-api.site/) will redirect you back to this docs page</Info>
 
 Before you can access other endpoints, you need an access token as a request
 header. To get an access token, please register first if you are a new user and
