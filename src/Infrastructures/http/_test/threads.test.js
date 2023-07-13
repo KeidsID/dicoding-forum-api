@@ -447,6 +447,128 @@ describe('/threads endpoint', () => {
     })
   })
 
+  describe('when PUT /threads/{threadId}/comments/{commentId}/likes', () => {
+    const validTestUrl = '/threads/thread-123/comments/comment-123/likes'
+
+    it('should respond 404 status code when the thread is not found', async () => {
+      // Arrange
+      const server = await createServer(container)
+
+      await UsersTableTestHelper.addUser(dummyUser)
+      const accessToken = await ServerTestHelper.login(dummyUser)
+
+      // Action
+      const response = await server.inject({
+        method: 'PUT',
+        url: validTestUrl,
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      })
+
+      // Assert
+      const responseJson = JSON.parse(response.payload)
+
+      expect(response.statusCode).toEqual(404)
+      expect(responseJson.status).toEqual('fail')
+      expect(responseJson.message).toEqual('thread tidak ditemukan')
+    })
+
+    it('should respond 404 status code when the comment is not found', async () => {
+      // Arrange
+      const server = await createServer(container)
+
+      await UsersTableTestHelper.addUser(dummyUser)
+      const accessToken = await ServerTestHelper.login(dummyUser)
+
+      await ThreadsTableTestHelper.addThread({})
+
+      // Action
+      const response = await server.inject({
+        method: 'PUT',
+        url: validTestUrl,
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      })
+
+      // Assert
+      const responseJson = JSON.parse(response.payload)
+
+      expect(response.statusCode).toEqual(404)
+      expect(responseJson.status).toEqual('fail')
+      expect(responseJson.message).toEqual('komentar tidak ditemukan')
+    })
+
+    it('should respond 404 status code when the comment is not found ON THE THREAD', async () => {
+      // Arrange
+      const server = await createServer(container)
+
+      await UsersTableTestHelper.addUser(dummyUser)
+      const accessToken = await ServerTestHelper.login(dummyUser)
+
+      await ThreadsTableTestHelper.addThread({}) // thread-123
+      await ThreadsTableTestHelper.addThread({ id: 'thread-xyz' })
+      await ThreadCommentsTableTestHelper.addCommentToThread({}) // comment-123 on thread-123
+
+      // Action
+      const response = await server.inject({
+        method: 'PUT',
+        url: '/threads/thread-xyz/comments/comment-123/likes',
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      })
+
+      // Assert
+      const responseJson = JSON.parse(response.payload)
+
+      expect(response.statusCode).toEqual(404)
+      expect(responseJson.status).toEqual('fail')
+      expect(responseJson.message).toEqual('komentar tidak ditemukan pada thread ini')
+    })
+
+    it(
+      'should respond 200 status code when comment is liked and the comment like count on thread detail endpoint increased',
+      async () => {
+        // Arrange
+        const server = await createServer(container)
+
+        await UsersTableTestHelper.addUser(dummyUser)
+        const accessToken = await ServerTestHelper.login(dummyUser)
+
+        await ThreadsTableTestHelper.addThread({}) // thread-123
+        await ThreadCommentsTableTestHelper.addCommentToThread({}) // comment-123 on thread-123
+
+        // Action
+        const response = await server.inject({
+          method: 'PUT',
+          url: validTestUrl,
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        })
+
+        // Assert
+        const responseJson = JSON.parse(response.payload)
+
+        expect(response.statusCode).toEqual(200)
+        expect(responseJson.status).toEqual('success')
+
+        const threadDetailResponse = await server.inject({
+          method: 'GET',
+          url: '/threads/thread-123'
+        })
+        const threadDetailResponseJson = JSON.parse(threadDetailResponse.payload)
+
+        const thread = threadDetailResponseJson.data.thread
+        const comments = thread.comments
+
+        expect(comments[0].likeCount).toStrictEqual(1)
+      }
+    )
+  })
+
   describe('when POST /threads/{threadId}/comments/{commentID}/replies', () => {
     const validTestUrl = '/threads/thread-123/comments/comment-123/replies'
 

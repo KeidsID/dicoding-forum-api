@@ -10,6 +10,7 @@ const SoftDeleteCommentUseCase = require('../../../../Applications/use_cases/thr
 
 const AddReplyToCommentUseCase = require('../../../../Applications/use_cases/threads/comments/replies/AddReplyToCommentUseCase')
 const SoftDeleteReplyUseCase = require('../../../../Applications/use_cases/threads/comments/replies/SoftDeleteReplyUseCase')
+const LikeOrDislikeCommentUsecase = require('../../../../Applications/use_cases/threads/comments/LikeOrDislikeCommentUseCase')
 
 /**
  * Handler for "/threads" endpoint routes.
@@ -35,14 +36,14 @@ class ThreadsHandler {
    * @return {Promise<Hapi.ResponseObject>}
    */
   async postThread (req, h) {
-    const { id } = req.auth.credentials
+    const { id: userId } = req.auth.credentials
 
     /**
      * @type {AddThreadsUseCase}
      */
     const addThreadsUseCase = this.#container.getInstance(AddThreadsUseCase.name)
 
-    const addedThread = await addThreadsUseCase.execute(req.payload, id)
+    const addedThread = await addThreadsUseCase.execute(req.payload, userId)
 
     const response = h.response({
       status: 'success',
@@ -87,7 +88,7 @@ class ThreadsHandler {
    * @return {Promise<Hapi.ResponseObject>}
    */
   async postComment (req, h) {
-    const { id } = req.auth.credentials
+    const { id: userId } = req.auth.credentials
     const { threadId } = req.params
 
     /**
@@ -97,7 +98,7 @@ class ThreadsHandler {
       .getInstance(AddCommentToThreadUseCase.name)
 
     const addedComment = await addCommentToThreadUseCase.execute(
-      threadId, req.payload, id
+      threadId, req.payload, userId
     )
 
     const response = h.response({
@@ -118,8 +119,8 @@ class ThreadsHandler {
    * @return {Promise<Hapi.ResponseObject>}
    */
   async deleteComment (req, h) {
+    const { id: userId } = req.auth.credentials
     const { threadId, commentId } = req.params
-    const { id } = req.auth.credentials
 
     /**
      * @type {SoftDeleteCommentUseCase}
@@ -127,11 +128,33 @@ class ThreadsHandler {
     const softDeleteCommentUseCase = this.#container
       .getInstance(SoftDeleteCommentUseCase.name)
 
-    await softDeleteCommentUseCase.execute(threadId, commentId, id)
+    await softDeleteCommentUseCase.execute(threadId, commentId, userId)
 
-    return {
-      status: 'success'
-    }
+    return { status: 'success' }
+  }
+
+  /**
+   * Handler for `PUT /threads/{threadId}/comments/{commentId}/likes`.
+   *
+   * @param {Hapi.Request} req
+   * @param {Hapi.ResponseToolkit} h
+   *
+   * @return {Promise<Hapi.ResponseObject>}
+   */
+  async likeOrDislikeComment (req, h) {
+    const { id: userId } = req.auth.credentials
+    const { threadId, commentId } = req.params
+
+    /**
+     * @type {LikeOrDislikeCommentUsecase}
+     */
+    const likeOrDislikeCommentUsecase = this.#container.getInstance(
+      LikeOrDislikeCommentUsecase.name
+    )
+
+    await likeOrDislikeCommentUsecase.execute(threadId, commentId, userId)
+
+    return { status: 'success' }
   }
 
   /**
@@ -143,7 +166,7 @@ class ThreadsHandler {
    * @return {Promise<Hapi.ResponseObject>}
    */
   async postReply (req, h) {
-    const { id } = req.auth.credentials
+    const { id: userId } = req.auth.credentials
     const { threadId, commentId } = req.params
 
     /**
@@ -153,7 +176,7 @@ class ThreadsHandler {
       .getInstance(AddReplyToCommentUseCase.name)
 
     const addedReply = await addReplyToCommentUseCase.execute(
-      threadId, commentId, req.payload, id
+      threadId, commentId, req.payload, userId
     )
 
     const response = h.response({
@@ -174,8 +197,8 @@ class ThreadsHandler {
    * @return {Promise<Hapi.ResponseObject>}
    */
   async deleteReply (req, h) {
+    const { id: userId } = req.auth.credentials
     const { threadId, commentId, replyId } = req.params
-    const { id } = req.auth.credentials
 
     /**
      * @type {SoftDeleteReplyUseCase}
@@ -183,11 +206,9 @@ class ThreadsHandler {
     const softDeleteReplyUseCase = this.#container
       .getInstance(SoftDeleteReplyUseCase.name)
 
-    await softDeleteReplyUseCase.execute(threadId, commentId, replyId, id)
+    await softDeleteReplyUseCase.execute(threadId, commentId, replyId, userId)
 
-    return {
-      status: 'success'
-    }
+    return { status: 'success' }
   }
 }
 
