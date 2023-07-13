@@ -25,7 +25,8 @@
       "Thread Comments",
       [
         ["Comment On Thread", "/api/threads/comments/post"],
-        ["Delete Comment", "/api/threads/comments/delete"]
+        ["Delete Comment", "/api/threads/comments/delete"],
+        ["Like Or Dislike A Comment", "/api/threads/comments/likes"]
       ]
     ],
     [
