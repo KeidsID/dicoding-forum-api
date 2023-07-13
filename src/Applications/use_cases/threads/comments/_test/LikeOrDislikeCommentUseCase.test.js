@@ -1,7 +1,7 @@
 const ThreadsRepository = require('../../../../../Domains/threads/ThreadsRepository')
 const ThreadCommentLikesRepository = require('../../../../../Domains/threads/comments/ThreadCommentLikesRepository')
 const ThreadCommentsRepository = require('../../../../../Domains/threads/comments/ThreadCommentsRepository')
-const LikeOrDislikeCommentUsecase = require('../LikeOrDislikeCommentUsecase')
+const LikeOrDislikeCommentUseCase = require('../LikeOrDislikeCommentUseCase')
 
 describe('LikeOrDislikeCommentUseCase', () => {
   const threadId = 'thread-123'
@@ -22,7 +22,7 @@ describe('LikeOrDislikeCommentUseCase', () => {
     mockThreadCommentLikesRepo.likeAComment = jest.fn(() => Promise.resolve())
     mockThreadCommentLikesRepo.dislikeAComment = jest.fn(() => Promise.resolve())
 
-    const usecase = new LikeOrDislikeCommentUsecase({
+    const usecase = new LikeOrDislikeCommentUseCase({
       threadsRepository: mockThreadsRepo,
       threadCommentsRepository: mockThreadCommentsRepo,
       threadCommentLikesRepository: mockThreadCommentLikesRepo
@@ -53,7 +53,7 @@ describe('LikeOrDislikeCommentUseCase', () => {
     mockThreadCommentLikesRepo.likeAComment = jest.fn(() => Promise.resolve())
     mockThreadCommentLikesRepo.dislikeAComment = jest.fn(() => Promise.resolve())
 
-    const usecase = new LikeOrDislikeCommentUsecase({
+    const usecase = new LikeOrDislikeCommentUseCase({
       threadsRepository: mockThreadsRepo,
       threadCommentsRepository: mockThreadCommentsRepo,
       threadCommentLikesRepository: mockThreadCommentLikesRepo
