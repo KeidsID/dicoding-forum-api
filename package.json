@@ -13,8 +13,9 @@
     "jest"
   ],
   "scripts": {
-    "start": "node src/main.js",
-    "start:dev": "nodemon src/main.js",
+    "start": "npx tsc -w",
+    "dev": "npx nodemon",
+    "build": "tsc",
     "test": "jest --coverage --setupFiles dotenv/config -i",
     "test:no-coverage": "jest --setupFiles dotenv/config -i",
     "test:watch": "jest --watchAll --setupFiles dotenv/config -i",
@@ -40,6 +41,8 @@
     "eslint-plugin-promise": "^6.1.1",
     "jest": "^27.0.6",
     "node-pg-migrate": "^5.10.0",
-    "nodemon": "^2.0.9"
+    "nodemon": "^2.0.9",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
   }
 }
