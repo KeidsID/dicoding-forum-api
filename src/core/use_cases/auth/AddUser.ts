@@ -1,8 +1,8 @@
-import type UserRepo from '../../repo/auth/UserRepo'
-import type PasswordHasher from '../../security/PasswordHasher'
+import type UserRepo from 'src/core/repo/auth/UserRepo'
+import type PasswordHasher from 'src/core/security/PasswordHasher'
 
-import type RegisteredUser from '../../entities/auth/RegisteredUser'
-import type RegisterUser from '../../entities/auth/RegisterUser'
+import type RegisteredUser from 'src/core/entities/auth/RegisteredUser'
+import type RegisterUser from 'src/core/entities/auth/RegisterUser'
 
 export default class AddUser {
   private readonly _userRepository: UserRepo
@@ -21,7 +21,7 @@ export default class AddUser {
 
     const encryptedPass = await this._passwordHash.hash(credentials.password)
 
-    return await this._userRepository.addUser({
+    return this._userRepository.addUser({
       ...credentials,
       password: encryptedPass
     })

@@ -1,10 +1,10 @@
 import { mock } from 'ts-jest-mocker'
 
-import type Thread from '../../../entities/threads/Thread'
-import Comment from '../../../entities/threads/comments/Comment'
-import type ThreadsRepo from '../../../repo/threads/ThreadsRepo'
-import type ThreadCommentsRepo from '../../../repo/threads/ThreadCommentsRepo'
-import type ThreadCommentRepliesRepo from '../../../repo/threads/ThreadCommentRepliesRepo'
+import type Thread from 'src/core/entities/threads/Thread'
+import Comment from 'src/core/entities/threads/comments/Comment'
+import type ThreadsRepo from 'src/core/repo/threads/ThreadsRepo'
+import type ThreadCommentsRepo from 'src/core/repo/threads/ThreadCommentsRepo'
+import type ThreadCommentRepliesRepo from 'src/core/repo/threads/ThreadCommentRepliesRepo'
 
 import GetThreadDetail from '../GetThreadDetail'
 

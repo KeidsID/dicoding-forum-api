@@ -1,10 +1,9 @@
-import type NewAuth from '../../entities/auth/NewAuth'
-import type UserLogin from '../../entities/auth/UserLogin'
-
-import type AuthRepo from '../../repo/auth/AuthRepo'
-import type UserRepo from '../../repo/auth/UserRepo'
-import type AuthTokenManager from '../../security/AuthTokenManager'
-import type PasswordHasher from '../../security/PasswordHasher'
+import type NewAuth from 'src/core/entities/auth/NewAuth'
+import type UserLogin from 'src/core/entities/auth/UserLogin'
+import type AuthRepo from 'src/core/repo/auth/AuthRepo'
+import type UserRepo from 'src/core/repo/auth/UserRepo'
+import type AuthTokenManager from 'src/core/security/AuthTokenManager'
+import type PasswordHasher from 'src/core/security/PasswordHasher'
 
 export default class LoginUser {
   private readonly _userRepo: UserRepo

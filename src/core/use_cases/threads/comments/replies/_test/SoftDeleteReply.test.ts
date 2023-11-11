@@ -1,8 +1,8 @@
 import { mock } from 'ts-jest-mocker'
 
-import type ThreadsRepo from '../../../../../repo/threads/ThreadsRepo'
-import type ThreadCommentsRepo from '../../../../../repo/threads/ThreadCommentsRepo'
-import type ThreadCommentRepliesRepo from '../../../../../repo/threads/ThreadCommentRepliesRepo'
+import type ThreadsRepo from 'src/core/repo/threads/ThreadsRepo'
+import type ThreadCommentsRepo from 'src/core/repo/threads/ThreadCommentsRepo'
+import type ThreadCommentRepliesRepo from 'src/core/repo/threads/ThreadCommentRepliesRepo'
 
 import SoftDeleteReply from '../SoftDeleteReply'
 

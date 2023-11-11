@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import HttpError from '../../../common/error/HttpError'
+import HttpError from 'src/common/error/HttpError'
 
 export default interface AuthRepo {
   addToken: (token: string) => Promise<void>
@@ -9,6 +9,6 @@ export default interface AuthRepo {
    *
    * @throws {HttpError} if token is not found.
    */
-  verifyToken: (token: string) => Promise<boolean>
+  verifyToken: (token: string) => Promise<void>
   deleteToken: (token: string) => Promise<void>
 }
