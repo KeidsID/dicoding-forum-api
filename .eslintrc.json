@@ -5,9 +5,12 @@
     "node": true,
     "jest": true
   },
-  "extends": "standard",
+  "extends": "standard-with-typescript",
   "parserOptions": {
     "ecmaVersion": "latest"
   },
-  "rules": {}
+  "rules": {},
+  "ignorePatterns":[
+    "jest.config.js"
+  ]
 }
