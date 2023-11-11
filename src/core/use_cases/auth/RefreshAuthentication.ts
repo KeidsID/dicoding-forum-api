@@ -1,5 +1,5 @@
-import type AuthRepo from '../../repo/auth/AuthRepo'
-import type AuthTokenManager from '../../security/AuthTokenManager'
+import type AuthRepo from 'src/core/repo/auth/AuthRepo'
+import type AuthTokenManager from 'src/core/security/AuthTokenManager'
 
 export default class RefreshAuthentication {
   private readonly _authRepo: AuthRepo
@@ -23,6 +23,6 @@ export default class RefreshAuthentication {
 
     const oldPayload = await this._authTokenManager.decodePayload(refreshToken)
 
-    return await this._authTokenManager.createAccessToken(oldPayload)
+    return this._authTokenManager.createAccessToken(oldPayload)
   }
 }

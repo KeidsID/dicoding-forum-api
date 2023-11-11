@@ -1,4 +1,4 @@
-import type Reply from './comments/replies/Reply'
+import type Reply from 'src/core/entities/threads/comments/replies/Reply'
 
 export default interface ThreadDetail {
   id: string

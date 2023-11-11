@@ -1,9 +1,9 @@
-import type AddedThread from '../../entities/threads/AddedThread'
-import type NewThread from '../../entities/threads/NewThread'
-import type Thread from '../../entities/threads/Thread'
+import type AddedThread from 'src/core/entities/threads/AddedThread'
+import type NewThread from 'src/core/entities/threads/NewThread'
+import type Thread from 'src/core/entities/threads/Thread'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import HttpError from '../../../common/error/HttpError'
+import HttpError from 'src/common/error/HttpError'
 
 export default interface ThreadsRepo {
   /**
