@@ -34,6 +34,7 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
+    "@types/hapi": "^18.0.13",
     "@types/hapi__jwt": "^2.0.5",
     "@types/jest": "^26.0.24",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
