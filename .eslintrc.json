@@ -10,5 +10,10 @@
     "ecmaVersion": "latest"
   },
   "rules": {},
-  "ignorePatterns": ["jest.config.js", "build/*", "migrations/*.js"]
+  "ignorePatterns": [
+    "node_modules/**",
+    "build/**",
+    "migrations/**",
+    "jest.config.js"
+  ]
 }
