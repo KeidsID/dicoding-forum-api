@@ -1,18 +1,18 @@
 import type AuthRepo from 'src/core/repo/auth/AuthRepo'
 
 export default class DeleteAuthentication {
-  private readonly _authenticationRepository: AuthRepo
+  private readonly _authRepo: AuthRepo
 
   constructor (services: {
     authRepo: AuthRepo
   }) {
-    this._authenticationRepository = services.authRepo
+    this._authRepo = services.authRepo
   }
 
   async execute (args: { refreshToken: string }): Promise<void> {
     const { refreshToken } = args
 
-    await this._authenticationRepository.verifyToken(refreshToken)
-    await this._authenticationRepository.deleteToken(refreshToken)
+    await this._authRepo.verifyToken(refreshToken)
+    await this._authRepo.deleteToken(refreshToken)
   }
 }

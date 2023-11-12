@@ -1,9 +1,10 @@
-import "dotenv/config";
+import 'dotenv/config'
 
-const createServer = require('./Infrastructures/http/createServer')
-const container = require('./Infrastructures/container');
+import bottle, { initBottle } from 'src/infrastructures/bottle'
 
-(async () => {
+void (async () => {
+  initBottle()
+
   const server = await createServer(container)
 
   await server.start()

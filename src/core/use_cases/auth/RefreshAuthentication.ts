@@ -23,6 +23,6 @@ export default class RefreshAuthentication {
 
     const oldPayload = await this._authTokenManager.decodePayload(refreshToken)
 
-    return this._authTokenManager.createAccessToken(oldPayload)
+    return await this._authTokenManager.createAccessToken(oldPayload)
   }
 }

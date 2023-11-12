@@ -7,7 +7,7 @@ import type ThreadCommentsRepo from 'src/core/repo/threads/ThreadCommentsRepo'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import HttpError from 'src/common/error/HttpError'
 
-export default class AddCommentToThreadUseCase {
+export default class AddCommentToThread {
   private readonly _threadsRepo: ThreadsRepo
   private readonly _threadCommentsRepo: ThreadCommentsRepo
 
@@ -31,7 +31,7 @@ export default class AddCommentToThreadUseCase {
   ): Promise<AddedComment> {
     await this._threadsRepo.verifyThread(threadId)
 
-    return this._threadCommentsRepo.addCommentToThread(
+    return await this._threadCommentsRepo.addCommentToThread(
       threadId, payload, owner
     )
   }

@@ -2,7 +2,7 @@ import type ThreadsRepo from 'src/core/repo/threads/ThreadsRepo'
 import type ThreadCommentsRepo from 'src/core/repo/threads/ThreadCommentsRepo'
 import type ThreadCommentLikesRepo from 'src/core/repo/threads/ThreadCommentLikesRepo'
 
-export default class LikeOrDislikeCommentUsecase {
+export default class LikeOrDislikeComment {
   private readonly _threadsRepo: ThreadsRepo
   private readonly _threadCommentsRepo: ThreadCommentsRepo
   private readonly _threadCommentLikesRepo: ThreadCommentLikesRepo

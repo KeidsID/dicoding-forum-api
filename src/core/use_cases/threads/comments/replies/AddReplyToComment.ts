@@ -36,6 +36,6 @@ export default class AddReplyToComment {
     await this._threadsRepo.verifyThread(threadId)
     await this._threadCommentsRepo.verifyCommentLocation(commentId, threadId)
 
-    return this._threadCommentRepliesRepo.addReplyToComment(commentId, payload, owner)
+    return await this._threadCommentRepliesRepo.addReplyToComment(commentId, payload, owner)
   }
 }
