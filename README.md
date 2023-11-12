@@ -1,6 +1,8 @@
 [class-link]: https://www.dicoding.com/academies/276
 [pm-v1]:
   https://github.com/dicodingacademy/a276-backend-expert-labs/raw/099-shared-content/shared-content/03-submission-content/01-Forum-API-V1/Forum%20API%20V1%20Test.zip
+[pm-v2]:
+  https://github.com/dicodingacademy/a276-backend-expert-labs/raw/099-shared-content/shared-content/03-submission-content/02-Forum-API-V2/Forum%20API%20V2%20Test.zip
 
 # dicoding-forum-api
 
@@ -25,6 +27,7 @@ fast to deploy, and has reliable security by industry standards.
 ## Project utils
 
 - [Forum API V1 Postman Collection + Environment Test][pm-v1].
+- [Forum API V2 Postman Collection + Environment Test][pm-v2].
 
 ## Project Setup
 
