@@ -1,8 +1,8 @@
-import type UserRepo from 'src/core/repo/auth/UserRepo'
-import type PasswordHasher from 'src/core/security/PasswordHasher'
-
-import type RegisteredUser from 'src/core/entities/auth/RegisteredUser'
-import type RegisterUser from 'src/core/entities/auth/RegisterUser'
+// ./src/core/
+import type RegisteredUser from '../../entities/auth/RegisteredUser'
+import type RegisterUser from '../../entities/auth/RegisterUser'
+import type UserRepo from '../../repo/auth/UserRepo'
+import type PasswordHasher from '../../security/PasswordHasher'
 
 export default class AddUser {
   private readonly _userRepo: UserRepo

@@ -2,12 +2,15 @@ import * as Hapi from '@hapi/hapi'
 import type Bottle from 'bottlejs'
 import type * as HapiTypes from 'hapi'
 
-import * as Configs from 'src/common/env'
-import * as Constants from 'src/common/constants'
+// ./src/
+import * as Configs from '../../common/env'
+import * as Constants from '../../common/constants'
 
-import onPreResponse from 'src/interfaces/utils/onPreResponse'
-import registerJwtPlugin from 'src/interfaces/utils/registerJwtPlugin'
+// ./src/interfaces/
+import onPreResponse from '../utils/onPreResponse'
+import registerJwtPlugin from '../utils/registerJwtPlugin'
 
+// ./src/interfaces/http/
 import authentications from './api/authentications'
 import users from './api/users'
 import threads from './api/threads'

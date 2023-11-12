@@ -1,11 +1,13 @@
-import type AddedComment from 'src/core/entities/threads/comments/AddedComment'
-import type NewComment from 'src/core/entities/threads/comments/NewComment'
-
-import type ThreadsRepo from 'src/core/repo/threads/ThreadsRepo'
-import type ThreadCommentsRepo from 'src/core/repo/threads/ThreadCommentsRepo'
-
+// ./src/
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import HttpError from 'src/common/error/HttpError'
+import HttpError from '../../../../common/error/HttpError'
+import { isNewComment } from '../../../../interfaces/validators'
+
+// ./src/core/
+import type AddedComment from '../../../entities/threads/comments/AddedComment'
+import type NewComment from '../../../entities/threads/comments/NewComment'
+import type ThreadsRepo from '../../../repo/threads/ThreadsRepo'
+import type ThreadCommentsRepo from '../../../repo/threads/ThreadCommentsRepo'
 
 export default class AddCommentToThread {
   private readonly _threadsRepo: ThreadsRepo
@@ -29,6 +31,8 @@ export default class AddCommentToThread {
   async execute (
     threadId: string, payload: NewComment, owner: string
   ): Promise<AddedComment> {
+    if (!isNewComment(payload)) throw HttpError.badRequest('invalid payload')
+
     await this._threadsRepo.verifyThread(threadId)
 
     return await this._threadCommentsRepo.addCommentToThread(

@@ -1,7 +1,8 @@
 import { type Pool, type QueryConfig } from 'pg'
 
-import HttpError from 'src/common/error/HttpError'
-import type AuthRepo from 'src/core/repo/auth/AuthRepo'
+// ./src/
+import HttpError from '../../../common/error/HttpError'
+import type AuthRepo from '../../../core/repo/auth/AuthRepo'
 
 export default class AuthRepoImpl implements AuthRepo {
   private readonly _pool: Pool

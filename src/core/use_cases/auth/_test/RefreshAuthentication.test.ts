@@ -1,7 +1,8 @@
 import { mock } from 'ts-jest-mocker'
 
-import type AuthRepo from 'src/core/repo/auth/AuthRepo'
-import type AuthTokenManager from 'src/core/security/AuthTokenManager'
+// ./src/core/
+import type AuthRepo from '../../../repo/auth/AuthRepo'
+import type AuthTokenManager from '../../../security/AuthTokenManager'
 
 import RefreshAuthentication from '../RefreshAuthentication'
 

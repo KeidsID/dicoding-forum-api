@@ -1,5 +1,6 @@
-import type AuthRepo from 'src/core/repo/auth/AuthRepo'
-import type AuthTokenManager from 'src/core/security/AuthTokenManager'
+// ./../../
+import type AuthRepo from '../../repo/auth/AuthRepo'
+import type AuthTokenManager from '../../security/AuthTokenManager'
 
 export default class RefreshAuthentication {
   private readonly _authRepo: AuthRepo

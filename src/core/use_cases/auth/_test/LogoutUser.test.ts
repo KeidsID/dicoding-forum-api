@@ -1,6 +1,7 @@
 import { mock } from 'ts-jest-mocker'
 
-import type AuthRepo from 'src/core/repo/auth/AuthRepo'
+// ./src/core/
+import type AuthRepo from '../../../repo/auth/AuthRepo'
 
 import LogoutUser from '../LogoutUser'
 

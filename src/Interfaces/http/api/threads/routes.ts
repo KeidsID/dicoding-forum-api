@@ -1,5 +1,6 @@
-import * as Constants from 'src/common/constants'
-import { type HapiRoutes } from 'src/types'
+// ./src/
+import * as Constants from '../../../../common/constants'
+import { type HapiRoutes } from '../../../../types'
 
 import type ThreadsHandler from './handler'
 

@@ -1,9 +1,11 @@
-import type ThreadsRepo from 'src/core/repo/threads/ThreadsRepo'
-import type ThreadCommentsRepo from 'src/core/repo/threads/ThreadCommentsRepo'
-import type ThreadCommentRepliesRepo from 'src/core/repo/threads/ThreadCommentRepliesRepo'
-
+// ./src/
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import HttpError from 'src/common/error/HttpError'
+import HttpError from '../../../../../common/error/HttpError'
+
+// ./src/core/
+import type ThreadsRepo from '../../../../repo/threads/ThreadsRepo'
+import type ThreadCommentsRepo from '../../../../repo/threads/ThreadCommentsRepo'
+import type ThreadCommentRepliesRepo from '../../../../repo/threads/ThreadCommentRepliesRepo'
 
 export default class SoftDeleteReply {
   private readonly _threadsRepo: ThreadsRepo

@@ -1,9 +1,11 @@
-import HttpError from 'src/common/error/HttpError'
-import type RegisterUser from 'src/core/entities/auth/RegisterUser'
-import type RegisteredUser from 'src/core/entities/auth/RegisteredUser'
-import pool from 'src/infrastructures/db/psql/pool'
+// ./src/
+import HttpError from '../../../../common/error/HttpError'
+import type RegisterUser from '../../../../core/entities/auth/RegisterUser'
+import type RegisteredUser from '../../../../core/entities/auth/RegisteredUser'
+import pool from '../../../../infrastructures/db/psql/pool'
 
-import UsersTableHelper from 'tests/helpers/UsersTableHelper'
+// ./tests/
+import UsersTableHelper from '../../../../../tests/helpers/UsersTableHelper'
 
 import UserRepoImpl from '../UserRepoImpl'
 

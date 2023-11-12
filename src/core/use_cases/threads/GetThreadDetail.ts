@@ -1,8 +1,9 @@
-import type ThreadsRepo from 'src/core/repo/threads/ThreadsRepo'
-import type ThreadCommentsRepo from 'src/core/repo/threads/ThreadCommentsRepo'
-import type ThreadCommentRepliesRepo from 'src/core/repo/threads/ThreadCommentRepliesRepo'
-import type ThreadDetail from 'src/core/entities/threads/ThreadDetail'
-import Reply from 'src/core/entities/threads/comments/replies/Reply'
+// ./src/core/
+import type ThreadDetail from '../../entities/threads/ThreadDetail'
+import Reply from '../../entities/threads/comments/replies/Reply'
+import type ThreadsRepo from '../../repo/threads/ThreadsRepo'
+import type ThreadCommentsRepo from '../../repo/threads/ThreadCommentsRepo'
+import type ThreadCommentRepliesRepo from '../../repo/threads/ThreadCommentRepliesRepo'
 
 export default class GetThreadDetail {
   private readonly _threadsRepo: ThreadsRepo

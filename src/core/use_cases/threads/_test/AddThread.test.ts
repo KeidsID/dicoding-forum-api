@@ -1,8 +1,9 @@
 import { mock } from 'ts-jest-mocker'
 
-import type NewThread from 'src/core/entities/threads/NewThread'
-import type AddedThread from 'src/core/entities/threads/AddedThread'
-import type ThreadsRepo from 'src/core/repo/threads/ThreadsRepo'
+// ./src/core/
+import type NewThread from '../../../entities/threads/NewThread'
+import type AddedThread from '../../../entities/threads/AddedThread'
+import type ThreadsRepo from '../../../repo/threads/ThreadsRepo'
 
 import AddThread from '../AddThread'
 

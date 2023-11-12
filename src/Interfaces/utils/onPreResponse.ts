@@ -1,6 +1,7 @@
 import type * as HapiTypes from 'hapi'
 
-import HttpError from 'src/common/error/HttpError'
+// ./src/
+import HttpError from '../../common/error/HttpError'
 
 export default (server: HapiTypes.Server): void => {
   server.ext('onPreResponse', async (req, h) => {
@@ -9,8 +10,7 @@ export default (server: HapiTypes.Server): void => {
     if (response instanceof Error) {
       if (response instanceof HttpError) {
         const newResponse = h.response({
-          statusCode: response.statusCode,
-          error: response.statusName,
+          status: 'fail',
           message: response.message
         })
         newResponse.code(response.statusCode)
@@ -22,8 +22,7 @@ export default (server: HapiTypes.Server): void => {
       }
 
       const newResponse = h.response({
-        statusCode: 500,
-        error: 'Internal Server Error',
+        status: 'error',
         message: 'terjadi kegagalan pada server kami',
         errorTrace: {
           name: response.name,

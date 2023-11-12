@@ -1,7 +1,8 @@
 import type * as Bcrypt from 'bcrypt'
 
-import HttpError from 'src/common/error/HttpError'
-import type PasswordHasher from 'src/core/security/PasswordHasher'
+// ./src/
+import HttpError from '../../common/error/HttpError'
+import type PasswordHasher from '../../core/security/PasswordHasher'
 
 export default class PasswordHasherImpl implements PasswordHasher {
   private readonly _bcrypt: typeof Bcrypt

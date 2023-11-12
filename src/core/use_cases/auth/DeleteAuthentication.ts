@@ -1,4 +1,5 @@
-import type AuthRepo from 'src/core/repo/auth/AuthRepo'
+// ./src/core/
+import type AuthRepo from '../../repo/auth/AuthRepo'
 
 export default class DeleteAuthentication {
   private readonly _authRepo: AuthRepo

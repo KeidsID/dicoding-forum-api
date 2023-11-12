@@ -1,10 +1,11 @@
 import { type QueryConfig, type Pool } from 'pg'
 
-import HttpError from 'src/common/error/HttpError'
-import type AddedThread from 'src/core/entities/threads/AddedThread'
-import type NewThread from 'src/core/entities/threads/NewThread'
-import type Thread from 'src/core/entities/threads/Thread'
-import type ThreadsRepo from 'src/core/repo/threads/ThreadsRepo'
+// ./src/
+import HttpError from '../../../common/error/HttpError'
+import type AddedThread from '../../../core/entities/threads/AddedThread'
+import type NewThread from '../../../core/entities/threads/NewThread'
+import type Thread from '../../../core/entities/threads/Thread'
+import type ThreadsRepo from '../../../core/repo/threads/ThreadsRepo'
 
 export default class ThreadsRepoImpl implements ThreadsRepo {
   private readonly _pool: Pool

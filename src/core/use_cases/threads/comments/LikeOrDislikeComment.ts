@@ -1,6 +1,7 @@
-import type ThreadsRepo from 'src/core/repo/threads/ThreadsRepo'
-import type ThreadCommentsRepo from 'src/core/repo/threads/ThreadCommentsRepo'
-import type ThreadCommentLikesRepo from 'src/core/repo/threads/ThreadCommentLikesRepo'
+// ./src/core/
+import type ThreadsRepo from '../../../repo/threads/ThreadsRepo'
+import type ThreadCommentsRepo from '../../../repo/threads/ThreadCommentsRepo'
+import type ThreadCommentLikesRepo from '../../../repo/threads/ThreadCommentLikesRepo'
 
 export default class LikeOrDislikeComment {
   private readonly _threadsRepo: ThreadsRepo

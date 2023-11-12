@@ -1,10 +1,11 @@
 /* eslint-disable no-unused-vars */
 import { type Pool, type QueryConfig } from 'pg'
 
-import HttpError from 'src/common/error/HttpError'
-import type AddedReply from 'src/core/entities/threads/comments/replies/AddedReply'
-import type NewReply from 'src/core/entities/threads/comments/replies/NewReply'
-import type ThreadCommentRepliesRepo from 'src/core/repo/threads/ThreadCommentRepliesRepo'
+// ./src/
+import HttpError from '../../../common/error/HttpError'
+import type AddedReply from '../../../core/entities/threads/comments/replies/AddedReply'
+import type NewReply from '../../../core/entities/threads/comments/replies/NewReply'
+import type ThreadCommentRepliesRepo from '../../../core/repo/threads/ThreadCommentRepliesRepo'
 
 export default class ThreadCommentRepliesRepoImpl implements ThreadCommentRepliesRepo {
   private readonly _pool: Pool

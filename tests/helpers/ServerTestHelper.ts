@@ -1,7 +1,8 @@
 /* istanbul ignore file */
 import Jwt from '@hapi/jwt'
 
-import AuthTokenManagerImpl from 'src/infrastructures/security/AuthTokenManagerImpl'
+import AuthTokenManagerImpl from '../../src/infrastructures/security/AuthTokenManagerImpl'
+
 import AuthenticationsTableHelper from './AuthenticationsTableHelper'
 
 export default {
