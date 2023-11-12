@@ -1,8 +1,9 @@
 import { mock } from 'ts-jest-mocker'
 
-import type ThreadsRepo from 'src/core/repo/threads/ThreadsRepo'
-import type ThreadCommentLikesRepo from 'src/core/repo/threads/ThreadCommentLikesRepo'
-import type ThreadCommentsRepo from 'src/core/repo/threads/ThreadCommentsRepo'
+// ./src/core/
+import type ThreadsRepo from '../../../../repo/threads/ThreadsRepo'
+import type ThreadCommentLikesRepo from '../../../../repo/threads/ThreadCommentLikesRepo'
+import type ThreadCommentsRepo from '../../../../repo/threads/ThreadCommentsRepo'
 
 import LikeOrDislikeComment from '../LikeOrDislikeComment'
 

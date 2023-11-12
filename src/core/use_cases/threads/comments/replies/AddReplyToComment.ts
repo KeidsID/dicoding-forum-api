@@ -1,11 +1,14 @@
-import type AddedReply from 'src/core/entities/threads/comments/replies/AddedReply'
-import type NewReply from 'src/core/entities/threads/comments/replies/NewReply'
-import type ThreadsRepo from 'src/core/repo/threads/ThreadsRepo'
-import type ThreadCommentsRepo from 'src/core/repo/threads/ThreadCommentsRepo'
-import type ThreadCommentRepliesRepo from 'src/core/repo/threads/ThreadCommentRepliesRepo'
-
+// ./src/
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import HttpError from 'src/common/error/HttpError'
+import HttpError from '../../../../../common/error/HttpError'
+import { isNewReply } from '../../../../../interfaces/validators'
+
+// ./src/core/
+import type AddedReply from '../../../../entities/threads/comments/replies/AddedReply'
+import type NewReply from '../../../../entities/threads/comments/replies/NewReply'
+import type ThreadsRepo from '../../../../repo/threads/ThreadsRepo'
+import type ThreadCommentsRepo from '../../../../repo/threads/ThreadCommentsRepo'
+import type ThreadCommentRepliesRepo from '../../../../repo/threads/ThreadCommentRepliesRepo'
 
 export default class AddReplyToComment {
   private readonly _threadsRepo: ThreadsRepo
@@ -33,6 +36,8 @@ export default class AddReplyToComment {
     threadId: string, commentId: string,
     payload: NewReply, owner: string
   ): Promise<AddedReply> {
+    if (!isNewReply(payload)) throw HttpError.badRequest('invalid payload')
+
     await this._threadsRepo.verifyThread(threadId)
     await this._threadCommentsRepo.verifyCommentLocation(commentId, threadId)
 

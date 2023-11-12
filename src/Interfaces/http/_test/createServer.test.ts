@@ -1,9 +1,16 @@
-const createServer = require('../createServer')
+import type Bottle from 'bottlejs'
+import { mock } from 'ts-jest-mocker'
+
+// ./src/
+import * as Configs from '../../../common/constants'
+
+// ./src/interfaces/http/
+import createServer from '../createServer'
 
 describe('HTTP server', () => {
   it('should response 404 when request unregistered route', async () => {
     // Arrange
-    const server = await createServer({})
+    const server = await createServer(mock<Bottle>())
 
     // Action
     const response = await server.inject({
@@ -22,7 +29,7 @@ describe('HTTP server', () => {
       fullname: 'Dicoding Indonesia',
       password: 'super_secret'
     }
-    const server = await createServer({}) // fake injection
+    const server = await createServer(mock<Bottle>()) // fake injection
 
     // Action
     const response = await server.inject({
@@ -40,9 +47,9 @@ describe('HTTP server', () => {
 
   it('when request "GET /", should redirect to docs.page', async () => {
     // Arrange
-    const docsUrl = 'https://docs.page/KeidsID/dicoding-forum-api'
+    const docsUrl = Configs.DOCS_URL
 
-    const server = await createServer({}) // fake injection
+    const server = await createServer(mock<Bottle>()) // fake injection
 
     // Action
     const response = await server.inject({

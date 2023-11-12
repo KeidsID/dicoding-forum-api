@@ -1,9 +1,10 @@
 import * as Jwt from '@hapi/jwt'
 import type * as HapiTypes from 'hapi'
 
-import * as Constants from 'src/common/constants'
-import * as Configs from 'src/common/env'
-import { type ApiAuthCredentials } from 'src/types'
+// ./src/
+import * as Constants from '../../common/constants'
+import * as Configs from '../../common/env'
+import { type ApiAuthCredentials } from '../../types'
 
 export default async (server: HapiTypes.Server): Promise<void> => {
   await server.register([

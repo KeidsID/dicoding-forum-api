@@ -1,4 +1,5 @@
-import { type ApiHapiPlugin } from 'src/types'
+// ./src/
+import { type ApiHapiPlugin } from '../../../../types'
 
 import UsersHandler from './handler'
 import routes from './routes'

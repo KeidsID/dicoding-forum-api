@@ -1,16 +1,19 @@
 import type Bottle from 'bottlejs'
 
-import type NewThread from 'src/core/entities/threads/NewThread'
-import type NewComment from 'src/core/entities/threads/comments/NewComment'
-import type NewReply from 'src/core/entities/threads/comments/replies/NewReply'
-import type AddThread from 'src/core/use_cases/threads/AddThread'
-import type GetThreadDetail from 'src/core/use_cases/threads/GetThreadDetail'
-import type AddCommentToThread from 'src/core/use_cases/threads/comments/AddCommentToThread'
-import type SoftDeleteComment from 'src/core/use_cases/threads/comments/SoftDeleteComment'
-import type LikeOrDislikeComment from 'src/core/use_cases/threads/comments/LikeOrDislikeComment'
-import type AddReplyToComment from 'src/core/use_cases/threads/comments/replies/AddReplyToComment'
-import type SoftDeleteReply from 'src/core/use_cases/threads/comments/replies/SoftDeleteReply'
-import { type ApiAuthCredentials, type HapiRouteHandler } from 'src/types'
+// ./src/
+import HttpError from '../../../../common/error/HttpError'
+import type NewComment from '../../../../core/entities/threads/comments/NewComment'
+import type NewReply from '../../../../core/entities/threads/comments/replies/NewReply'
+import type AddThread from '../../../../core/use_cases/threads/AddThread'
+import type GetThreadDetail from '../../../../core/use_cases/threads/GetThreadDetail'
+import type AddCommentToThread from '../../../../core/use_cases/threads/comments/AddCommentToThread'
+import type SoftDeleteComment from '../../../../core/use_cases/threads/comments/SoftDeleteComment'
+import type LikeOrDislikeComment from '../../../../core/use_cases/threads/comments/LikeOrDislikeComment'
+import type AddReplyToComment from '../../../../core/use_cases/threads/comments/replies/AddReplyToComment'
+import type SoftDeleteReply from '../../../../core/use_cases/threads/comments/replies/SoftDeleteReply'
+import { type ApiAuthCredentials, type HapiRouteHandler } from '../../../../types'
+
+import { isNewThread } from '../../../validators'
 
 /**
  * Handler for "/threads" endpoint routes.
@@ -29,12 +32,13 @@ export default class ThreadsHandler {
    */
   postThread: HapiRouteHandler = async (req, h) => {
     const { id: userId } = req.auth.credentials as ApiAuthCredentials
+    const payload = req.payload
+
+    if (!isNewThread(payload)) throw HttpError.badRequest('invalid payload')
 
     const addThreadsUseCase: AddThread = this._container.AddThread
 
-    const addedThread = await addThreadsUseCase.execute(
-      req.payload as NewThread, userId
-    )
+    const addedThread = await addThreadsUseCase.execute(payload, userId)
 
     const response = h.response({
       status: 'success',
@@ -67,11 +71,12 @@ export default class ThreadsHandler {
   postComment: HapiRouteHandler = async (req, h) => {
     const { id: userId } = req.auth.credentials as ApiAuthCredentials
     const { threadId } = req.params
+    const payload = req.payload
 
     const addCommentToThread: AddCommentToThread = this._container.AddCommentToThread
 
     const addedComment = await addCommentToThread.execute(
-      threadId, req.payload as NewComment, userId
+      threadId, payload as NewComment, userId
     )
 
     const response = h.response({
@@ -117,12 +122,13 @@ export default class ThreadsHandler {
   postReply: HapiRouteHandler = async (req, h) => {
     const { id: userId } = req.auth.credentials as ApiAuthCredentials
     const { threadId, commentId } = req.params
+    const payload = req.payload
 
     const addReplyToComment: AddReplyToComment = this._container
       .AddReplyToComment
 
     const addedReply = await addReplyToComment.execute(
-      threadId, commentId, req.payload as NewReply, userId
+      threadId, commentId, payload as NewReply, userId
     )
 
     const response = h.response({

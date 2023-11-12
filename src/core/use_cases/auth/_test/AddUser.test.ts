@@ -1,9 +1,10 @@
 import { mock } from 'ts-jest-mocker'
 
-import type RegisterUser from 'src/core/entities/auth/RegisterUser'
-import type RegisteredUser from 'src/core/entities/auth/RegisteredUser'
-import type UserRepo from 'src/core/repo/auth/UserRepo'
-import type PasswordHasher from 'src/core/security/PasswordHasher'
+// ./../../../
+import type RegisterUser from '../../../entities/auth/RegisterUser'
+import type RegisteredUser from '../../../entities/auth/RegisteredUser'
+import type UserRepo from '../../../repo/auth/UserRepo'
+import type PasswordHasher from '../../../security/PasswordHasher'
 
 import AddUser from '../AddUser'
 

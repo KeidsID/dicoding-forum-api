@@ -1,14 +1,25 @@
+import { mock } from 'ts-jest-mocker'
 import * as bcrypt from 'bcrypt'
 
+// ./src/
+import HttpError from '../../../common/error/HttpError'
+
+// ./src/infrastructures/security/
 import PasswordHasherImpl from '../PasswordHasherImpl'
-import HttpError from 'src/common/error/HttpError'
+
+type BcryptType = typeof bcrypt
 
 describe('PasswordHasherImpl', () => {
   describe('hash function', () => {
     it('should encrypt password correctly', async () => {
       // Arrange
-      const spyHash = jest.spyOn(bcrypt, 'hash')
-      const bcryptEncryptionHelper = new PasswordHasherImpl(bcrypt)
+      const mockBcrypt = mock<BcryptType>()
+
+      mockBcrypt.hash = jest.fn()
+        .mockImplementation(async () => await Promise.resolve('encrypted_password'))
+
+      const spyHash = jest.spyOn(mockBcrypt, 'hash')
+      const bcryptEncryptionHelper = new PasswordHasherImpl(mockBcrypt)
 
       // Action
       const encryptedPassword = await bcryptEncryptionHelper.hash('plain_password')

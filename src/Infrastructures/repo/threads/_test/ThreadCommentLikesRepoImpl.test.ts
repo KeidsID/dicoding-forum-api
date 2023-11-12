@@ -1,11 +1,14 @@
-import pool from 'src/infrastructures/db/psql/pool'
+// ./src/
+import pool from '../../../../infrastructures/db/psql/pool'
 
-import UsersTableHelper from 'tests/helpers/UsersTableHelper'
-import ThreadsTableHelper from 'tests/helpers/ThreadsTableHelper'
-import ThreadCommentsTableHelper from 'tests/helpers/ThreadCommentsTableHelper'
-import ThreadCommentLikesTableHelper from 'tests/helpers/ThreadCommentLikesTableHelper'
-
+// ./src/infrastructures/repo/threads/
 import ThreadCommentLikesRepoImpl from '../ThreadCommentLikesRepoImpl'
+
+// ./tests/
+import UsersTableHelper from '../../../../../tests/helpers/UsersTableHelper'
+import ThreadsTableHelper from '../../../../../tests/helpers/ThreadsTableHelper'
+import ThreadCommentsTableHelper from '../../../../../tests/helpers/ThreadCommentsTableHelper'
+import ThreadCommentLikesTableHelper from '../../../../../tests/helpers/ThreadCommentLikesTableHelper'
 
 describe('ThreadCommentLikesRepoImpl', () => {
   const dummyUser = {

@@ -1,10 +1,11 @@
 import { type token } from '@hapi/jwt'
 import { mock } from 'ts-jest-mocker'
 
-import * as Configs from 'src/common/env'
+// ./src/
+import * as Configs from '../../../common/env'
+import HttpError from '../../../common/error/HttpError'
 
-import HttpError from 'src/common/error/HttpError'
-
+// ./src/infrastructures/security/
 import AuthTokenManagerImpl from '../AuthTokenManagerImpl'
 
 type HapiJwtToken = typeof token
@@ -57,7 +58,11 @@ describe('AuthTokenManagerImpl', () => {
   describe('verifyRefreshToken function', () => {
     it('should throw HttpError [400 Bad Request] when verification failed', async () => {
       // Arrange
-      const jwtTokenManager = new AuthTokenManagerImpl(mock<HapiJwtToken>())
+      const mockHapiJwtToken = mock<HapiJwtToken>()
+
+      mockHapiJwtToken.verify = jest.fn().mockImplementation(() => { throw new Error() })
+
+      const jwtTokenManager = new AuthTokenManagerImpl(mockHapiJwtToken)
 
       const accessToken = await jwtTokenManager.createAccessToken({ username: 'dicoding' })
 
@@ -81,7 +86,13 @@ describe('AuthTokenManagerImpl', () => {
   describe('decodePayload function', () => {
     it('should decode payload correctly', async () => {
       // Arrange
-      const jwtTokenManager = new AuthTokenManagerImpl(mock<HapiJwtToken>())
+      const mockHapiJwtToken = mock<HapiJwtToken>()
+
+      mockHapiJwtToken.decode = jest.fn().mockImplementation(() => ({
+        decoded: { payload: { username: 'dicoding' } }
+      }))
+
+      const jwtTokenManager = new AuthTokenManagerImpl(mockHapiJwtToken)
       const accessToken = await jwtTokenManager.createAccessToken({ username: 'dicoding' })
 
       // Action

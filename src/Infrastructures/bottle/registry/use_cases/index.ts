@@ -1,18 +1,19 @@
-import AddUser from 'src/core/use_cases/auth/AddUser'
-import DeleteAuthentication from 'src/core/use_cases/auth/DeleteAuthentication'
-import LoginUser from 'src/core/use_cases/auth/LoginUser'
-import LogoutUser from 'src/core/use_cases/auth/LogoutUser'
-import RefreshAuthentication from 'src/core/use_cases/auth/RefreshAuthentication'
+// ./src/
+import AddUser from '../../../../core/use_cases/auth/AddUser'
+import DeleteAuthentication from '../../../../core/use_cases/auth/DeleteAuthentication'
+import LoginUser from '../../../../core/use_cases/auth/LoginUser'
+import LogoutUser from '../../../../core/use_cases/auth/LogoutUser'
+import RefreshAuthentication from '../../../../core/use_cases/auth/RefreshAuthentication'
+import AddThread from '../../../../core/use_cases/threads/AddThread'
+import GetThreadDetail from '../../../../core/use_cases/threads/GetThreadDetail'
+import AddCommentToThread from '../../../../core/use_cases/threads/comments/AddCommentToThread'
+import LikeOrDislikeComment from '../../../../core/use_cases/threads/comments/LikeOrDislikeComment'
+import SoftDeleteComment from '../../../../core/use_cases/threads/comments/SoftDeleteComment'
+import AddReplyToComment from '../../../../core/use_cases/threads/comments/replies/AddReplyToComment'
+import SoftDeleteReply from '../../../../core/use_cases/threads/comments/replies/SoftDeleteReply'
 
-import AddThread from 'src/core/use_cases/threads/AddThread'
-import GetThreadDetail from 'src/core/use_cases/threads/GetThreadDetail'
-import AddCommentToThread from 'src/core/use_cases/threads/comments/AddCommentToThread'
-import LikeOrDislikeComment from 'src/core/use_cases/threads/comments/LikeOrDislikeComment'
-import SoftDeleteComment from 'src/core/use_cases/threads/comments/SoftDeleteComment'
-import AddReplyToComment from 'src/core/use_cases/threads/comments/replies/AddReplyToComment'
-import SoftDeleteReply from 'src/core/use_cases/threads/comments/replies/SoftDeleteReply'
-
-import bottle from 'src/infrastructures/bottle'
+// ./src/infrastructures/
+import bottle from '../../../bottle'
 
 export default (): void => {
   // auth use cases

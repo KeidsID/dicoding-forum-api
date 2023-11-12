@@ -1,8 +1,9 @@
 import { type token } from '@hapi/jwt'
 
-import * as Configs from 'src/common/env'
-import HttpError from 'src/common/error/HttpError'
-import type AuthTokenManager from 'src/core/security/AuthTokenManager'
+// ./src/
+import * as Configs from '../../common/env'
+import HttpError from '../../common/error/HttpError'
+import type AuthTokenManager from '../../core/security/AuthTokenManager'
 
 export default class AuthTokenManagerImpl implements AuthTokenManager {
   private readonly _hapiJwt: typeof token
@@ -30,6 +31,7 @@ export default class AuthTokenManagerImpl implements AuthTokenManager {
 
   async decodePayload (token: string): Promise<any> {
     const artifacts = this._hapiJwt.decode(token)
+
     return artifacts.decoded.payload
   }
 }

@@ -1,14 +1,18 @@
+// ./src/
+import type AddedComment from '../../../../core/entities/threads/comments/AddedComment'
+import type NewComment from '../../../../core/entities/threads/comments/NewComment'
+import HttpError from '../../../../common/error/HttpError'
+
+// ./src/infrastructures/
 import pool from '../../../db/psql/pool'
 
-import type AddedComment from 'src/core/entities/threads/comments/AddedComment'
-import type NewComment from 'src/core/entities/threads/comments/NewComment'
-
-import UsersTableHelper from 'tests/helpers/UsersTableHelper'
-import ThreadsTableHelper from 'tests/helpers/ThreadsTableHelper'
-import ThreadCommentsTableHelper from 'tests/helpers/ThreadCommentsTableHelper'
-
+// ./src/infrastructures/repo/threads/
 import ThreadCommentsRepoImpl from '../ThreadCommentsRepoImpl'
-import HttpError from 'src/common/error/HttpError'
+
+// ./tests/
+import UsersTableHelper from '../../../../../tests/helpers/UsersTableHelper'
+import ThreadsTableHelper from '../../../../../tests/helpers/ThreadsTableHelper'
+import ThreadCommentsTableHelper from '../../../../../tests/helpers/ThreadCommentsTableHelper'
 
 describe('ThreadCommentsRepoImpl', () => {
   const dummyUser = {
@@ -97,7 +101,7 @@ describe('ThreadCommentsRepoImpl', () => {
 
       // Action & Assert
       await expect(repo.verifyCommentAccess('comment-123', dummyUser2.id)).rejects
-        .toThrowError(HttpError.forbidden('anda tidak dapat mengakses komentar yang lain'))
+        .toThrowError(HttpError.forbidden('anda tidak dapat mengakses komentar orang lain'))
     })
 
     it('should not throw Error if the comment exist and user is the comment owner', async () => {

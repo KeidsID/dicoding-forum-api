@@ -2,7 +2,7 @@
 
 import { type QueryConfig } from 'pg'
 
-import pool from 'src/infrastructures/db/psql/pool'
+import pool from '../../src/infrastructures/db/psql/pool'
 
 export default {
   async likeAComment ({

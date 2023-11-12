@@ -1,15 +1,19 @@
+// ./src/
+import HttpError from '../../../../common/error/HttpError'
+import type AddedReply from '../../../../core/entities/threads/comments/replies/AddedReply'
+import type NewReply from '../../../../core/entities/threads/comments/replies/NewReply'
+
+// ./src/infrastructures/
 import pool from '../../../db/psql/pool'
 
-import type AddedReply from 'src/core/entities/threads/comments/replies/AddedReply'
-import type NewReply from 'src/core/entities/threads/comments/replies/NewReply'
-
-import ThreadsTableHelper from 'tests/helpers/ThreadsTableHelper'
-import ThreadCommentsTableHelper from 'tests/helpers/ThreadCommentsTableHelper'
-import ThreadCommentRepliesTableHelper from 'tests/helpers/ThreadCommentRepliesTableHelper'
-import UsersTableHelper from 'tests/helpers/UsersTableHelper'
-
+// ./src/infrastructures/repo/threads/
 import ThreadCommentRepliesRepoImpl from '../ThreadCommentRepliesRepoImpl'
-import HttpError from 'src/common/error/HttpError'
+
+// ./tests/
+import ThreadsTableHelper from '../../../../../tests/helpers/ThreadsTableHelper'
+import ThreadCommentsTableHelper from '../../../../../tests/helpers/ThreadCommentsTableHelper'
+import ThreadCommentRepliesTableHelper from '../../../../../tests/helpers/ThreadCommentRepliesTableHelper'
+import UsersTableHelper from '../../../../../tests/helpers/UsersTableHelper'
 
 describe('ThreadCommentRepliesRepoImpl', () => {
   const dummyUser = {

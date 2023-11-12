@@ -1,6 +1,7 @@
 import { type Pool, type QueryConfig } from 'pg'
 
-import type ThreadCommentLikesRepo from 'src/core/repo/threads/ThreadCommentLikesRepo'
+// ./src/
+import type ThreadCommentLikesRepo from '../../../core/repo/threads/ThreadCommentLikesRepo'
 
 export default class ThreadCommentLikesRepoPostgres implements ThreadCommentLikesRepo {
   private readonly _pool: Pool

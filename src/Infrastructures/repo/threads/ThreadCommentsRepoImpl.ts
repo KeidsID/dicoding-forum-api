@@ -1,10 +1,11 @@
 import { type Pool, type QueryConfig } from 'pg'
-import HttpError from 'src/common/error/HttpError'
 
-import type AddedComment from 'src/core/entities/threads/comments/AddedComment'
-import Comment from 'src/core/entities/threads/comments/Comment'
-import type NewComment from 'src/core/entities/threads/comments/NewComment'
-import type ThreadCommentsRepo from 'src/core/repo/threads/ThreadCommentsRepo'
+// ./src/
+import HttpError from '../../../common/error/HttpError'
+import type AddedComment from '../../../core/entities/threads/comments/AddedComment'
+import Comment from '../../../core/entities/threads/comments/Comment'
+import type NewComment from '../../../core/entities/threads/comments/NewComment'
+import type ThreadCommentsRepo from '../../../core/repo/threads/ThreadCommentsRepo'
 
 export default class ThreadCommentsRepoImpl implements ThreadCommentsRepo {
   private readonly _pool: Pool

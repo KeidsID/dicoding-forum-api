@@ -1,12 +1,17 @@
-import HttpError from 'src/common/error/HttpError'
-import type AddedThread from 'src/core/entities/threads/AddedThread'
-import type NewThread from 'src/core/entities/threads/NewThread'
-import pool from 'src/infrastructures/db/psql/pool'
+// ./src/
+import HttpError from '../../../../common/error/HttpError'
+import type AddedThread from '../../../../core/entities/threads/AddedThread'
+import type NewThread from '../../../../core/entities/threads/NewThread'
 
-import ThreadsTableHelper from 'tests/helpers/ThreadsTableHelper'
-import UsersTableHelper from 'tests/helpers/UsersTableHelper'
+// ./src/infrastructures/
+import pool from '../../../db/psql/pool'
 
+// ./src/infrastructures/repo/threads/
 import ThreadsRepoImpl from '../ThreadsRepoImpl'
+
+// ./tests/
+import ThreadsTableHelper from '../../../../../tests/helpers/ThreadsTableHelper'
+import UsersTableHelper from '../../../../../tests/helpers/UsersTableHelper'
 
 describe('ThreadsRepoImpl', () => {
   afterEach(async () => {

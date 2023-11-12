@@ -1,7 +1,9 @@
-import HttpError from 'src/common/error/HttpError'
-import pool from 'src/infrastructures/db/psql/pool'
+// ./src/
+import HttpError from '../../../../common/error/HttpError'
+import pool from '../../../../infrastructures/db/psql/pool'
 
-import AuthenticationsTableHelper from 'tests/helpers/AuthenticationsTableHelper'
+// ./tests/
+import AuthenticationsTableHelper from '../../../../../tests/helpers/AuthenticationsTableHelper'
 
 import AuthRepoImpl from '../AuthRepoImpl'
 

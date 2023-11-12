@@ -1,9 +1,10 @@
 import { type Pool, type QueryConfig } from 'pg'
 
-import HttpError from 'src/common/error/HttpError'
-import type RegisterUser from 'src/core/entities/auth/RegisterUser'
-import type RegisteredUser from 'src/core/entities/auth/RegisteredUser'
-import type UserRepo from 'src/core/repo/auth/UserRepo'
+// ./src/
+import HttpError from '../../../common/error/HttpError'
+import type RegisterUser from '../../../core/entities/auth/RegisterUser'
+import type RegisteredUser from '../../../core/entities/auth/RegisteredUser'
+import type UserRepo from '../../../core/repo/auth/UserRepo'
 
 export default class UserRepoImpl implements UserRepo {
   private readonly _pool: Pool
