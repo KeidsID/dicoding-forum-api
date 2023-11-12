@@ -1,3 +1,9 @@
+## 1.2.1
+
+### Changed
+
+- Typescript migration baby 🔥🔥🔥
+
 ## 1.2.0
 
 ### Added
