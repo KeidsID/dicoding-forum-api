@@ -36,7 +36,7 @@ describe('AddUser usecase', () => {
     })
 
     const subject = new AddUser({
-      userRepository: mockUserRepository,
+      userRepo: mockUserRepository,
       passwordHasher: mockPasswordHasher
     })
 

@@ -5,7 +5,7 @@ import type ThreadCommentRepliesRepo from 'src/core/repo/threads/ThreadCommentRe
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import HttpError from 'src/common/error/HttpError'
 
-export default class SoftDeleteReplyUseCase {
+export default class SoftDeleteReply {
   private readonly _threadsRepo: ThreadsRepo
   private readonly _threadCommentsRepo: ThreadCommentsRepo
   private readonly _threadCommentRepliesRepo: ThreadCommentRepliesRepo
