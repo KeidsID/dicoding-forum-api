@@ -19,7 +19,7 @@
     "test": "jest --coverage -i",
     "test:no-coverage": "jest -i",
     "test:watch": "jest --watchAll -i",
-    "lint": "eslint src/ tests/ migrations/",
+    "lint": "eslint src/** tests/**",
     "pgm": "node-pg-migrate",
     "pgm:test": "node-pg-migrate -f config/db/test.json"
   },
