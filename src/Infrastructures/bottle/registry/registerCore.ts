@@ -1,13 +1,13 @@
 // ./src/infrastructures/
-import AuthRepoImpl from '../../../repo/auth/AuthRepoImpl'
-import UserRepoImpl from '../../../repo/auth/UserRepoImpl'
-import ThreadCommentLikesRepoImpl from '../../../repo/threads/ThreadCommentLikesRepoImpl'
-import ThreadCommentRepliesRepoImpl from '../../../repo/threads/ThreadCommentRepliesRepoImpl'
-import ThreadCommentsRepoImpl from '../../../repo/threads/ThreadCommentsRepoImpl'
-import ThreadsRepoImpl from '../../../repo/threads/ThreadsRepoImpl'
-import AuthTokenManagerImpl from '../../../security/AuthTokenManagerImpl'
-import PasswordHasherImpl from '../../../security/PasswordHasherImpl'
-import bottle from '../../../bottle'
+import AuthRepoImpl from '../../repo/auth/AuthRepoImpl'
+import UserRepoImpl from '../../repo/auth/UserRepoImpl'
+import ThreadCommentLikesRepoImpl from '../../repo/threads/ThreadCommentLikesRepoImpl'
+import ThreadCommentRepliesRepoImpl from '../../repo/threads/ThreadCommentRepliesRepoImpl'
+import ThreadCommentsRepoImpl from '../../repo/threads/ThreadCommentsRepoImpl'
+import ThreadsRepoImpl from '../../repo/threads/ThreadsRepoImpl'
+import AuthTokenManagerImpl from '../../security/AuthTokenManagerImpl'
+import PasswordHasherImpl from '../../security/PasswordHasherImpl'
+import bottle from '..'
 
 /**
  * Register core services.

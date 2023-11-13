@@ -1,4 +1,4 @@
-name: CI
+name: CI - Test
 
 on:
   pull_request_review:
@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [16.x]
 
         psql-host: [localhost]
         psql-port: [5432]
@@ -72,7 +72,8 @@ jobs:
           REFRESH_TOKEN_KEY: ${{ secrets.REFRESH_TOKEN_KEY }}
           ACCCESS_TOKEN_AGE: ${{ secrets.ACCCESS_TOKEN_AGE }}
 
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
+      - name: Upload coverage
+        uses: actions/upload-artifact@v3
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          name: test-coverage
+          path: ./coverage/lcov.info
