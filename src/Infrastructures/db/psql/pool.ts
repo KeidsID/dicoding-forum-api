@@ -3,7 +3,7 @@
 import { Pool } from 'pg'
 
 // ./src/
-import * as Configs from '../../../common/env'
+import * as Configs from '../../../common/env/index'
 
 const testConfig = {
   host: Configs.pgTest.host,

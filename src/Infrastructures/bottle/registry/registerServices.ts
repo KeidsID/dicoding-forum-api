@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid'
 
 // ./src/infrastructures/
 import pool from '../../db/psql/pool'
-import bottle from '..'
+import bottle from '../index'
 
 /**
  * Register external services.

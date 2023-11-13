@@ -3,8 +3,8 @@ import type * as HapiTypes from 'hapi'
 
 // ./src/
 import * as Constants from '../../common/constants'
-import * as Configs from '../../common/env'
-import { type ApiAuthCredentials } from '../../types'
+import * as Configs from '../../common/env/index'
+import { type ApiAuthCredentials } from '../../types/index'
 
 export default async (server: HapiTypes.Server): Promise<void> => {
   await server.register([

@@ -1,7 +1,7 @@
 import { type token } from '@hapi/jwt'
 
 // ./src/
-import * as Configs from '../../common/env'
+import * as Configs from '../../common/env/index'
 import HttpError from '../../common/error/HttpError'
 import type AuthTokenManager from '../../core/security/AuthTokenManager'
 

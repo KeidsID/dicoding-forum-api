@@ -40,7 +40,7 @@ export default class ThreadCommentRepliesRepoImpl implements ThreadCommentReplie
     }
     const { rows, rowCount } = await this._pool.query(query)
 
-    if (rowCount <= 0) throw HttpError.notFound('balasan tidak ditemukan')
+    if (rowCount as number <= 0) throw HttpError.notFound('balasan tidak ditemukan')
 
     if (rows[0].owner !== userId) {
       throw HttpError.forbidden('anda tidak dapat mengakses balasan orang lain')
@@ -80,7 +80,7 @@ export default class ThreadCommentRepliesRepoImpl implements ThreadCommentReplie
     }
     const { rows, rowCount } = await this._pool.query(query)
 
-    if (rowCount <= 0) return []
+    if (rowCount as number <= 0) return []
 
     return rows
   }

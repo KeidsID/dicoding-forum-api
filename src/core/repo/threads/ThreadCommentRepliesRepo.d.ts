@@ -1,8 +1,8 @@
-import type AddedReply from 'src/core/entities/threads/comments/replies/AddedReply'
-import type NewReply from 'src/core/entities/threads/comments/replies/NewReply'
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import HttpError from 'src/common/error/HttpError'
+import HttpError from '../../../common/error/HttpError'
+
+import type AddedReply from '../../entities/threads/comments/replies/AddedReply'
+import type NewReply from '../../entities/threads/comments/replies/NewReply'
 
 export default interface ThreadCommentRepliesRepo {
   /**

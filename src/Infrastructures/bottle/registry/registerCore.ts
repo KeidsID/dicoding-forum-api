@@ -7,7 +7,7 @@ import ThreadCommentsRepoImpl from '../../repo/threads/ThreadCommentsRepoImpl'
 import ThreadsRepoImpl from '../../repo/threads/ThreadsRepoImpl'
 import AuthTokenManagerImpl from '../../security/AuthTokenManagerImpl'
 import PasswordHasherImpl from '../../security/PasswordHasherImpl'
-import bottle from '..'
+import bottle from '../index'
 
 /**
  * Register core services.

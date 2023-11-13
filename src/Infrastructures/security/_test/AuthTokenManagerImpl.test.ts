@@ -2,7 +2,7 @@ import { type token } from '@hapi/jwt'
 import { mock } from 'ts-jest-mocker'
 
 // ./src/
-import * as Configs from '../../../common/env'
+import * as Configs from '../../../common/env/index'
 import HttpError from '../../../common/error/HttpError'
 
 // ./src/infrastructures/security/

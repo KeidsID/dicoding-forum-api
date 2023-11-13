@@ -42,9 +42,8 @@ jobs:
       - name: install dependencies
         run: npm install
 
-      # FUCEK
-      # - name: run eslint
-      #   run: npm run lint
+      - name: run eslint
+        run: npm run lint
 
       - name: setup db environments
         run: npm run pgm up

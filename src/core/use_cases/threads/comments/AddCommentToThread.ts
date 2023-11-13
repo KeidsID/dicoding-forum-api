@@ -1,7 +1,7 @@
 // ./src/
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import HttpError from '../../../../common/error/HttpError'
-import { isNewComment } from '../../../../interfaces/validators'
+import { isNewComment } from '../../../../interfaces/validators/index'
 
 // ./src/core/
 import type AddedComment from '../../../entities/threads/comments/AddedComment'

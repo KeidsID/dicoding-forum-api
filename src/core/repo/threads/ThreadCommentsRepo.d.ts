@@ -1,9 +1,9 @@
-import type AddedComment from 'src/core/entities/threads/comments/AddedComment'
-import type Comment from 'src/core/entities/threads/comments/Comment'
-import type NewComment from 'src/core/entities/threads/comments/NewComment'
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import HttpError from 'src/common/error/HttpError'
+import HttpError from '../../../common/error/HttpError'
+
+import type AddedComment from '../../entities/threads/comments/AddedComment'
+import type Comment from '../../entities/threads/comments/Comment'
+import type NewComment from '../../entities/threads/comments/NewComment'
 
 export default interface ThreadCommentsRepo {
   /**

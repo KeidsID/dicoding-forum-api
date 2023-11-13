@@ -1,6 +1,6 @@
 // ./src/
 import pool from '../../../infrastructures/db/psql/pool'
-import bottle, { initBottle } from '../../../infrastructures/bottle'
+import bottle, { initBottle } from '../../../infrastructures/bottle/index'
 
 // ./src/interfaces/
 import createServer from '../createServer'

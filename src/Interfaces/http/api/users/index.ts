@@ -1,5 +1,5 @@
 // ./src/
-import { type ApiHapiPlugin } from '../../../../types'
+import { type ApiHapiPlugin } from '../../../../types/index'
 
 import UsersHandler from './handler'
 import routes from './routes'

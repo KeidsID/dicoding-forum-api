@@ -40,7 +40,7 @@ export default class ThreadCommentsRepoImpl implements ThreadCommentsRepo {
     }
     const { rows, rowCount } = await this._pool.query(query)
 
-    if (rowCount <= 0) throw HttpError.notFound('komentar tidak ditemukan')
+    if (rowCount as number <= 0) throw HttpError.notFound('komentar tidak ditemukan')
 
     if (rows[0].owner !== userId) {
       throw HttpError.forbidden('anda tidak dapat mengakses komentar orang lain')
@@ -79,7 +79,7 @@ export default class ThreadCommentsRepoImpl implements ThreadCommentsRepo {
     }
     const { rows, rowCount } = await this._pool.query(query)
 
-    if (rowCount <= 0) return []
+    if (rowCount as number <= 0) return []
 
     return rows.map((rawComment) => new Comment(rawComment))
   }
@@ -94,7 +94,7 @@ export default class ThreadCommentsRepoImpl implements ThreadCommentsRepo {
     }
     const { rows, rowCount } = await this._pool.query(query)
 
-    if (rowCount <= 0) throw HttpError.notFound('komentar tidak ditemukan')
+    if (rowCount as number <= 0) throw HttpError.notFound('komentar tidak ditemukan')
 
     if (rows[0].threadId !== threadId) {
       throw HttpError.notFound('komentar tidak ditemukan pada thread ini')

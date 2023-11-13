@@ -43,6 +43,6 @@ export default class ThreadCommentLikesRepoPostgres implements ThreadCommentLike
     }
     const { rowCount } = await this._pool.query(query)
 
-    return rowCount > 0
+    return rowCount as number > 0
   }
 }
