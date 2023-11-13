@@ -5,9 +5,9 @@ import HttpError from '../../../../common/error/HttpError'
 import type LoginUser from '../../../../core/use_cases/auth/LoginUser'
 import type LogoutUser from '../../../../core/use_cases/auth/LogoutUser'
 import type RefreshAuthentication from '../../../../core/use_cases/auth/RefreshAuthentication'
-import { type HapiRouteHandler } from '../../../../types'
+import { type HapiRouteHandler } from '../../../../types/index'
 
-import { isRefreshTokenPayload, isUserLogin } from '../../../validators'
+import { isRefreshTokenPayload, isUserLogin } from '../../../validators/index'
 
 export default class AuthenticationsHandler {
   private readonly _container: Bottle.IContainer

@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import HttpError from 'src/common/error/HttpError'
+import HttpError from '../../common/error/HttpError'
 
 export default interface AuthTokenManager {
   createRefreshToken: (payload: object) => Promise<string>

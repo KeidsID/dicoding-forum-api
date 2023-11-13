@@ -11,9 +11,9 @@ import type SoftDeleteComment from '../../../../core/use_cases/threads/comments/
 import type LikeOrDislikeComment from '../../../../core/use_cases/threads/comments/LikeOrDislikeComment'
 import type AddReplyToComment from '../../../../core/use_cases/threads/comments/replies/AddReplyToComment'
 import type SoftDeleteReply from '../../../../core/use_cases/threads/comments/replies/SoftDeleteReply'
-import { type ApiAuthCredentials, type HapiRouteHandler } from '../../../../types'
+import { type ApiAuthCredentials, type HapiRouteHandler } from '../../../../types/index'
 
-import { isNewThread } from '../../../validators'
+import { isNewThread } from '../../../validators/index'
 
 /**
  * Handler for "/threads" endpoint routes.

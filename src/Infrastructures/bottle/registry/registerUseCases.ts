@@ -13,7 +13,7 @@ import AddReplyToComment from '../../../core/use_cases/threads/comments/replies/
 import SoftDeleteReply from '../../../core/use_cases/threads/comments/replies/SoftDeleteReply'
 
 // ./src/infrastructures/
-import bottle from '..'
+import bottle from '../index'
 
 export default (): void => {
   // auth use cases

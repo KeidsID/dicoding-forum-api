@@ -1,6 +1,6 @@
 import { mock } from 'ts-jest-mocker'
 
-// ./../../../
+// ./src/core/
 import type RegisterUser from '../../../entities/auth/RegisterUser'
 import type RegisteredUser from '../../../entities/auth/RegisteredUser'
 import type UserRepo from '../../../repo/auth/UserRepo'

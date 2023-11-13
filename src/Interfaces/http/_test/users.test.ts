@@ -1,5 +1,5 @@
 // ./src/
-import bottle, { initBottle } from '../../../infrastructures/bottle'
+import bottle, { initBottle } from '../../../infrastructures/bottle/index'
 import pool from '../../../infrastructures/db/psql/pool'
 
 // ./src/interfaces/

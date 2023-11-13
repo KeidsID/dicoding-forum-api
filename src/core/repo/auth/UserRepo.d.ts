@@ -1,8 +1,8 @@
-import type RegisterUser from 'src/core/entities/auth/RegisterUser'
-import type RegisteredUser from 'src/core/entities/auth/RegisteredUser'
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import HttpError from 'src/common/error/HttpError'
+import HttpError from '../../../common/error/HttpError'
+
+import type RegisterUser from '../../entities/auth/RegisterUser'
+import type RegisteredUser from '../../entities/auth/RegisteredUser'
 
 export default interface UserRepo {
   addUser: (registerUser: RegisterUser) => Promise<RegisteredUser>

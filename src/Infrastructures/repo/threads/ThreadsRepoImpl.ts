@@ -46,7 +46,7 @@ export default class ThreadsRepoImpl implements ThreadsRepo {
     }
     const { rows, rowCount } = await this._pool.query(query)
 
-    if (rowCount <= 0) throw HttpError.notFound('thread tidak ditemukan')
+    if (rowCount as number <= 0) throw HttpError.notFound('thread tidak ditemukan')
 
     return { ...rows[0] }
   }
@@ -58,6 +58,6 @@ export default class ThreadsRepoImpl implements ThreadsRepo {
     }
     const { rowCount } = await this._pool.query(query)
 
-    if (rowCount <= 0) throw HttpError.notFound('thread tidak ditemukan')
+    if (rowCount as number <= 0) throw HttpError.notFound('thread tidak ditemukan')
   }
 }

@@ -1,4 +1,4 @@
-// ./../../
+// ./src/core/
 import type AuthRepo from '../../repo/auth/AuthRepo'
 import type AuthTokenManager from '../../security/AuthTokenManager'
 

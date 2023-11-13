@@ -1,6 +1,6 @@
 import 'dotenv/config'
 
-import bottle, { initBottle } from './infrastructures/bottle'
+import bottle, { initBottle } from './infrastructures/bottle/index'
 import createServer from './interfaces/http/createServer'
 
 void (async () => {

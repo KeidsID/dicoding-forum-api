@@ -21,9 +21,9 @@ export default class UserRepoImpl implements UserRepo {
       values: [username]
     }
 
-    const result = await this._pool.query(query)
+    const { rowCount } = await this._pool.query(query)
 
-    if (result.rowCount > 0) {
+    if (rowCount as number > 0) {
       throw HttpError.badRequest('username tidak tersedia')
     }
   }
@@ -50,7 +50,7 @@ export default class UserRepoImpl implements UserRepo {
 
     const result = await this._pool.query(query)
 
-    if (result.rowCount <= 0) {
+    if (result.rowCount as number <= 0) {
       throw HttpError.badRequest('username tidak ditemukan')
     }
 
@@ -65,7 +65,7 @@ export default class UserRepoImpl implements UserRepo {
 
     const result = await this._pool.query(query)
 
-    if (result.rowCount <= 0) {
+    if (result.rowCount as number <= 0) {
       throw HttpError.badRequest('user tidak ditemukan')
     }
 

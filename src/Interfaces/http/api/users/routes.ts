@@ -1,5 +1,5 @@
 // ./src/
-import { type HapiRoutes } from '../../../../types'
+import { type HapiRoutes } from '../../../../types/index'
 
 import type UsersHandler from './handler'
 

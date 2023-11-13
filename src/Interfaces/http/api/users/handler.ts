@@ -3,9 +3,9 @@ import type Bottle from 'bottlejs'
 // ./src/
 import HttpError from '../../../../common/error/HttpError'
 import type AddUser from '../../../../core/use_cases/auth/AddUser'
-import { type HapiRouteHandler } from '../../../../types'
+import { type HapiRouteHandler } from '../../../../types/index'
 
-import { isRegisterUser, verifyUsername } from '../../../validators'
+import { isRegisterUser, verifyUsername } from '../../../validators/index'
 
 export default class UsersHandler {
   private readonly _container: Bottle.IContainer
