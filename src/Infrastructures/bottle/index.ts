@@ -1,8 +1,8 @@
 import Bottle from 'bottlejs'
 
-import registerCore from './registry/core'
-import registerServices from './registry/services'
-import registerUseCases from './registry/use_cases'
+import registerCore from './registry/registerCore'
+import registerServices from './registry/registerServices'
+import registerUseCases from './registry/registerUseCases'
 
 /**
  * A services container.

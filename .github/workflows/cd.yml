@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: SSH and deploy forum-api
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.SSH_HOST }}
           port: ${{ secrets.SSH_PORT }}

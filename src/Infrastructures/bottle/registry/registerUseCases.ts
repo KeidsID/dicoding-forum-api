@@ -1,19 +1,19 @@
 // ./src/
-import AddUser from '../../../../core/use_cases/auth/AddUser'
-import DeleteAuthentication from '../../../../core/use_cases/auth/DeleteAuthentication'
-import LoginUser from '../../../../core/use_cases/auth/LoginUser'
-import LogoutUser from '../../../../core/use_cases/auth/LogoutUser'
-import RefreshAuthentication from '../../../../core/use_cases/auth/RefreshAuthentication'
-import AddThread from '../../../../core/use_cases/threads/AddThread'
-import GetThreadDetail from '../../../../core/use_cases/threads/GetThreadDetail'
-import AddCommentToThread from '../../../../core/use_cases/threads/comments/AddCommentToThread'
-import LikeOrDislikeComment from '../../../../core/use_cases/threads/comments/LikeOrDislikeComment'
-import SoftDeleteComment from '../../../../core/use_cases/threads/comments/SoftDeleteComment'
-import AddReplyToComment from '../../../../core/use_cases/threads/comments/replies/AddReplyToComment'
-import SoftDeleteReply from '../../../../core/use_cases/threads/comments/replies/SoftDeleteReply'
+import AddUser from '../../../core/use_cases/auth/AddUser'
+import DeleteAuthentication from '../../../core/use_cases/auth/DeleteAuthentication'
+import LoginUser from '../../../core/use_cases/auth/LoginUser'
+import LogoutUser from '../../../core/use_cases/auth/LogoutUser'
+import RefreshAuthentication from '../../../core/use_cases/auth/RefreshAuthentication'
+import AddThread from '../../../core/use_cases/threads/AddThread'
+import GetThreadDetail from '../../../core/use_cases/threads/GetThreadDetail'
+import AddCommentToThread from '../../../core/use_cases/threads/comments/AddCommentToThread'
+import LikeOrDislikeComment from '../../../core/use_cases/threads/comments/LikeOrDislikeComment'
+import SoftDeleteComment from '../../../core/use_cases/threads/comments/SoftDeleteComment'
+import AddReplyToComment from '../../../core/use_cases/threads/comments/replies/AddReplyToComment'
+import SoftDeleteReply from '../../../core/use_cases/threads/comments/replies/SoftDeleteReply'
 
 // ./src/infrastructures/
-import bottle from '../../../bottle'
+import bottle from '..'
 
 export default (): void => {
   // auth use cases
