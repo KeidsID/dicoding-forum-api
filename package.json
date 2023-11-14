@@ -1,6 +1,6 @@
 {
   "name": "dicoding-forum-api",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "type": "commonjs",
   "main": "src/main.js",
   "description": "Back-End Expert project assignment from dicoding.com",
