@@ -1,7 +1,6 @@
 // ./src/
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import HttpError from '../../../../common/error/HttpError'
-import { isNewComment } from '../../../../interfaces/validators/index'
 
 // ./src/core/
 import type AddedComment from '../../../entities/threads/comments/AddedComment'
@@ -31,8 +30,6 @@ export default class AddCommentToThread {
   async execute (
     threadId: string, payload: NewComment, owner: string
   ): Promise<AddedComment> {
-    if (!isNewComment(payload)) throw HttpError.badRequest('invalid payload')
-
     await this._threadsRepo.verifyThread(threadId)
 
     return await this._threadCommentsRepo.addCommentToThread(

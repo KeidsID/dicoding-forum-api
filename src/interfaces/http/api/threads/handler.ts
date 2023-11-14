@@ -1,9 +1,6 @@
 import type Bottle from 'bottlejs'
 
 // ./src/
-import HttpError from '../../../../common/error/HttpError'
-import type NewComment from '../../../../core/entities/threads/comments/NewComment'
-import type NewReply from '../../../../core/entities/threads/comments/replies/NewReply'
 import type AddThread from '../../../../core/use_cases/threads/AddThread'
 import type GetThreadDetail from '../../../../core/use_cases/threads/GetThreadDetail'
 import type AddCommentToThread from '../../../../core/use_cases/threads/comments/AddCommentToThread'
@@ -13,7 +10,7 @@ import type AddReplyToComment from '../../../../core/use_cases/threads/comments/
 import type SoftDeleteReply from '../../../../core/use_cases/threads/comments/replies/SoftDeleteReply'
 import { type ApiAuthCredentials, type HapiRouteHandler } from '../../../../types/index'
 
-import { isNewThread } from '../../../validators/index'
+import Validators from '../../../validators/res/threads'
 
 /**
  * Handler for "/threads" endpoint routes.
@@ -34,7 +31,7 @@ export default class ThreadsHandler {
     const { id: userId } = req.auth.credentials as ApiAuthCredentials
     const payload = req.payload
 
-    if (!isNewThread(payload)) throw HttpError.badRequest('invalid payload')
+    if (!Validators.verifyNewThreadPayload(payload)) return
 
     const addThreadsUseCase: AddThread = this._container.AddThread
 
@@ -73,10 +70,12 @@ export default class ThreadsHandler {
     const { threadId } = req.params
     const payload = req.payload
 
+    if (!Validators.verifyNewCommentPayload(payload)) return
+
     const addCommentToThread: AddCommentToThread = this._container.AddCommentToThread
 
     const addedComment = await addCommentToThread.execute(
-      threadId, payload as NewComment, userId
+      threadId, payload, userId
     )
 
     const response = h.response({
@@ -124,11 +123,13 @@ export default class ThreadsHandler {
     const { threadId, commentId } = req.params
     const payload = req.payload
 
+    if (!Validators.verifyNewReplyPayload(payload)) return
+
     const addReplyToComment: AddReplyToComment = this._container
       .AddReplyToComment
 
     const addedReply = await addReplyToComment.execute(
-      threadId, commentId, payload as NewReply, userId
+      threadId, commentId, payload, userId
     )
 
     const response = h.response({

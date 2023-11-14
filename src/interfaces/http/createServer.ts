@@ -24,7 +24,7 @@ export default async function createServer (bottle: Bottle): Promise<HapiTypes.S
   server.route([{
     method: 'GET',
     path: '/',
-    handler: (req, h) => h.response().redirect(Constants.DOCS_URL).permanent(true)
+    handler: (_, h) => h.response().redirect(Constants.DOCS_URL).permanent(true)
   }])
 
   // external plugins
