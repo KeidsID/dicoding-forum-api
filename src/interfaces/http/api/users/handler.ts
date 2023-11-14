@@ -1,11 +1,10 @@
 import type Bottle from 'bottlejs'
 
 // ./src/
-import HttpError from '../../../../common/error/HttpError'
 import type AddUser from '../../../../core/use_cases/auth/AddUser'
 import { type HapiRouteHandler } from '../../../../types/index'
 
-import { isRegisterUser, verifyUsername } from '../../../validators/index'
+import Validators from '../../../validators/res/users'
 
 export default class UsersHandler {
   private readonly _container: Bottle.IContainer
@@ -19,9 +18,7 @@ export default class UsersHandler {
   postUserHandler: HapiRouteHandler = async (request, h) => {
     const payload = request.payload
 
-    if (!isRegisterUser(payload)) throw HttpError.badRequest('invalid payload')
-
-    verifyUsername(payload.username)
+    if (!Validators.verifyRegisterUserPayload(payload)) return
 
     const addUser: AddUser = this._container.AddUser
     const addedUser = await addUser.execute(payload)

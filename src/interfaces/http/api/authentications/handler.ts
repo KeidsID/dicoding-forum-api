@@ -1,13 +1,12 @@
 import type Bottle from 'bottlejs'
 
 // ./src/
-import HttpError from '../../../../common/error/HttpError'
 import type LoginUser from '../../../../core/use_cases/auth/LoginUser'
 import type LogoutUser from '../../../../core/use_cases/auth/LogoutUser'
 import type RefreshAuthentication from '../../../../core/use_cases/auth/RefreshAuthentication'
 import { type HapiRouteHandler } from '../../../../types/index'
 
-import { isRefreshTokenPayload, isUserLogin } from '../../../validators/index'
+import Validators from '../../../validators/res/authentications'
 
 export default class AuthenticationsHandler {
   private readonly _container: Bottle.IContainer
@@ -24,7 +23,7 @@ export default class AuthenticationsHandler {
   postAuthenticationHandler: HapiRouteHandler = async (request, h) => {
     const payload = request.payload
 
-    if (!isUserLogin(payload)) throw HttpError.badRequest('invalid payload')
+    if (!Validators.verifyUserLoginPayload(payload)) return
 
     const loginUser: LoginUser = this._container.LoginUser
     const { accessToken, refreshToken } = await loginUser.execute(payload)
@@ -43,29 +42,25 @@ export default class AuthenticationsHandler {
   putAuthenticationHandler: HapiRouteHandler = async (request) => {
     const payload = request.payload
 
-    if (!isRefreshTokenPayload(payload)) throw HttpError.badRequest('invalid payload')
+    if (!Validators.verifyRefreshTokenPayload(payload)) return
 
     const refreshAuth: RefreshAuthentication = this._container.RefreshAuthentication
     const accessToken = await refreshAuth.execute(payload)
 
     return {
       status: 'success',
-      data: {
-        accessToken
-      }
+      data: { accessToken }
     }
   }
 
   deleteAuthenticationHandler: HapiRouteHandler = async (request) => {
     const payload = request.payload
 
-    if (!isRefreshTokenPayload(payload)) throw HttpError.badRequest('invalid payload')
+    if (!Validators.verifyRefreshTokenPayload(payload)) return
 
     const logoutUser: LogoutUser = this._container.LogoutUser
     await logoutUser.execute(payload)
 
-    return {
-      status: 'success'
-    }
+    return { status: 'success' }
   }
 }

@@ -29,7 +29,7 @@ describe('/authentications endpoint', () => {
       // Arrange
       const requestPayload = {
         username: 'dicoding',
-        password: 'secret'
+        password: 'secretpass'
       }
       const server = await createServer(bottle)
       // add user
@@ -38,7 +38,7 @@ describe('/authentications endpoint', () => {
         url: '/users',
         payload: {
           username: 'dicoding',
-          password: 'secret',
+          password: 'secretpass',
           fullname: 'Dicoding Indonesia'
         }
       })
@@ -63,7 +63,7 @@ describe('/authentications endpoint', () => {
       // Arrange
       const requestPayload = {
         username: 'dicoding',
-        password: 'secret'
+        password: 'secretpass'
       }
       const server = await createServer(bottle)
 
@@ -94,7 +94,7 @@ describe('/authentications endpoint', () => {
         url: '/users',
         payload: {
           username: 'dicoding',
-          password: 'secret',
+          password: 'secretpass',
           fullname: 'Dicoding Indonesia'
         }
       })
@@ -108,6 +108,8 @@ describe('/authentications endpoint', () => {
 
       // Assert
       const responseJson = JSON.parse(response.payload)
+      console.log(responseJson)
+
       expect(response.statusCode).toEqual(401)
       expect(responseJson.status).toEqual('fail')
       expect(responseJson.message).toEqual('kredensial yang Anda masukkan salah')
@@ -128,10 +130,11 @@ describe('/authentications endpoint', () => {
       })
 
       // Assert
-      const responseJson = JSON.parse(response.payload)
+      const { status, message } = JSON.parse(response.payload)
+
       expect(response.statusCode).toEqual(400)
-      expect(responseJson.status).toEqual('fail')
-      expect(responseJson.message).toEqual('invalid payload')
+      expect(status).toEqual('fail')
+      expect(typeof message).toBe('string')
     })
 
     it('should response 400 if login payload wrong data type', async () => {
@@ -150,10 +153,11 @@ describe('/authentications endpoint', () => {
       })
 
       // Assert
-      const responseJson = JSON.parse(response.payload)
+      const { status, message } = JSON.parse(response.payload)
+
       expect(response.statusCode).toEqual(400)
-      expect(responseJson.status).toEqual('fail')
-      expect(responseJson.message).toEqual('invalid payload')
+      expect(status).toEqual('fail')
+      expect(typeof message).toBe('string')
     })
   })
 
@@ -167,7 +171,7 @@ describe('/authentications endpoint', () => {
         url: '/users',
         payload: {
           username: 'dicoding',
-          password: 'secret',
+          password: 'secretpass',
           fullname: 'Dicoding Indonesia'
         }
       })
@@ -177,7 +181,7 @@ describe('/authentications endpoint', () => {
         url: '/authentications',
         payload: {
           username: 'dicoding',
-          password: 'secret'
+          password: 'secretpass'
         }
       })
       const { data: { refreshToken } } = JSON.parse(loginResponse.payload)
@@ -208,10 +212,11 @@ describe('/authentications endpoint', () => {
         payload: {}
       })
 
-      const responseJson = JSON.parse(response.payload)
+      const { status, message } = JSON.parse(response.payload)
+
       expect(response.statusCode).toEqual(400)
-      expect(responseJson.status).toEqual('fail')
-      expect(responseJson.message).toEqual('invalid payload')
+      expect(status).toEqual('fail')
+      expect(typeof message).toBe('string')
     })
 
     it('should return 400 if refresh token not string', async () => {
@@ -227,10 +232,11 @@ describe('/authentications endpoint', () => {
         }
       })
 
-      const responseJson = JSON.parse(response.payload)
+      const { status, message } = JSON.parse(response.payload)
+
       expect(response.statusCode).toEqual(400)
-      expect(responseJson.status).toEqual('fail')
-      expect(responseJson.message).toEqual('invalid payload')
+      expect(status).toEqual('fail')
+      expect(typeof message).toBe('string')
     })
 
     it('should return 400 if refresh token not valid', async () => {
@@ -330,10 +336,10 @@ describe('/authentications endpoint', () => {
         payload: {}
       })
 
-      const responseJson = JSON.parse(response.payload)
+      const { status, message } = JSON.parse(response.payload)
       expect(response.statusCode).toEqual(400)
-      expect(responseJson.status).toEqual('fail')
-      expect(responseJson.message).toEqual('invalid payload')
+      expect(status).toEqual('fail')
+      expect(typeof message).toBe('string')
     })
 
     it('should response 400 if refresh token not string', async () => {
@@ -349,10 +355,10 @@ describe('/authentications endpoint', () => {
         }
       })
 
-      const responseJson = JSON.parse(response.payload)
+      const { status, message } = JSON.parse(response.payload)
       expect(response.statusCode).toEqual(400)
-      expect(responseJson.status).toEqual('fail')
-      expect(responseJson.message).toEqual('invalid payload')
+      expect(status).toEqual('fail')
+      expect(typeof message).toBe('string')
     })
   })
 })

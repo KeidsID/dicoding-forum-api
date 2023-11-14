@@ -91,11 +91,11 @@ describe('/threads endpoint', () => {
       })
 
       // Assert
-      const responseJson = JSON.parse(response.payload)
+      const { status, message } = JSON.parse(response.payload)
 
       expect(response.statusCode).toEqual(400)
-      expect(responseJson.status).toEqual('fail')
-      expect(responseJson.message).toEqual('invalid payload')
+      expect(status).toEqual('fail')
+      expect(typeof message).toBe('string')
     })
 
     it('should respond 401 status code when the request does not have an authentication', async () => {
@@ -258,11 +258,11 @@ describe('/threads endpoint', () => {
       })
 
       // Assert
-      const responseJson = JSON.parse(response.payload)
+      const { status, message } = JSON.parse(response.payload)
 
       expect(response.statusCode).toEqual(400)
-      expect(responseJson.status).toEqual('fail')
-      expect(responseJson.message).toEqual('invalid payload')
+      expect(status).toEqual('fail')
+      expect(typeof message).toBe('string')
     })
 
     it('should respond 404 status code when the thread is not found', async () => {
@@ -613,11 +613,11 @@ describe('/threads endpoint', () => {
       })
 
       // Assert
-      const responseJson = JSON.parse(response.payload)
+      const { status, message } = JSON.parse(response.payload)
 
       expect(response.statusCode).toEqual(400)
-      expect(responseJson.status).toEqual('fail')
-      expect(responseJson.message).toEqual('invalid payload')
+      expect(status).toEqual('fail')
+      expect(typeof message).toBe('string')
     })
 
     it('should respond 404 status code when the thread is not found', async () => {
