@@ -6,7 +6,7 @@
 
 # dicoding-forum-api
 
-[![CI](https://github.com/KeidsID/dicoding-forum-api/actions/workflows/ci.yaml/badge.svg?branch=main&event=push)](https://github.com/KeidsID/dicoding-forum-api/actions/workflows/ci.yaml)
+[![CI - Test](https://github.com/KeidsID/dicoding-forum-api/actions/workflows/ci-test.yml/badge.svg)](https://github.com/KeidsID/dicoding-forum-api/actions/workflows/ci-test.yml)
 [![codecov](https://codecov.io/gh/KeidsID/dicoding-forum-api/branch/main/graph/badge.svg?token=J44SKMPO19)](https://codecov.io/gh/KeidsID/dicoding-forum-api)
 
 Back-End Expert project assignment from [dicoding.com][class-link]. With this

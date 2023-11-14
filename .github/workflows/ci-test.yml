@@ -40,7 +40,7 @@ jobs:
           cache-dependency-path: "package.json"
 
       - name: install dependencies
-        run: npm install
+        run: npm ci
 
       # FUCEK YA KAU ESLINT
       # - name: run eslint
