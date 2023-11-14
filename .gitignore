@@ -3,7 +3,7 @@ build/
 
 # node
 node_modules/
-package-lock.json
+# package-lock.json
 
 # IDE
 .idea/

@@ -14,7 +14,6 @@ export const isRegisterUser = (payload: any): payload is RegisterUser => {
 }
 
 export const verifyUsername = (username: string): void => {
-  // Check if the username is at least 5 characters long
   if (username.length < 5) throw HttpError.badRequest('username terlalu pendek')
   if (username.length > 50) throw HttpError.badRequest('username terlalu panjang')
 
