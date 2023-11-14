@@ -2,9 +2,8 @@ import Joi from 'joi'
 
 import type UserLogin from '../../../core/entities/auth/UserLogin'
 
-import validator from '../index'
-
 import { usernamePattern } from '../../utils/regex'
+import validator from '../index'
 
 /**
  * `/authentications` validators.

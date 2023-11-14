@@ -1,3 +1,9 @@
+## 1.2.2
+
+### Changed
+
+- Using Joi as validators
+
 ## 1.2.1
 
 ### Changed

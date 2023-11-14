@@ -24,7 +24,9 @@ fast to deploy, and has reliable security by industry standards.
 - [x] Adding and Deleting Replies to Thread Comments.
 - [x] Like and Dislike Comment.
 
-## Project utils
+## Unit tests from Dicoding
+
+NOTE: Deprecated since v1.2.2, use internal tests instead.
 
 - [Forum API V1 Postman Collection + Environment Test][pm-v1].
 - [Forum API V2 Postman Collection + Environment Test][pm-v2].
@@ -63,10 +65,10 @@ fast to deploy, and has reliable security by industry standards.
    ```json
    {
      "host": "PGHOST_TEST",
-     "port": PGPORT_TEST,
+     "port": "PGPORT_TEST",
      "user": "PGUSER_TEST",
      "password": "PGPASSWORD_TEST",
-     "database": "PGDATABASE_TEST",
+     "database": "PGDATABASE_TEST"
    }
    ```
 
